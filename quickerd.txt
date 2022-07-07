@@ -1,0 +1,86 @@
+# Visualize on https://erd.surge.sh
+# or https://quick-erd.surge.sh
+#
+# Relationship Types
+#  -    - one to one
+#  -<   - one to many
+#  >-   - many to one
+#  >-<  - many to many
+#  -0   - one to zero or one
+#  0-   - zero or one to one
+#  0-0  - zero or one to zero or one
+#  -0<  - one to zero or many
+#  >0-  - zero or many to one
+#
+////////////////////////////////////
+
+
+users
+-----
+id integer PK
+username varchar(128)
+password varchar(128)
+publickey varchar(255) NULL
+email varchar(255) NULL
+image varchar(255) NULL
+created_at timestamp
+shipping_address varchar(255) NULL
+
+
+user_profile
+------------
+id integer PK FK - users.id
+style integer NULL
+bio text NULL
+
+
+product
+-------
+id integer PK
+owner_id integer FK >- users.id
+name varchar(128)
+type integer
+series_id varchar(255) NULL
+nft_address varchar(255) NULL
+image varchar(255) NULL
+content text NULL
+quantity integer NULL
+created_at timestamp
+updated_at timestamp NULL
+product_category_id integer FK >- product_category.id
+status integer NULL
+
+
+product_category
+----------------
+id integer PK
+category_name varchar(255)
+
+
+collection
+----------
+id integer PK
+users_id integer FK >- users.id
+product_id integer FK >-< product.id
+collection_name varchar(255)
+
+
+order
+-----
+id integer PK
+product_type integer FK - product.type
+order_type integer
+owner_id integer FK -< users.id
+owner_publickey varchar(255)
+receiver_id integer NULL FK -< users.id
+receiver_publickey varchar(255) NULL
+product_id integer FK - product.id
+product_nft_address varchar(255)
+product_series_id varchar(255) NULL
+quantity integer NULL
+total_price integer NULL
+created_at timestamp
+timeout_at timestamp NULL
+shipping_address varchar(255) NULL
+shipping_status enum('pending','shipping','shipped') NULL
+status enum('pending','finished','failed')
