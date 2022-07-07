@@ -40,39 +40,48 @@ id integer PK
 owner_id integer FK >- users.id
 name varchar(128)
 type integer
-series_id varchar(255) NULL
+series_id integer NULL FK >- series.id
 nft_address varchar(255) NULL
 image varchar(255) NULL
 content text NULL
 quantity integer NULL
 created_at timestamp
 updated_at timestamp NULL
-product_category_id integer FK >- product_category.id
+category_id integer FK >- category.id
 status integer NULL
 
 
-product_category
-----------------
+series
+------
 id integer PK
-category_name varchar(255)
+creator_id integer FK >- users.id
+credit_id integer NULL FK >- users.id
+name varchar(128) NULL
+bio text NULL
+
+
+category
+--------
+id integer PK
+name varchar(255)
 
 
 collection
 ----------
 id integer PK
 users_id integer FK >- users.id
-product_id integer FK >-< product.id
-collection_name varchar(255)
+product_id integer FK >- product.id
+name varchar(255)
 
 
 order
 -----
 id integer PK
-product_type integer FK - product.type
+product_type integer FK >-< product.type
 order_type integer
-owner_id integer FK -< users.id
+owner_id integer FK >- users.id
 owner_publickey varchar(255)
-receiver_id integer NULL FK -< users.id
+receiver_id integer NULL FK >- users.id
 receiver_publickey varchar(255) NULL
 product_id integer FK - product.id
 product_nft_address varchar(255)
