@@ -6,13 +6,32 @@
   justify-content: space-between;
 }
 
-.leftContainer,
-.rightContainer {
+.leftContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
   margin: 20px;
   color: skygreen;
   height: 50px;
-  width: 70px;
+  width: 100px;
 
-  border: 1px solid grey;
   border-radius: 20px;
+  color: white;
+  background-color: black;
+}
+
+.rightContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin: 20px;
+  color: skygreen;
+  height: 50px;
+  width: 100px;
+
+  border: 2px solid black;
+  border-radius: 20px;
+  color: black;
 }

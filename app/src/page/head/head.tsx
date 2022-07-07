@@ -4,8 +4,12 @@ import style from "./head.module.css";
 function Head() {
   return (
     <div className={style.headBar}>
-      <div className={`btn btn-primary ${style.leftContainer}`}></div>
-      <div className={style.rightContainer}></div>
+      <div className="leftContainer">
+        <div className={style.leftContent}></div>
+      </div>
+      <div className="rightContainer">
+        <div className={style.rightContent}></div>
+      </div>
     </div>
   );
 }
