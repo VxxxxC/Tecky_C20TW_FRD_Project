@@ -10,23 +10,20 @@ import "./App.css";
 import Head from "./page/head/head";
 import Item from "./page/elements/item";
 import Footer from "./page/footer/footer";
+import Main from "./page/main/main";
 
 function App() {
   const theme = ["cupcake", "lofi"]
   return (
     <html data-theme={theme[1]}>
       <BrowserRouter>
-      {/* <div className=""> */}
       <Head/>
+      <div className="m-5">
         <Routes>
-          <Route path="/" element={ <Item />}/> 
+          <Route path="/" element={ <Main/>}/> 
         </Routes>
-        <Item />
-        <Item />
-        <Item />
-        <Item />
+      </div>
         <Footer/>
-      {/* </div> */}
      </BrowserRouter>
     </html>
   );

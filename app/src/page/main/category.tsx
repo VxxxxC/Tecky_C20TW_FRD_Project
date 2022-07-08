@@ -1,10 +1,11 @@
 import React from "react";
+import Item from "../elements/item";
 
 function Category() {
 
     return(
         <div>
-            test
+            <Item/>
         </div>
     )
 }
