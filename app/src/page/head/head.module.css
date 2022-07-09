@@ -6,13 +6,18 @@
   justify-content: space-between;
 }
 
+.leftContainer,
+.rightContainer {
+  display: flex;
+}
+
 .leftContent {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
-  margin: 20px;
-  color: skygreen;
+  font-size: 20px;
+  margin: 20px 0px 0px 20px;
+  color: white;
   height: 50px;
   width: 100px;
 
@@ -25,13 +30,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
-  margin: 20px;
-  color: skygreen;
+  font-size: 20px;
+  margin: 20px 20px 0px 0px;
+  color: indigo;
   height: 50px;
   width: 100px;
 
   border: 2px solid black;
   border-radius: 20px;
-  color: black;
+}
+
+.menuBtn {
+  margin: 20px 20px 20px 0px;
+}
+
+.sideMenu {
+  margin: 10px;
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  width: 300px;
+  height: 60vh;
+  border-radius: 20px;
+  background: skyblue;
+}
+
+.listItem {
+  margin: 50px 0px 0px 30px;
 }
