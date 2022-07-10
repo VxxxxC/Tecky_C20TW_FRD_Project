@@ -57,26 +57,29 @@
 
 .showSideMenu {
   color: white;
-  margin: 10px;
+  margin: 5px;
   position: fixed;
-  z-index: 100;
+  z-index: 10;
   right: 0;
-  width: 300px;
-  height: 70vh;
+  width: 350px;
+  height: 80vh;
   border-radius: 20px;
   background: black;
   opacity: 0.85;
   transition: all 0.5s ease-in-out;
-  transform: translate(0);
+  transform: translateX(0);
 }
 .closeSideMenu {
-  right: 0;
+  color: white;
+  margin: 5px;
   position: fixed;
-  z-index: -1;
-  transform: translate(+100%);
+  z-index: 10;
+  right: 0;
+  width: 350px;
+  height: 80vh;
+  border-radius: 20px;
+  background: black;
+  opacity: 0.85;
   transition: all 0.5s ease-in-out;
-}
-
-.listItem {
-  margin: 50px 0px 0px 30px;
+  transform: translateX(+110%);
 }
