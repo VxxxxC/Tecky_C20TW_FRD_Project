@@ -34,15 +34,14 @@ function Head() {
           </svg>
         </button>
       </div>
-      {isActive == true ? (
-        <ul className={style.sideMenu} ref={ref}>
+
+        <ul className={isActive? style.showSideMenu : style.closeSideMenu} ref={ref}>
           <li className={style.listItem}>1</li>
           <li className={style.listItem}>2</li>
           <li className={style.listItem}>3</li>
           <li className={style.listItem}>4</li>
           <li className={style.listItem}>5</li>
         </ul>
-      ) : null}
     </div>
   );
 }

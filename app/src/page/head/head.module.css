@@ -55,17 +55,26 @@
   color: white;
 }
 
-.sideMenu {
+.showSideMenu {
   color: white;
   margin: 10px;
   position: fixed;
-  z-index: 10;
+  z-index: 100;
   right: 0;
   width: 300px;
   height: 70vh;
   border-radius: 20px;
   background: black;
   opacity: 0.85;
+  transition: all 0.5s ease-in-out;
+  transform: translate(0);
+}
+.closeSideMenu {
+  right: 0;
+  position: fixed;
+  z-index: -1;
+  transform: translate(+100%);
+  transition: all 0.5s ease-in-out;
 }
 
 .listItem {
