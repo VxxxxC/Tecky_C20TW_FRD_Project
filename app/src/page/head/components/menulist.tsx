@@ -4,7 +4,7 @@ import style from "./menulist.module.css";
 function Menulist() {
   return (
     <>
-      <li>
+      <li className={style.menulist}>
         <p className={style.ListItem}>Profile</p>
       </li>
       <li>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import Menulist from "./components/menulist";
 import style from "./head.module.css";
 
@@ -13,11 +14,19 @@ function Head() {
   return (
     <div className={style.headBar}>
       <div className={style.leftContainer}>
-        <div className={style.leftContent}>LEFT</div>
+        <Link to="/" className={style.leftContent}>
+          Logo
+        </Link>
       </div>
 
       <div className={style.rightContainer}>
-        <button className={style.rightContent}>RIGHT</button>
+        <Link to="/login" className={style.rightContent}>
+          Login
+        </Link>
+
+        {/* //FIXME: thinking solution of make single full page of login , not into react single page rendering */}
+        {/* <a href="/login" className={style.rightContent}>Login</a> */}
+
         <button className={style.menuBtn} onClick={() => setIsActive(true)}>
           <svg
             className="w-6 h-6"
@@ -36,9 +45,12 @@ function Head() {
         </button>
       </div>
 
-        <ul className={isActive? style.showSideMenu : style.closeSideMenu} ref={ref}>
-          <Menulist/>
-        </ul>
+      <ul
+        className={isActive ? style.showSideMenu : style.closeSideMenu}
+        ref={ref}
+      >
+        <Menulist />
+      </ul>
     </div>
   );
 }
