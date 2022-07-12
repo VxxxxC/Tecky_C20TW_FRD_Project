@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "./login.module.css";
 import PasswordChecklist from "react-password-checklist";
-import validator from "validator";
+import { useForm } from "react-hook-form";
 
 type RegisterProps = {
   showFooter: boolean;
@@ -9,6 +9,8 @@ type RegisterProps = {
 };
 
 function RegisterPage() {
+  const { handleSubmit, register }: any = useForm();
+
   // States for registration
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,13 +24,6 @@ function RegisterPage() {
   const handleEmail = (e: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    const email: any = e.target.value;
-    if (validator.isEmail(email)) {
-      console.log("this is correct email");
-    } else {
-      console.log("email incorrect");
-    }
-
     setEmail(e.target.value);
     setSubmitted(false);
   };
@@ -48,59 +43,57 @@ function RegisterPage() {
   };
 
   // Handling the form submission
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-
+  const onSubmit = (e: { preventDefault: () => void }) => {
+    console.log({ e });
     console.log(email, password, passwordAgain);
     console.log(email.length, password.length, passwordAgain.length);
   };
 
   return (
+    <div className={style.form}>
+      <form className={style.formInput} onSubmit={handleSubmit(onSubmit)}>
+        {/* Labels and inputs for form data */}
 
-      <div className={style.form}>
-        <form className={style.formInput}>
-          {/* Labels and inputs for form data */}
-
-          <label className={style.label}>Email</label>
-          <input
-            onChange={handleEmail}
-            className={style.input}
-            value={email}
-            type="email"
-            placeholder="Enter Your Email"
-            required
-          />
-
-          <label className={style.label}>Password</label>
-          <input
-            onChange={handlePassword}
-            className={style.input}
-            value={password}
-            type="password"
-            placeholder="Enter Password"
-          />
-          <label className={style.label}>Enter Password again</label>
-          <input
-            onChange={handlePasswordAgain}
-            className={style.input}
-            value={passwordAgain}
-            type="password"
-            placeholder="Enter Password again"
-          />
-
-          <button onClick={handleSubmit} className={style.btn} type="submit">
-            Submit
-          </button>
-        </form>
-
-        <PasswordChecklist
-          className={style.passwordCheck}
-          rules={["minLength", "specialChar", "number", "capital", "match"]}
-          minLength={8}
-          value={password}
-          valueAgain={passwordAgain}
+        <label className={style.label}>Email</label>
+        <input
+          onChange={handleEmail}
+          className={style.input}
+          value={email}
+          type="email"
+          ref={register()}
+          placeholder="Enter Your Email"
         />
-      </div>
+
+        <label className={style.label}>Password</label>
+        <input
+          onChange={handlePassword}
+          className={style.input}
+          value={password}
+          type="password"
+          placeholder="Enter Password"
+        />
+        <label className={style.label}>Enter Password again</label>
+        <input
+          onChange={handlePasswordAgain}
+          className={style.input}
+          value={passwordAgain}
+          type="password"
+          placeholder="Enter Password again"
+        />
+
+        <button className={style.btn} type="submit">
+          Submit
+        </button>
+      </form>
+
+      <PasswordChecklist
+        className={style.passwordCheck}
+        rules={["minLength", "specialChar", "number", "capital", "match"]}
+        minLength={8}
+        value={password}
+        valueAgain={passwordAgain}
+      />
+    </div>
   );
 }
 
