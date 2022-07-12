@@ -120,7 +120,8 @@ function Register() {
           </button>
         </form>
 
-        <PasswordChecklist
+
+      <PasswordChecklist
           className={style.passwordCheck}
           rules={["minLength", "specialChar", "number", "capital", "match"]}
           minLength={8}
@@ -128,6 +129,7 @@ function Register() {
           valueAgain={passwordAgain}
         />
       </div>
+
     </div>
   );
 }

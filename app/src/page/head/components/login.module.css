@@ -2,6 +2,8 @@
   font-size: 16px;
   border: 1px solid black;
   margin: 0px 0px 0px 10px;
+
+  width: 80%;
 }
 
 .btn {
@@ -34,8 +36,6 @@
   border: 1px solid black;
   border-radius: 30px;
   width: 60vw;
-  height: 80vh;
-  display: flex;
 
   background: linear-gradient(129deg, #5f5f5f, #000000, #5f5f5f);
   background-size: 600% 600%;
@@ -105,14 +105,15 @@
 .passwordCheck {
   color: white;
 
-  margin: 20px 0px 0px 20px;
+  margin: 20px 0px 20px 20px;
   padding: 10px;
   font-size: 14px;
-  width: 20vw;
-  height: 25vh;
+  width: 50vw;
   border: 1px solid black;
   border-radius: 20px;
 
   background: black;
   opacity: 0.85;
+}
+@media screen and (mein-width: 200px) and (max-width: 820px) {
 }

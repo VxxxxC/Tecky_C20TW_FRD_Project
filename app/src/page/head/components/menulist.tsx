@@ -7,13 +7,13 @@ function Menulist() {
       <li className={style.menulist}>
         <p className={style.ListItem}>Profile</p>
       </li>
-      <li>
+      <li className={style.menulist}>
         <p className={style.ListItem}>Explore</p>
       </li>
-      <li>
+      <li className={style.menulist}>
         <p className={style.ListItem}>How it works</p>
       </li>
-      <li>
+      <li className={style.menulist}>
         <p className={style.ListItem}>Make your piece be unique</p>
       </li>
     </>
