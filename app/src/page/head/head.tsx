@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import Menulist from "./components/menulist";
 import style from "./head.module.css";
 
+type RegisterProps = {
+  showFooter: boolean;
+  setShowFooter: (status: boolean) => void;
+};
+// function Head({showFooter, setShowFooter} :RegisterProps)
+
 function Head() {
   const [isActive, setIsActive] = useState(false);
 
@@ -14,18 +20,17 @@ function Head() {
   return (
     <div className={style.headBar}>
       <div className={style.leftContainer}>
+        {/* <Link to="/" className={style.leftContent}  onClick={()=>setShowFooter(true)}> */}
         <Link to="/" className={style.leftContent}>
           Logo
         </Link>
       </div>
 
       <div className={style.rightContainer}>
+        {/* <Link to="/login" className={style.rightContent} onClick={()=>setShowFooter(!showFooter)}> */}
         <Link to="/login" className={style.rightContent}>
           Login
         </Link>
-
-        {/* //FIXME: thinking solution of make single full page of login , not into react single page rendering */}
-        {/* <a href="/login" className={style.rightContent}>Login</a> */}
 
         <button className={style.menuBtn} onClick={() => setIsActive(true)}>
           <svg
