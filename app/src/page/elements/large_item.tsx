@@ -71,11 +71,10 @@ function LargeItem() {
         <div className="h-96">
         <Image className="object-cover" src="https://placeimg.com/400/225/arch" width="100%" height="100%"
         renderLoader={({ hasLoaded, hasFailed }:any) => (
-            <div className="loader">
-              I'm loading here!
+            <div className="loader animate-pulse">
               {hasFailed && <span className="animate-pulse text-center">Opps, there's a problem loading the image. Please try again. :)</span>}
               {hasLoaded && (
-                <span className="text-center">
+                <span className="animate-pulse text-center">
                   I'll be here for (transitionTime) milliseconds after load
                 </span>
               )}

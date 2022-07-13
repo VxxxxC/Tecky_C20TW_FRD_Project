@@ -4,7 +4,7 @@ import Item from "../elements/item";
 function Category() {
 
     return(
-        <div>
+        <div className="text-primary-content text-center">
             <Item/>
         </div>
     )
