@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./login.module.css";
-import PasswordChecklist from "react-password-checklist";
-import validator from "validator";
 
 type RegisterProps = {
   showFooter: boolean;
@@ -17,8 +15,6 @@ function LoginPage() {
   // States for checking the errors
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
-
-  // checking input status
 
   // Handling the email change
   const handleEmail = (e: {
@@ -40,39 +36,55 @@ function LoginPage() {
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    console.log(email, password);
-    console.log(email.length, password.length);
+    if (email && password) {
+      console.log(email, password);
+      console.log(email.length, password.length);
+      setError(false);
+      setSubmitted(true);
+    } else {
+      setError(true);
+      setSubmitted(false);
+    }
   };
 
   return (
+    <div className={style.form}>
+      <form className={style.formInput}>
+        {/* Labels and inputs for form data */}
 
-      <div className={style.form}>
-        <form className={style.formInput}>
-          {/* Labels and inputs for form data */}
+        <label className={style.label}>Email</label>
+        <input
+          onChange={handleEmail}
+          className={style.input}
+          value={email}
+          type="email"
+          placeholder="Enter Your Email"
+          required
+        />
 
-          <label className={style.label}>Email</label>
-          <input
-            onChange={handleEmail}
-            className={style.input}
-            value={email}
-            type="email"
-            placeholder="Enter Your Email"
-            required
-          />
+        <label className={style.label}>Password</label>
+        <input
+          onChange={handlePassword}
+          className={style.input}
+          value={password}
+          type="password"
+          placeholder="Enter Password"
+        />
 
-          <label className={style.label}>Password</label>
-          <input
-            onChange={handlePassword}
-            className={style.input}
-            value={password}
-            type="password"
-            placeholder="Enter Password"
-          />
-
-          <button onClick={handleSubmit} className={style.btn} type="submit">
-            Login
-          </button>
-        </form>
+        <button
+          onClick={handleSubmit}
+          className={style.btn}
+          type="submit"
+          // disabled={!email || !password}
+        >
+          Login
+        </button>
+        {error == true && (
+          <div style={{ color: "red" }}>
+            Email or Password is incorrect, please try again
+          </div>
+        )}
+      </form>
       {/* {isOpen && <>Model Box</>} */}
     </div>
   );

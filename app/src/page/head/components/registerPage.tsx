@@ -81,7 +81,11 @@ function RegisterPage() {
           placeholder="Enter Password again"
         />
 
-        <button className={style.btn} type="submit">
+        <button
+          className={style.btn}
+          type="submit"
+          disabled={!email || !password || !passwordAgain}
+        >
           Submit
         </button>
       </form>
