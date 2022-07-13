@@ -1,10 +1,38 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
+  extend: {
+    animation: {
+      blob: "blob 7s infinite",
+    },
+    keyframes: {
+      blob: {
+        "0%": {
+          transform: "translate(0px, 0px) scale(1)",
+        },
+        "33%": {
+          transform: "translate(30px, -50px) scale(1.1)",
+        },
+        "66%": {
+          transform: "translate(-20px, 20px) scale(0.9)",
+        },
+        "100%": {
+          transform: "tranlate(0px, 0px) scale(1)",
+        },
+      },
+    },
+  },
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    extend:{
+      colors: {
+        amber: colors.amber,
+        emerald: colors.emerald,
+        cyan: colors.cyan,
+      }
+    },
     screens: {
       sm: "640px",
       md: "768px",
@@ -182,8 +210,11 @@ module.exports = {
       200: "2",
     },
     container: {},
-    content: ["./src/**/*.{html,js}"],
-    cursor: {
+    // content: ["./src/**/*.{html,js}"],
+    content: [
+      "./src/**/*.{js,jsx,ts,tsx}",
+    ],    
+      cursor: {
       auto: "auto",
       default: "default",
       pointer: "pointer",
@@ -911,6 +942,7 @@ module.exports = {
     divideStyle: ["responsive"],
     divideWidth: ["responsive"],
     dropShadow: ["responsive"],
+    extend: {},
     fill: ["responsive"],
     filter: ["responsive"],
     flex: ["responsive"],
@@ -1028,7 +1060,8 @@ module.exports = {
     wordBreak: ["responsive"],
     zIndex: ["responsive", "focus-within", "focus"],
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require('tailwindcss'),
+  require('autoprefixer')],
   daisyui: {
     styled: true,
     themes: true,

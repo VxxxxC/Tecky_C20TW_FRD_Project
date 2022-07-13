@@ -1,5 +1,7 @@
 import React from "react";
+import { Image as LazyLoadImage } from "react-image-and-background-image-fade";
 import "./item.scss"
+import LargeItem from "./large_item";
 
 // type propTypes = {
 //     image: string,
@@ -17,9 +19,25 @@ function Item() {
     ]
 
     return(
-    <div className="category card w-300 bg-base-50 shadow-xl image-full">
-    <figure><img src="https://placeimg.com/400/225/arch"/></figure>
-    </div>
+    <>
+        <div className="grid grid-cols-3 gap-4">
+            <div>1</div>
+            <div>1</div>
+            <div>1</div>
+        </div>
+
+    
+    </>
+    // <div className="category card w-300 bg-base-50 shadow-xl image-full">
+    // <figure>
+    //     <LazyLoadImage
+    //         src="https://placeimg.com/400/225/arch"
+    //         // alt="flying cat"
+    //         // title="Neon cat"
+    //     />
+    //     {/* // <img src="https://placeimg.com/400/225/arch"/> */}
+    //     </figure>
+    // </div>
     )
     
 }

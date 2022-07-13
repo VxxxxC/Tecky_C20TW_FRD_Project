@@ -1,5 +1,6 @@
 import React from "react";
 import { Image as LazyLoadImage } from "react-image-and-background-image-fade";
+import BackgroundAnimation from "../elements/background";
 import Category from "./category";
 import Highlights from "./hightlights";
 import Welcome from "./welcome";
@@ -8,7 +9,8 @@ import Welcome from "./welcome";
 function Main(){
     return(
         <div>
-        <Welcome/>
+        {/* <Welcome/> */}
+        <BackgroundAnimation/>
         <Category/>
         <Highlights/>
         <LazyLoadImage
