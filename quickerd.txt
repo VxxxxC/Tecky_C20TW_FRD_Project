@@ -1,27 +1,12 @@
-# Visualize on https://erd.surge.sh
-# or https://quick-erd.surge.sh
-#
-# Relationship Types
-#  -    - one to one
-#  -<   - one to many
-#  >-   - many to one
-#  >-<  - many to many
-#  -0   - one to zero or one
-#  0-   - zero or one to one
-#  0-0  - zero or one to zero or one
-#  -0<  - one to zero or many
-#  >0-  - zero or many to one
-#
-////////////////////////////////////
-
 
 users
 -----
 id integer PK
-username varchar(128)
+
+email varchar(255)uniqe
 password varchar(128)
+name varchar(128) NULL
 publickey varchar(255) NULL
-email varchar(255) NULL
 image varchar(255) NULL
 created_at timestamp
 shipping_address varchar(255) NULL
@@ -39,7 +24,7 @@ product
 id integer PK
 owner_id integer FK >- users.id
 name varchar(128)
-type integer
+type integer FK >- product_type.product_type_id
 series_id integer NULL FK >- series.id
 nft_address varchar(255) NULL
 image varchar(255) NULL
@@ -77,7 +62,7 @@ name varchar(255)
 order
 -----
 id integer PK
-product_type integer FK >-< product.type
+product_type integer FK >- product_type.product_type_id
 order_type integer
 owner_id integer FK >- users.id
 owner_publickey varchar(255)
@@ -93,3 +78,7 @@ timeout_at timestamp NULL
 shipping_address varchar(255) NULL
 shipping_status enum('pending','shipping','shipped') NULL
 status enum('pending','finished','failed')
+
+product_type
+----
+product_type_id integer PK 
