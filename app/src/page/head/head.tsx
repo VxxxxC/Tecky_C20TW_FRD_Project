@@ -31,6 +31,9 @@ function Head() {
         <Link to="/login" className={style.loginBtn}>
           Login
         </Link>
+        <Link to="/login" className={style.logoutBtn}>
+          Logout
+        </Link>
 
         <button className={style.menuBtn} onClick={() => setIsActive(true)}>
           <svg

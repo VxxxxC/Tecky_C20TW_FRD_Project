@@ -1,11 +1,11 @@
 import type { Knex } from "knex";
 import { env } from './env';
-console.log(env)
+
 // Update with your config settings.
 
 export const configs: { [key: string]: Knex.Config } = {
    development: {
-      client: "postgresql",
+      client: "pg",
       connection: {
          database: env.DB,
          user: env.USER,
@@ -22,7 +22,7 @@ export const configs: { [key: string]: Knex.Config } = {
    },
 
    test: {
-      client: "postgresql",
+      client: "pg",
       connection: {
          database: env.DB,
          user: env.USER,
@@ -39,7 +39,7 @@ export const configs: { [key: string]: Knex.Config } = {
    },
 
    production: {
-      client: "postgresql",
+      client: "pg",
       connection: {
          database: env.DB,
          user: env.USER,

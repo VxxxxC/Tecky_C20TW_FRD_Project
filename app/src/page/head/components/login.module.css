@@ -80,7 +80,18 @@
   border-radius: 0px 0px 30px 30px;
   width: 60vw;
 
-  background: linear-gradient(310deg, #eaeaea, #bfbdbd, #a3a3a3, #929292, #767676, #727272, #9f9f9f, #b9b9b9, #ececec);
+  background: linear-gradient(
+    310deg,
+    #eaeaea,
+    #bfbdbd,
+    #a3a3a3,
+    #929292,
+    #767676,
+    #727272,
+    #9f9f9f,
+    #b9b9b9,
+    #ececec
+  );
   background-size: 1800% 1800%;
 
   -webkit-animation: AnimationName 26s ease infinite;
@@ -90,26 +101,49 @@
 }
 
 @-webkit-keyframes AnimationName {
-  0%{background-position:4% 0%}
-  50%{background-position:97% 100%}
-  100%{background-position:4% 0%}
+  0% {
+    background-position: 4% 0%;
+  }
+  50% {
+    background-position: 97% 100%;
+  }
+  100% {
+    background-position: 4% 0%;
+  }
 }
 @-moz-keyframes AnimationName {
-  0%{background-position:4% 0%}
-  50%{background-position:97% 100%}
-  100%{background-position:4% 0%}
+  0% {
+    background-position: 4% 0%;
+  }
+  50% {
+    background-position: 97% 100%;
+  }
+  100% {
+    background-position: 4% 0%;
+  }
 }
 @-o-keyframes AnimationName {
-  0%{background-position:4% 0%}
-  50%{background-position:97% 100%}
-  100%{background-position:4% 0%}
+  0% {
+    background-position: 4% 0%;
+  }
+  50% {
+    background-position: 97% 100%;
+  }
+  100% {
+    background-position: 4% 0%;
+  }
 }
 @keyframes AnimationName {
-  0%{background-position:4% 0%}
-  50%{background-position:97% 100%}
-  100%{background-position:4% 0%}
+  0% {
+    background-position: 4% 0%;
+  }
+  50% {
+    background-position: 97% 100%;
+  }
+  100% {
+    background-position: 4% 0%;
+  }
 }
-
 
 .formInput {
   margin: 30px;

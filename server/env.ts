@@ -27,7 +27,7 @@ export let env:any = {
    PASSWORD: process.env.POSTGRES_PASSWORD,
    HOST: process.env.POSTGRES_HOST,
    PORT: 5432,
-   SESSION_SECRET: 'unique', 
+   JWT_SECRET: process.env.JWT_SECRET, 
   NODE_ENV: 'development',
 }
 populateEnv(env)

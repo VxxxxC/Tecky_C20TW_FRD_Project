@@ -3,7 +3,7 @@ users
 -----
 id integer PK
 
-email varchar(255)uniqe
+email varchar(255) unique
 password varchar(128)
 name varchar(128) NULL
 publickey varchar(255) NULL
