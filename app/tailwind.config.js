@@ -8,10 +8,29 @@ module.exports = {
         amber: colors.amber,
         emerald: colors.emerald,
         cyan: colors.cyan,
+        'unibrown': '#F26E50',
+        'uniblue':'#5BCEFC',
+        'uniyellow':'#F0ED62',
       },
+
+      blur: {
+        xxs: '1px',
+        xs: '2px',
+      },
+
+      dropShadow: {
+        '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
+        '4xl': [
+            '0 35px 35px rgba(0, 0, 0, 0.25)',
+            '0 45px 65px rgba(0, 0, 0, 0.15)'
+        ],
+        'text':'0 2px 2px rgb(50 120 150 / 0.65)',
+      },
+
       animation: {
         blob: "blob 7s infinite",
       },
+
       keyframes: {
         blob: {
           "0%": {

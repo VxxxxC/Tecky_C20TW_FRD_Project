@@ -34,12 +34,12 @@ function ItemTest() {
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div className="h-96 font-mono">Loading...</div>;
     } else {
       return (
         <>
           {items.map(item => (
-                  <div className="font-sans item overflow-hidden m-5 w-3/12 bg-base-100 shadow-xl rounded-lg">
+                  <div className="hover:-translate-y-2 ease-in-out duration-200 font-sans item overflow-hidden m-5 w-3/12 bg-base-100 shadow-xl rounded-lg">
                   <div className="h-96">
                   <Image className="object-cover" src={`http://127.0.0.1:8080/${item.img}`} width="100%" height="100%"
                   renderLoader={({ hasLoaded, hasFailed }:any) => (
