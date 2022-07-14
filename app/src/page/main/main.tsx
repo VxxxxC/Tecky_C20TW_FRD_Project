@@ -14,6 +14,7 @@ function Main(){
         <BackgroundAnimation/>
         <Category/>
         <Highlights/>
+        <div>123</div>
         <ItemTest/>
         </div>
     )

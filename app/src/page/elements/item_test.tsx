@@ -37,7 +37,7 @@ function ItemTest() {
       return <div>Loading...</div>;
     } else {
       return (
-        <ul>
+        <>
           {items.map(item => (
                   <div className="font-sans item overflow-hidden m-5 w-3/12 bg-base-100 shadow-xl rounded-lg">
                   <div className="h-96">
@@ -62,7 +62,7 @@ function ItemTest() {
                   </div>
             </div>
           ))}
-        </ul>
+        </>
       );
     }
   }
