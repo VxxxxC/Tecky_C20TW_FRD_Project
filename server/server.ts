@@ -1,11 +1,12 @@
 import express from 'express'
 import { productRoute } from './products'
 import cors from 'cors'
+import { client } from "./db"
 
 
 export let app = express()
-app.use('/img',express.static('img'))
-app.use(cors({origin:'http://localhost:3000'}));
+app.use('/img', express.static('img'))
+app.use(cors({ origin: 'http://localhost:3000' }));
 
 
 type req = express.Request
@@ -17,9 +18,9 @@ app.get('/', function (req, res) {
 
 app.get("test", (req, res) => {
 
-    console.log("hi")
+  console.log("hi")
 
-     res.json("hi")
+  res.json("hi")
 })
 
 
@@ -41,14 +42,14 @@ app.use(productRoute);
 let port = 8080
 
 app.listen(port, () => {
-    console.log(port)
+  console.log(port)
 })
 
 //-------------------PostgreSQL Connect------------------------
 client.connect(err => {
-    if (err) {
-      console.error("database connect error : ", err)
-    } else {
-      console.log(`Database => ${client.database}, Port => ${client.port}, connected by => ${client.user}`)
-    }
-  })
+  if (err) {
+    console.error("database connect error : ", err)
+  } else {
+    console.log(`Database => ${client.database}, Port => ${client.port}, connected by => ${client.user}`)
+  }
+})
