@@ -25,7 +25,7 @@
   background-color: black;
 }
 
-.rightContent {
+.loginBtn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,7 +43,7 @@
   animation: LoginAnimationOut 1s forwards;
 }
 
-.rightContent:hover {
+.loginBtn:hover {
   animation: LoginAnimationIn 1s forwards;
 }
 

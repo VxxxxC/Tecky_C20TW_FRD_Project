@@ -7,6 +7,7 @@ import Item from "./page/elements/item";
 import Footer from "./page/footer/footer";
 import Main from "./page/main/main";
 import Login from "./page/head/components/login";
+import PrivateRoute from "./page/auth/private_route";
 
 function App() {
   const theme = ["cupcake", "lofi"];
@@ -19,8 +20,8 @@ function App() {
         <div className="m-5">
           <Routes>
             {/* <Route path="/login" element={<Login showFooter={showFooter} setShowFooter={setShowFooter}/>} /> */}
-            <Route path="/login" element={<Login/>} />
-            <Route path="/" element={<Main/>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Main />} />
           </Routes>
         </div>
         {/* {showFooter && <Footer />}{" "} */}

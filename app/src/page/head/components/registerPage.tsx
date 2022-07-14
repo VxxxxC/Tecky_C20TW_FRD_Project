@@ -86,7 +86,7 @@ function RegisterPage() {
           type="submit"
           disabled={!email || !password || !passwordAgain}
         >
-          Submit
+          Sign up
         </button>
       </form>
 

@@ -28,7 +28,7 @@ function Head() {
 
       <div className={style.rightContainer}>
         {/* <Link to="/login" className={style.rightContent} onClick={()=>setShowFooter(!showFooter)}> */}
-        <Link to="/login" className={style.rightContent}>
+        <Link to="/login" className={style.loginBtn}>
           Login
         </Link>
 
