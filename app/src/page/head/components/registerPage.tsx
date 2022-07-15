@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import style from "./login.module.css";
 import PasswordChecklist from "react-password-checklist";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import useToken from "../../auth/useToken";
 
 type RegisterProps = {
   showFooter: boolean;
@@ -11,21 +14,22 @@ type RegisterProps = {
 function RegisterPage() {
   const { handleSubmit, register }: any = useForm();
 
+  /******** JWT token hook *********/
+  const [token, setToken] = useToken();
+
+  /******** Redirect function *********/
+  const navigate = useNavigate();
+
   // States for registration
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
-
-  // States for checking the errors
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(false);
 
   // Handling the email change
   const handleEmail = (e: {
     target: { value: React.SetStateAction<string> };
   }) => {
     setEmail(e.target.value);
-    setSubmitted(false);
   };
 
   // Handling the password change
@@ -33,20 +37,31 @@ function RegisterPage() {
     target: { value: React.SetStateAction<string> };
   }) => {
     setPassword(e.target.value);
-    setSubmitted(false);
   };
   const handlePasswordAgain = (e: {
     target: { value: React.SetStateAction<string> };
   }) => {
     setPasswordAgain(e.target.value);
-    setSubmitted(false);
   };
 
-  // Handling the form submission
-  const onSubmit = (e: { preventDefault: () => void }) => {
-    console.log({ e });
+  /************** Handling the form submission ****************/
+  const onSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
     console.log(email, password, passwordAgain);
     console.log(email.length, password.length, passwordAgain.length);
+
+    const response = await axios.post("http://localhost:8080/signup", {
+      email: email,
+      password: password,
+    });
+
+    console.log(response);
+    const { token } = await response.data;
+    console.log(token);
+
+    setToken(token);
+    navigate("/");
   };
 
   return (

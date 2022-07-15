@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import style from "./login.module.css";
+import axios from "axios";
+import useToken from "../../auth/useToken";
 
-type RegisterProps = {
-  showFooter: boolean;
-  setShowFooter: (status: boolean) => void;
-};
+// type RegisterProps = {
+//   showFooter: boolean;
+//   setShowFooter: (status: boolean) => void;
+// };
 // function Register({showFooter, setShowFooter} :RegisterProps)
 
 function LoginPage() {
@@ -15,6 +18,12 @@ function LoginPage() {
   // States for checking the errors
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
+
+  /******** JWT token hook *********/
+  const [token, setToken] = useToken();
+
+  /******** Redirect function *********/
+  const navigate = useNavigate();
 
   // Handling the email change
   const handleEmail = (e: {
@@ -33,18 +42,36 @@ function LoginPage() {
   };
 
   // Handling the form submission
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (email && password) {
-      console.log(email, password);
-      console.log(email.length, password.length);
-      setError(false);
-      setSubmitted(true);
-    } else {
-      setError(true);
-      setSubmitted(false);
+    if (email === "" || password === "") {
+      alert("Please fill in the blank");
     }
+
+    // if (email && password) {
+    //   console.log(email, password);
+    //   console.log(email.length, password.length);
+    //   setError(false);
+    //   setSubmitted(true);
+    // } else {
+    //   setError(true);
+    //   setSubmitted(false);
+    // }
+    console.log(email, password);
+    console.log(email.length, password.length);
+
+    const response = await axios.post("http://localhost:8080/login", {
+      email: email,
+      password: password,
+    });
+
+    console.log(response);
+    const token = response["data"].JWTtoken;
+    console.log(token);
+
+    setToken(token);
+    navigate("/");
   };
 
   return (
