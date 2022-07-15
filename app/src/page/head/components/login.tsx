@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import LoginPage from "./loginPage";
 import RegisterPage from "./registerPage";
 import style from "./login.module.css";
@@ -6,6 +6,20 @@ import style from "./login.module.css";
 function Login() {
   const [login, setLogin] = useState(true);
   console.log(login);
+
+  /************** Generate user login JWT token ***************/
+  const loginToken = async (event: SyntheticEvent) => {
+    event.preventDefault();
+    const token = window.localStorage.getItem("token");
+    const res = await fetch("http://localhost:8080/auth", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({}),
+    });
+  };
 
   return (
     <div className={style.container}>
