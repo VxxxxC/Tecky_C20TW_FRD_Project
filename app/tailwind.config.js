@@ -13,6 +13,17 @@ module.exports = {
         'uniyellow':'#F0ED62',
       },
 
+      minHeight: {
+        // '1/4': '25%',
+        '1/2': '50%',
+      },
+  
+  
+      minWidth: {
+        // '1/4': '25%',
+        '1/2': '50%',
+      },
+
       blur: {
         xxs: '1px',
         xs: '2px',
@@ -25,6 +36,9 @@ module.exports = {
             '0 45px 65px rgba(0, 0, 0, 0.15)'
         ],
         'text':'0 2px 2px rgb(50 120 150 / 0.65)',
+        'uniyellow':'0 2px 2px rgb(240 237 98 / 0.65)',
+        'uniblue':'0 2px 2px rgb(91 206 252 / 0.65)',
+        'unibrown':'3px 2px 2px rgb(242 110 80 / 0.50)',
       },
 
       animation: {
