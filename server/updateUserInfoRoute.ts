@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import express from 'express';
-import { verify } from 'crypto';
 import { env } from './env'
 
 export let userRoute = express.Router();

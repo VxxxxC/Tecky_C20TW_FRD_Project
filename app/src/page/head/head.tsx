@@ -1,41 +1,85 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Menulist from "./components/menulist";
 import style from "./head.module.css";
+import { useToken, useJWTPayload } from "../../hook/useToken";
+import useStorageState, { createMemoryStorage } from "react-use-storage-state";
 
-type RegisterProps = {
-  showFooter: boolean;
-  setShowFooter: (status: boolean) => void;
-};
-// function Head({showFooter, setShowFooter} :RegisterProps)
+export function BlurMenu() {
+  const [isActive, setIsActive] = useStorageState<any>("blur", false);
+
+  return {
+    isActive,
+    setIsActive,
+  };
+}
 
 function Head() {
-  const [isActive, setIsActive] = useState(false);
+  const menuBlurSwitch = BlurMenu();
+  const menuBlur = menuBlurSwitch.isActive;
+  // const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useStorageState<any>("blur", false);
+  const navigate = useNavigate();
+
+  /***********change login button **************/
+  const [login, setLogin] = useState(
+    localStorage.getItem("token") ? true : false
+  );
+
+  console.log(useToken());
+  const localStore = useJWTPayload();
+  const userEmail = localStore?.email;
+
+  /************** logout ****************/
+  function Logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("is_login");
+
+    navigate("/");
+    window.location.reload();
+  }
 
   const ref: any = useRef();
-  console.log(ref.current);
+  // console.log(ref.current);
 
   useOnClickOutside(ref, () => setIsActive(false));
 
   return (
     <div className={style.headBar}>
-      <div className={style.leftContainer}>
+      <div
+        className={`${style.leftContainer} ${menuBlur == 0 ? "" : "blur-sm"}`}
+      >
         {/* <Link to="/" className={style.leftContent}  onClick={()=>setShowFooter(true)}> */}
         <Link to="/" className={style.leftContent}>
           Logo
         </Link>
       </div>
 
-      <div className={style.rightContainer}>
+      <div
+        className={`${style.rightContainer} ${menuBlur == 0 ? "" : "blur-sm"}`}
+      >
         {/* <Link to="/login" className={style.rightContent} onClick={()=>setShowFooter(!showFooter)}> */}
-        <Link to="/login" className={style.loginBtn}>
-          Login
-        </Link>
-        <Link to="/login" className={style.logoutBtn}>
-          Logout
-        </Link>
+        {!login ? (
+          <>
+            <Link to="/login" className={style.loginBtn}>
+              Login
+            </Link>
+          </>
+        ) : (
+          <>
+            <button onClick={Logout} className={style.logoutBtn}>
+              Logout
+            </button>
+          </>
+        )}
 
-        <button className={style.menuBtn} onClick={() => setIsActive(true)}>
+        {userEmail ? <div className="username">{userEmail}</div> : null}
+
+        <button
+          className={style.menuBtn}
+          onClick={() => menuBlurSwitch.setIsActive(true)}
+        >
           <svg
             className="w-6 h-6"
             fill="none"
@@ -54,7 +98,9 @@ function Head() {
       </div>
 
       <ul
-        className={isActive ? style.showSideMenu : style.closeSideMenu}
+        className={
+          menuBlurSwitch.isActive ? style.showSideMenu : style.closeSideMenu
+        }
         ref={ref}
       >
         <Menulist />

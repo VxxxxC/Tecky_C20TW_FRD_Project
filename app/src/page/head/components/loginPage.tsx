@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./login.module.css";
 import axios from "axios";
-import useToken from "../../auth/useToken";
+// import { Axios } from "../../../axiosConfig";
+// import UseToken from "../../auth/UseToken";
+import { useStorageState } from "react-use-storage-state";
 
 // type RegisterProps = {
 //   showFooter: boolean;
@@ -20,10 +22,13 @@ function LoginPage() {
   const [error, setError] = useState(false);
 
   /******** JWT token hook *********/
-  const [token, setToken] = useToken();
+  // const [token, setToken] = UseToken();
 
   /******** Redirect function *********/
   const navigate = useNavigate();
+
+  /*********** useStorageState ****************/
+  const [token, setToken] = useStorageState("token", "");
 
   // Handling the email change
   const handleEmail = (e: {
@@ -61,6 +66,9 @@ function LoginPage() {
     console.log(email, password);
     console.log(email.length, password.length);
 
+    // console.log(Axios.defaults.headers.post);
+    // console.log(Axios.defaults.headers.common);
+
     const response = await axios.post("http://localhost:8080/login", {
       email: email,
       password: password,
@@ -72,6 +80,7 @@ function LoginPage() {
 
     setToken(token);
     navigate("/");
+    window.location.reload();
   };
 
   return (
