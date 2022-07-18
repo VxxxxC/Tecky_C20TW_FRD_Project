@@ -2,14 +2,21 @@ import express from 'express'
 import { productRoute } from './products'
 import cors from 'cors'
 import { client } from "./db"
-import { userRoute } from './signUpRoute'
+import { loginRoute } from './loginRoute'
+import { signUpRoute } from './signUpRoute'
 
 
 export let app = express()
+let port = 8080
+
 app.use('/img', express.static('img'))
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 
+/* ----------------Express Auth Router------------ */
+app.use('/login', loginRoute)
+app.use('/signup', signUpRoute)
+/* ----------------------------------------------- */
 
 type req = express.Request
 type res = express.Response
@@ -40,14 +47,11 @@ app.get("test", (req, res) => {
 
 app.use(productRoute);
 
-let port = 8080
 
 app.listen(port, () => {
   console.log(port)
 })
 
-/* ----------------Express Auth Router------------ */
-app.use('/login', userRoute)
 
 /* -------------------PostgreSQL Connect------------------------ */
 client.connect(err => {
