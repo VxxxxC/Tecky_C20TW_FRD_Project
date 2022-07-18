@@ -10,10 +10,15 @@ import Login from "./page/head/components/login";
 import ProductProfile from "./page/product/profile";
 
 function App() {
+<<<<<<< HEAD
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
   const theme = ["cupcake", "lofi"];
 
+=======
+  const theme = ["cupcake", "lofi","luxury"];
+  // const [showFooter, setShowFooter] = useState(true);
+>>>>>>> 8c585879c89d6ca9664ecd454b0809fcab319e13
   return (
     <html
       data-theme={theme[1]}
