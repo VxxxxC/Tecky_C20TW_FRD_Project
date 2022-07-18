@@ -17,7 +17,7 @@ function Main(){
         <Category/>
         <Highlights/>
         {/* <HowItWorks/> */}
-        <CyberpunkBg/>
+        {/* <CyberpunkBg/> */}
         </div>
     )
 }
