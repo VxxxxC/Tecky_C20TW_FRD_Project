@@ -1,10 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { Image } from "react-image-and-background-image-fade";
 import useWindowDimensions from "../../hook/useWindowDimensions";
 import "./profile.scss";
+import { Button, Tabs, Theme } from 'react-daisyui'
+// import ProductDetail from "./details";
+import UniLoader from "../elements/loader";
 
 function ProductProfile() {
   const { height, width } = useWindowDimensions();
+
+  const [count, setCount] = useState(1);
+  const [isActive, setIsActive] = useState(false);
+
+  const handleClick = () => {
+    // 👇️ toggle isActive state on click
+    setIsActive(current => !current);
+  };
 
   const responsive = width < 600 ? true : false;
   const mobile = `flex-col`;
@@ -13,7 +24,23 @@ function ProductProfile() {
   const mobileCol2 = `grad-bg p-4 self-center`;
   const desktopRow1 = ``;
   const desktopRow2 = `grad-bg py-6 px-8 min-w-[38%] bor`;
-
+  const ProductDetail = React.lazy(() :any => 
+  {  return new Promise(resolve => {
+    setTimeout(() => resolve(import("./details")), 500);
+    clearTimeout();
+  })});
+  // import('./'));
+  const ProductOwners = React.lazy(() :any => 
+  {  return new Promise(resolve => {
+    setTimeout(() => resolve(import("./owners")), 500);
+    clearTimeout();
+  })});
+  const ProductHistory = React.lazy(() :any =>
+  {  return new Promise(resolve => {
+    setTimeout(() => resolve(import("./history")), 500);
+    clearTimeout();
+  })});
+  console.log(count)
   return (
     <div
       className={`min-h-[70vh] flex gap-x-20 gap-y-8 justify-center ${
@@ -22,12 +49,14 @@ function ProductProfile() {
     >
       <div className={responsive ? mobileCol1 : desktopRow1}>
         <div
-          className={`bg-indigo-300 ${
-            responsive ? "h-[80vw] w-[80vw]" : "h-[30vw] w-[30vw]"
+        // outline outline-offset-4 outline-2 outline-dashed outline-primary
+        // outline outline-offset-2 outline-2 outline-secondary
+          className={`drop-shadow-lg rounded-2xl ${
+            responsive ? "h-[80vw] w-[80vw]" : "mt-8 h-[30vw] w-[30vw]"
           }`}
         >
           <Image
-            className="object-cover rounded-2xl"
+            className="object-cover rounded-2xl "
             src="https://placeimg.com/400/225/arch"
             alt="flying cat"
             title="Neon cat"
@@ -87,11 +116,33 @@ function ProductProfile() {
             </div>
           </div>
         </div>
-        <div className="mt-5 tabs">
-          <a className="tab tab-bordered tab-active">Details</a>
-          <a className="tab tab-bordered">Owners</a>
-          <a className="tab tab-bordered">History</a>
+        <Tabs value={count} variant="bordered" className="-mt-3 cursor-default">
+        <Tabs.Tab className={`${count==1?"tab-active":""} tab-bordered p-1`} value={()=>{setCount(1)}}>Details</Tabs.Tab>
+        <Tabs.Tab className={`${count==2?"tab-active":""} tab-bordered p-1`} value={()=>{setCount(2)}}>Owners</Tabs.Tab>
+        <Tabs.Tab className={`${count==3?"tab-active":""} tab-bordered p-1`} value={()=>{setCount(3)}}>History</Tabs.Tab>
+      </Tabs>
+        <div className="mt-2 h-96 border-2 rounded-lg">
+          {count==1?<div>
+          {/* Product Details */}
+          <Suspense fallback={<UniLoader/>}>
+            <ProductDetail/>
+          </Suspense>
+          {/* <FlexiblePopupSelect/> */}
+          </div>:""}
+          {count==2?<div>
+          {/* Product Oweners */}
+          <Suspense fallback={<UniLoader/>}>
+            <ProductOwners/>
+          </Suspense>
+          </div>:""}
+          {count==3?<div>
+          {/* Product History */}
+          <Suspense fallback={<UniLoader/>}>
+            <ProductHistory/>
+          </Suspense>
+          </div>:""}
         </div>
+        
       </div>
     </div>
   );

@@ -87,6 +87,7 @@ module.exports = {
   variants: {
     extend: {},
   },
+  content: ["node_modules/daisyui/dist/**/*.js"],
   plugins: [require("daisyui")],
 }
 

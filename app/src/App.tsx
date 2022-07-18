@@ -11,7 +11,7 @@ import PrivateRoute from "./page/auth/private_route";
 import ProductProfile from "./page/product/profile";
 
 function App() {
-  const theme = ["cupcake", "lofi"];
+  const theme = ["cupcake", "lofi","luxury"];
   // const [showFooter, setShowFooter] = useState(true);
   return (
     <html data-theme={theme[1]}>
