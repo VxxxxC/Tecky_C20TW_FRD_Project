@@ -24,7 +24,6 @@ signUpRoute.post('/', async (req, res) => {
 
    let userExist: any = await knex('users').select("*").where({ email: email }).first().returning('id')
    if (!userExist || undefined) {
-      console.log({ userExist })
       console.log("Good! This email not exist yet!")
    } else {
       console.log({ userExist })
@@ -32,15 +31,16 @@ signUpRoute.post('/', async (req, res) => {
       return res.status(409).end('email duplicated')
    }
 
-   const result: any = await knex('users').insert({ email: email, password: passwordHash, created_at: new Date() })
+   const result: any = await knex('users').insert({ email: email, password: passwordHash, created_at: new Date() }).returning('id')
    console.log(result)
 
-   const { insertId } = result;
+   const insertId = result;
    console.log({ insertId })
 
    /* for after login */
    jwt.sign({
-      id: passwordHash,
+      id: insertId,
+      email: email,
    },
       env.JWT_SECRET,
       {

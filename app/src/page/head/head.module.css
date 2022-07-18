@@ -48,10 +48,8 @@
 
 @keyframes LoginAnimationIn {
   0% {
-    transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
     background: white;
     color: black;
     border: 2px solid black;
@@ -59,13 +57,11 @@
 }
 @keyframes LoginAnimationOut {
   from {
-    transform: rotate(360deg);
     background: white;
     color: black;
     border: 2px solid black;
   }
   to {
-    transform: rotate(0deg);
   }
 }
 
@@ -93,7 +89,7 @@
   0% {
     transform: rotate(360deg);
   }
-  
+
   100% {
     transform: rotate(0deg);
     background: red;

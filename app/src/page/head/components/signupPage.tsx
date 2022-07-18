@@ -4,21 +4,29 @@ import style from "./login.module.css";
 import PasswordChecklist from "react-password-checklist";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import useToken from "../../auth/useToken";
+// import { Axios } from "../../../axiosConfig";
+// import UseToken from "../../auth/UseToken";
+import { useStorageState } from "react-use-storage-state";
 
-type RegisterProps = {
-  showFooter: boolean;
-  setShowFooter: (status: boolean) => void;
-};
+// type RegisterProps = {
+//   showFooter: boolean;
+//   setShowFooter: (status: boolean) => void;
+// };
 
 function RegisterPage() {
   const { handleSubmit, register }: any = useForm();
 
+  /*********** useStorageState ****************/
+  const [token, setToken] = useStorageState("token", "");
+
   /******** JWT token hook *********/
-  const [token, setToken] = useToken();
+  // const [token, setToken] = useToken();
 
   /******** Redirect function *********/
   const navigate = useNavigate();
+
+  /******** setUser recoil *********/
+  // const setUser = useSetRecoilState();
 
   // States for registration
   const [email, setEmail] = useState("");
@@ -46,10 +54,11 @@ function RegisterPage() {
 
   /************** Handling the form submission ****************/
   const onSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-
     console.log(email, password, passwordAgain);
     console.log(email.length, password.length, passwordAgain.length);
+
+    // console.log(Axios.defaults.headers.post);
+    // console.log(Axios.defaults.headers.common);
 
     const response = await axios.post("http://localhost:8080/signup", {
       email: email,
@@ -57,11 +66,13 @@ function RegisterPage() {
     });
 
     console.log(response);
-    const { token } = await response.data;
+    const registerResult = response.data;
+    const token = registerResult.JWTtoken;
     console.log(token);
 
     setToken(token);
     navigate("/");
+    window.location.reload();
   };
 
   return (

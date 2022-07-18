@@ -3,23 +3,12 @@ import populateEnv from "populate-env";
 
 config()
 let mode = process.env.NODE_ENV || "development"
-const envConfig = config({ path: '.env.' + mode });
+const envConfig = config(mode=="development" ? {path:".env"} : { path: '.env.' + mode });
 if (envConfig.error) {
   console.log("we got and envconfig error : ", envConfig.error)
 } else {
   console.log("dotenv config : ", envConfig)
 }
-
-// type clientType = {
-//    POSTGRES_DB: string|undefined,
-//    POSTGRES_USER: string|undefined,
-//    POSTGRES_PASSWORD: string|undefined,
-//    POSTGRES_HOST: string|undefined,
-//    POSTGRES_PORT: number|undefined,
-
-//    SESSION_SECRET: string|undefined,
-//    NODE_ENV: string|undefined,
-// }
 
 export let env:any = {
    DB: process.env.POSTGRES_DB,
