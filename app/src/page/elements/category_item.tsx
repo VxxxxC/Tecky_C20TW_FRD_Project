@@ -1,7 +1,6 @@
 import React from "react";
 import { Image as LazyLoadImage } from "react-image-and-background-image-fade";
-import "./item.scss"
-import LargeItem from "./large_item";
+// import "./CategoryItem.scss"
 
 // type propTypes = {
 //     image: string,
@@ -9,26 +8,29 @@ import LargeItem from "./large_item";
 //     price: number
 // }
 
-function Item() {
+function CategoryItem() {
 
-    let items = [
-        { img: "img/1.jpg", name: "test item 1", price : 80},
-        { img: "img/2.jpg", name: "test item 2", price : 500},
-        { img: "img/3.jpg", name: "test item 3", price : 4000},
-        { img: "img/4.jpg", name: "test item 4", price : 18000},
+    let CategoryItems = [
+        { img: "img/1.jpg", name: "test CategoryItem 1", price : 80},
+        { img: "img/2.jpg", name: "test CategoryItem 2", price : 500},
+        { img: "img/3.jpg", name: "test CategoryItem 3", price : 4000},
+        { img: "img/4.jpg", name: "test CategoryItem 4", price : 18000},
     ]
 
     return(
-    <>
-        <div className="grid grid-cols-3 gap-4">
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-        </div>
 
-    
-    </>
-    // <div className="category card w-300 bg-base-50 shadow-xl image-full">
+
+            <div className="">
+            {/* <div className="card-body">
+                <h2 className="card-title">Shoes!</h2>
+                <p>If a dog chews shoes whose shoes does he choose?</p>
+                <div className="card-actions justify-end">
+                <button className="btn btn-primary">Buy Now</button>
+                </div>
+            </div> */}
+            </div>  
+
+    // <div className="categoryItem card w-300 bg-base-50 shadow-xl image-full">
     // <figure>
     //     <LazyLoadImage
     //         src="https://placeimg.com/400/225/arch"
@@ -42,4 +44,4 @@ function Item() {
     
 }
 
-export default Item;
+export default CategoryItem;

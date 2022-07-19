@@ -7969,6 +7969,11 @@ react-error-overlay@^6.0.11:
   resolved "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.11.tgz"
   integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
 
+react-fetch-hook@^1.9.5:
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/react-fetch-hook/-/react-fetch-hook-1.9.5.tgz#9e1839cf3ec4bd0716757d4f4efbc2a97439d1f7"
+  integrity sha512-LhTwUk0iYQ4SUl2laQr5Jc2fk/K4B6ezntDWWBNdlag/cB3n2RYshofIL3bOghE5FEfkoDi6BqGD/YIwqW1/8w==
+
 react-hook-form@^7.33.1:
   version "7.33.1"
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.33.1.tgz"
@@ -8095,6 +8100,11 @@ react-use-storage-state@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/react-use-storage-state/-/react-use-storage-state-1.0.3.tgz#4983643879df52801ed5233265d7bca86e0b11e1"
   integrity sha512-raEn3rCR/FySCqevX3rEoqUDy7iesdxMwnm/QW6Fy62XqdYia9Li4MBKk9gD9mudFqxeUP1yzO2LQ8TquHlXgw==
+
+react-use-event@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-use-event/-/react-use-event-1.0.1.tgz#30d44f536537df7c778d2232f279ab5017d21502"
+  integrity sha512-J+rcA+rz1OxOuLsc5SusxgKm8McW8jRd/XSH4W9vthgeiT2Gfizm6LErHoXv0iOlD4tGoCwZ3Yqy98dgljtSfA==
 
 react-visibility-sensor@^5.0.2:
   version "5.1.1"
