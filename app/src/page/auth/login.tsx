@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useState } from "react";
 import LoginPage from "./loginPage";
 import RegisterPage from "./signupPage";
-import style from "./login.module.css";
+import style from "./login.module.scss";
 
 function Login() {
   const [login, setLogin] = useState(true);

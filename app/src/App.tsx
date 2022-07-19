@@ -6,13 +6,18 @@ import Head, { BlurMenu } from "./page/head/head";
 import Item from "./page/elements/item";
 import Footer from "./page/footer/footer";
 import Main from "./page/main/main";
-import Login from "./page/head/components/login";
+import Login from "./page/auth/login";
 import ProductProfile from "./page/product/profile";
+import User from "./page/userProfile/user";
 
 function App() {
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
+<<<<<<< HEAD
   const theme = ["cupcake", "lofi","luxury"];
+=======
+  const theme = ["cupcake", "lofi"];
+>>>>>>> 00d04956e73341ad7816a658bfad38b07a78875a
 
   return (
     <html
@@ -28,6 +33,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Main />} />
             <Route path="/profile" element={<ProductProfile />} />
+            <Route path="/user" element={<User />} />
           </Routes>
         </div>
         <Footer blur={menuBlur} />

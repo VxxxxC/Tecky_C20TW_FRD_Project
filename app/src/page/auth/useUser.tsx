@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from "react";
-import UseToken from "./UseToken";
+import useJwtToken from "./useJwtoken";
 
 function useUser() {
-  const [token] = UseToken();
+  const [token] = useJwtToken();
 
   function getPayloadFromToken(token: string) {
     const encodedPayload = token.split(".")[1];
-    return JSON.parse(atob(encodedPayload)); /* use "jwtSimple" can instead of using "atob" or "btoa" */
+    return JSON.parse(
+      atob(encodedPayload)
+    ); /* use "jwtSimple" can instead of using "atob" or "btoa" */
   }
 
   const [user, setUser] = useState(() => {
     if (!token) {
-      console.log("no jwt token!")
+      console.log("no jwt token!");
       return null;
     } else {
-      console.log("jwt token found!")
+      console.log("jwt token found!");
       return getPayloadFromToken(token);
     }
   });
 
   useEffect(() => {
     if (!token) {
-      console.log("NO JWT TOKEN!")
+      console.log("NO JWT TOKEN!");
       setUser(null);
     } else {
-      console.log("JWT TOKEN FOUND!")
+      console.log("JWT TOKEN FOUND!");
       setUser(getPayloadFromToken(token));
     }
   });

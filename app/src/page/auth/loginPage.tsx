@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import style from "./login.module.css";
+import style from "./login.module.scss";
 import axios from "axios";
 // import { Axios } from "../../../axiosConfig";
 // import UseToken from "../../auth/UseToken";

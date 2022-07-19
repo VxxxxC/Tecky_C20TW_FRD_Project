@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import style from "./login.module.css";
+import style from "./login.module.scss";
 import PasswordChecklist from "react-password-checklist";
 import { useForm } from "react-hook-form";
 import axios from "axios";

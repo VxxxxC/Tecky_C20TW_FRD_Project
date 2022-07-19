@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Menulist from "./components/menulist";
-import style from "./head.module.css";
+import style from "./head.module.scss";
 import { useToken, useJWTPayload } from "../../hook/useToken";
 import useStorageState, { createMemoryStorage } from "react-use-storage-state";
 
