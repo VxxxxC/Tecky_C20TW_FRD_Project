@@ -28,8 +28,8 @@ function App() {
         <div className={`"mx-auto " ${menuBlur ? "blur-sm" : ""}`}>
           <Routes>
             {/* <Route path="/login" element={<Login showFooter={showFooter} setShowFooter={setShowFooter}/>} /> */}
-            <Route path="/login" element={<Login />} />
             <Route path="/" element={<Main />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<ProductProfile />} />
             <Route path="/user" element={<User />} />
             <Route path="/explore" element={<Explore />} />
