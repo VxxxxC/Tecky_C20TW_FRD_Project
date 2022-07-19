@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function UseToken(): any {
+function useJwtToken(): any {
   const [token, setTokenInternal] = useState(() => {
     return localStorage.getItem("token");
   });
@@ -12,4 +12,4 @@ function UseToken(): any {
   return [token, setToken];
 }
 
-export default UseToken;
+export default useJwtToken;

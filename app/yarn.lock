@@ -8086,17 +8086,15 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
-<<<<<<< HEAD
-react-use-storage-state@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-use-storage-state/-/react-use-storage-state-1.0.3.tgz#4983643879df52801ed5233265d7bca86e0b11e1"
-  integrity sha512-raEn3rCR/FySCqevX3rEoqUDy7iesdxMwnm/QW6Fy62XqdYia9Li4MBKk9gD9mudFqxeUP1yzO2LQ8TquHlXgw==
-=======
 react-spinners@^0.13.3:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/react-spinners/-/react-spinners-0.13.3.tgz#9d00d10fb2a0869b21efdc13fb0fddbcecd05731"
   integrity sha512-FHQMH6dAl1Vw4Lxv0H7hbGsjBs0aKNVwjGrDJLuD9R/C3h9+IuBhKJOJyCcegxMaLiBSBV96Tp+XV3OwPK8Vtw==
->>>>>>> 8c585879c89d6ca9664ecd454b0809fcab319e13
+
+react-use-storage-state@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-use-storage-state/-/react-use-storage-state-1.0.3.tgz#4983643879df52801ed5233265d7bca86e0b11e1"
+  integrity sha512-raEn3rCR/FySCqevX3rEoqUDy7iesdxMwnm/QW6Fy62XqdYia9Li4MBKk9gD9mudFqxeUP1yzO2LQ8TquHlXgw==
 
 react-visibility-sensor@^5.0.2:
   version "5.1.1"

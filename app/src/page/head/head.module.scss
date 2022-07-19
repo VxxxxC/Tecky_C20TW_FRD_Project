@@ -1,0 +1,186 @@
+.headBar {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftContainer, .rightContainer {
+  display: flex;
+}
+
+.leftContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  margin: 20px 0px 0px 20px;
+  color: white;
+  height: 50px;
+  width: 100px;
+  border-radius: 20px;
+  color: white;
+  background-color: black;
+}
+
+.loginBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  margin: 20px 20px 0px 0px;
+  color: white;
+  background: black;
+  height: 50px;
+  width: 100px;
+  transition: all 0.2s ease-in-out;
+  border-radius: 10px;
+  animation: LoginAnimationOut 1s forwards;
+
+  &:hover {
+    animation: LoginAnimationIn 1s forwards;
+  }
+}
+
+@keyframes LoginAnimationIn {
+  0% {}
+
+  100% {
+    background: white;
+    color: black;
+    border: 2px solid black;
+  }
+}
+
+@keyframes LoginAnimationOut {
+  from {
+    background: white;
+    color: black;
+    border: 2px solid black;
+  }
+
+  to {}
+}
+
+.logoutBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  margin: 20px 20px 0px 0px;
+  border: 2px solid black;
+  height: 50px;
+  width: 100px;
+  transition: all 0.2s ease-in-out;
+  border-radius: 10px;
+  animation: LogoutAnimationOut 1s forwards;
+
+  &:hover {
+    animation: LogoutAnimationIn 1s forwards;
+  }
+}
+
+@keyframes LogoutAnimationIn {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+    background: red;
+    color: white;
+    border: 2px solid black;
+  }
+}
+
+@keyframes LogoutAnimationOut {
+  from {
+    transform: rotate(0deg);
+    background: white;
+    color: black;
+    border: 2px solid black;
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.menuBtn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 20px 20px 0px;
+  transition: 0.3s;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}
+
+.showSideMenu {
+  color: white;
+  margin: 5px;
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  width: 350px;
+  height: 80vh;
+  border-radius: 20px;
+  background: black;
+  opacity: 0.85;
+  transition: all 0.5s ease-in-out;
+  transform: translateX(0);
+}
+
+.closeSideMenu {
+  color: white;
+  margin: 5px;
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  width: 350px;
+  height: 80vh;
+  border-radius: 20px;
+  background: black;
+  opacity: 0.85;
+  transition: all 0.5s ease-in-out;
+  transform: translateX(+110%);
+}
+
+@media screen and (min-width: 200px) and (max-width: 600px) {
+  .showSideMenu {
+    display: block;
+    flex-wrap: wrap;
+    color: white;
+    margin: 5px;
+    position: fixed;
+    z-index: 10;
+    right: 0;
+    width: 150px;
+    height: 80vh;
+    border-radius: 20px;
+    background: black;
+    opacity: 0.85;
+    transition: all 0.5s ease-in-out;
+    transform: translateX(-10%);
+  }
+
+  .closeSideMenu {
+    color: white;
+    margin: 5px;
+    position: fixed;
+    z-index: 10;
+    right: 0;
+    width: 150px;
+    height: 80vh;
+    border-radius: 20px;
+    background: black;
+    opacity: 0.85;
+    transition: all 0.5s ease-in-out;
+    transform: translateX(+110%);
+  }
+}

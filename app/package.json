@@ -29,12 +29,9 @@
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-<<<<<<< HEAD
     "react-use-storage-state": "^1.0.3",
     "recoil": "^0.7.4",
-=======
     "react-spinners": "^0.13.3",
->>>>>>> 8c585879c89d6ca9664ecd454b0809fcab319e13
     "sass": "^1.53.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4",
