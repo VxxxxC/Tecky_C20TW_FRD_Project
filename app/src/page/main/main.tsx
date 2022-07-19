@@ -7,18 +7,16 @@ import Highlights from "./hightlights";
 import HowItWorks from "./howitworks";
 import Welcome from "./welcome";
 
-
-
-function Main(){
-    return(
-        <div className="lg:px-20 md:px-10">
-        {/* <Welcome/> */}
-        <BackgroundAnimation/>
-        <Category/>
-        <Highlights/>
-        {/* <HowItWorks/> */}
-        {/* <CyberpunkBg/> */}
-        </div>
-    )
+function Main() {
+  return (
+    <div className="lg:px-20 md:px-10">
+      {/* <Welcome/> */}
+      <BackgroundAnimation />
+      <Category />
+      <Highlights />
+      {/* <HowItWorks/> */}
+      {/* <CyberpunkBg/> */}
+    </div>
+  );
 }
-export default Main
+export default Main;
