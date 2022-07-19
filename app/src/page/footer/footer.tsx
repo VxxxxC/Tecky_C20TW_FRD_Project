@@ -3,7 +3,7 @@ import React from "react";
 function Footer(props : any){
   const blur = props.blur
     return (
-      <footer className={`${blur==false?"":"blur-sm"} footer p-10 text-neutral bg-neutral-content `}>
+      <footer className={`${blur==false?"":"blur-sm"} mx-auto max-w-screen-2xl footer p-10 text-neutral bg-neutral-content `}>
         <div>
           <span className="footer-title">Services</span>
           <a className="link link-hover">Branding</a>

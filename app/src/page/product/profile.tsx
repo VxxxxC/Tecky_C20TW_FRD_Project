@@ -94,7 +94,7 @@ function ProductProfile() {
             <button className="btn btn-primary rounded-lg">like</button>
           </div>
           <div className="col-start-6 col-end-7">
-            <button className="btn btn-ghost rounded-lg">...</button>
+            <button className="btn btn-ghost rounded-lg">border-2</button>
           </div>
           <div className="col-start-1 col-end-7">available</div>
           <div className="py-3 col-start-1 col-end-4">Creator</div>

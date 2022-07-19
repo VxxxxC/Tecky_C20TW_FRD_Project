@@ -4,22 +4,14 @@ import { Link } from "react-router-dom";
 import Menulist from "./components/menulist";
 import style from "./head.module.scss";
 import { useToken, useJWTPayload } from "../../hook/useToken";
-import useStorageState, { createMemoryStorage } from "react-use-storage-state";
+import { BlurMenu } from "../../hook/useBlur";
 
-export function BlurMenu() {
-  const [isActive, setIsActive] = useStorageState<any>("blur", false);
-
-  return {
-    isActive,
-    setIsActive,
-  };
-}
 
 function Head() {
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
   // const [isActive, setIsActive] = useState(false);
-  const [isActive, setIsActive] = useStorageState<any>("blur", false);
+  // const [isActive, setIsActive] = useStorageState<any>("blur", false);
   const navigate = useNavigate();
 
   /***********change login button **************/
@@ -43,7 +35,7 @@ function Head() {
   const ref: any = useRef();
   // console.log(ref.current);
 
-  useOnClickOutside(ref, () => setIsActive(false));
+  useOnClickOutside(ref, () => menuBlurSwitch.setIsActive(false));
 
   return (
     <div className={style.headBar}>
@@ -51,8 +43,9 @@ function Head() {
         className={`${style.leftContainer} ${menuBlur == 0 ? "" : "blur-sm"}`}
       >
         {/* <Link to="/" className={style.leftContent}  onClick={()=>setShowFooter(true)}> */}
-        <Link to="/" className={style.leftContent}>
-          Logo
+        <Link to="/" className="flex items-center mx-8 ">
+        {/* Paul deleted: style.leftContent */}
+          <button className="btn btn-primary rounded-xl">LOGO</button>
         </Link>
       </div>
 
@@ -62,15 +55,17 @@ function Head() {
         {/* <Link to="/login" className={style.rightContent} onClick={()=>setShowFooter(!showFooter)}> */}
         {!login ? (
           <>
-            <Link to="/login" className={style.loginBtn}>
-              Login
+            <Link to="/login" className="flex items-center mx-8">
+              {/* Paul deleted: style.loginBtn */}
+            <button className="btn bg-primary-content text-primary rounded-xl border-2 hover:text-primary-content">Login</button>
             </Link>
           </>
         ) : (
           <>
-            <button onClick={Logout} className={style.logoutBtn}>
-              Logout
-            </button>
+            {/* <button onClick={Logout} className={style.logoutBtn}>
+              Logout */}
+            <button onClick={Logout} className="btn bg-primary-content text-primary rounded-xl border-2 hover:text-primary-content">Logout</button>
+            {/* </button> */}
           </>
         )}
 
