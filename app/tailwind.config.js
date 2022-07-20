@@ -1,44 +1,60 @@
-const colors = require('tailwindcss/colors')
+const colors = require("tailwindcss/colors");
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend:{
+    extend: {
       colors: {
         amber: colors.amber,
         emerald: colors.emerald,
         cyan: colors.cyan,
-        'unibrown': '#F26E50',
-        'uniblue':'#5BCEFC',
-        'uniyellow':'#F0ED62',
+        unibrown: "#F26E50",
+        uniblue: "#5BCEFC",
+        uniyellow: "#F0ED62",
+      },
+
+      fontFamily: {
+        sans: ["-apple-system"],
+        serif: ["ui-serif"],
+        mono: ["ui-monospace"],
+      },
+
+      screens: {
+        mobile: { min: "200px", max: "800px" },
+        // => @media (min-width: 200px) (max-width: 800px{ ... }
+
+        desktop: "800px",
+        // => @media (min-width: 800px) { ... }
+
+        tall: { raw: "(min-height: 800px)" },
+        // => @media (min-height: 800px) { ... }
       },
 
       minHeight: {
         // '1/4': '25%',
-        '1/2': '50%',
+        "1/2": "50%",
       },
-  
-  
+
       minWidth: {
         // '1/4': '25%',
-        '1/2': '50%',
+        "1/2": "50%",
       },
 
       blur: {
-        xxs: '1px',
-        xs: '2px',
+        xxs: "1px",
+        xs: "2px",
       },
 
       dropShadow: {
-        '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
-        '4xl': [
-            '0 35px 35px rgba(0, 0, 0, 0.25)',
-            '0 45px 65px rgba(0, 0, 0, 0.15)'
+        "3xl": "0 35px 35px rgba(0, 0, 0, 0.25)",
+        "4xl": [
+          "0 35px 35px rgba(0, 0, 0, 0.25)",
+          "0 45px 65px rgba(0, 0, 0, 0.15)",
         ],
-        'text':'0 2px 2px rgb(50 120 150 / 0.65)',
-        'uniyellow':'0 2px 2px rgb(240 237 98 / 0.65)',
-        'uniblue':'0 2px 2px rgb(91 206 252 / 0.65)',
-        'unibrown':'3px 2px 2px rgb(242 110 80 / 0.50)',
+        text: "0 2px 2px rgb(50 120 150 / 0.65)",
+        uniyellow: "0 2px 2px rgb(240 237 98 / 0.65)",
+        uniblue: "0 2px 2px rgb(91 206 252 / 0.65)",
+        unibrown: "3px 2px 2px rgb(242 110 80 / 0.50)",
       },
 
       animation: {
@@ -77,19 +93,18 @@ module.exports = {
           },
         },
       },
-      
     },
     colors: {
-      transparent: 'transparent',
-      current: 'currentColor'
-    }
+      transparent: "transparent",
+      current: "currentColor",
+    },
   },
   variants: {
     extend: {},
   },
   content: ["node_modules/daisyui/dist/**/*.js"],
   plugins: [require("daisyui")],
-}
+};
 
 // {'postcss-import': {},tailwindcss: {},
 //   autoprefixer: {}}

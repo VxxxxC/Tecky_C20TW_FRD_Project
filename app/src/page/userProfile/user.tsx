@@ -1,24 +1,38 @@
 import React from "react";
+import useWindowDimensions from "../../hook/useWindowDimensions";
+import ProductSection from "./productSection";
 import "./user.scss";
 
-function user() {
+function User() {
+  const { height, width } = useWindowDimensions();
+
+  const userAddress = "0x12bd534961a86dcf660dd3f3745ad6d4045eb77d";
+
   const messageBtn =
     "btn-outline font-bold rounded-2xl flex justify-center items-center border-2 w-[120px] h-[40px] hover:btn-primary";
+
+  const responsive = width < 800 ? true : false;
+  const webContainer = "flex justify-between w-[95vw]";
+  const mobileContainer = "block";
+
   return (
     <>
-      <div className="flex justify-center items-center">
+      <div className="relative flex justify-center items-center">
         {/* User profile page picture */}
         <img
           className="h-[35vh] w-[95vw] object-cover rounded-2xl"
           src="https://rarible.mypinata.cloud/ipfs/QmSwWeeDg3dNxnYoGfAjJnAJAEdYG7FMvtQzzkAEvH32m4"
         />
+        <div className="absolute right-0 desktop:bottom-2 mobile:top-2 rounded-2xl mobile:-translate-x-[10%] desktop:-translate-x-[20%] bg-[#80808071] w-[200px] h-[50px]">
+          Social Media button
+        </div>
       </div>
 
-      <div className="flex justify-center h-[20rem]">
+      <div className="block justify-center">
         {/************** Top container *****************/}
-        <div className="flex justify-between -translate-y-[20%] w-[95vw]">
+        <div className={!responsive ? webContainer : mobileContainer}>
           {/************** Top left container *****************/}
-          <div className="m-5 h-[350px] w-[400px]  -translate-y-[30%] translate-x-[10%] left-0 rounded-2xl flex flex-col">
+          <div className="m-5 h-[350px] w-[400px]  mobile:-translate-y-[30%] desktop:-translate-y-[30%] rounded-2xl flex flex-col">
             <div className="m-5 space-y-5">
               <div className="rounded-full border-8 border-[white] w-[150px] h-[150px] flex justify-center items-center bg-[#80808044]">
                 {/* User picture */}
@@ -34,58 +48,38 @@ function user() {
                 <button className={messageBtn}>MESSAGE</button>
                 <button className={messageBtn}>FOLLOW</button>
               </div>
+              <div className="text-xl font-sans">TRAVEL YOUR IMAGINATION</div>
             </div>
           </div>
           {/************** Top right container *****************/}
-          <div className="m-5 h-[400px] w-[400px]  -translate-y-[10%] right-0 rounded-2xl flex flex-col">
-            <div className="m-5 space-y-12">
-              <div className="flex flex-row-reverse mb-5">
-                <div className="flex justify-center items-center rounded-2xl bg-[#80808071] w-[200px] h-[50px]">
-                  Social Media button
-                </div>
+          <div className=" h-[400px] w-[400px rounded-2xl flex flex-col text-sm">
+            <div className="m-5 rounded-3xl border-[#01010139] border-2 w-[300px] h-[250px] p-5 flex flex-col justify-between">
+              <div className="flex flex-row justify-between">
+                <p>FOLLOWER</p>
+                <p>100</p>
               </div>
-              <div className="flex flex-row-reverse text-sm">
-                <div className="rounded-3xl border-[#01010139] border-2 w-[300px] h-[250px] p-5 flex flex-col justify-between">
-                  <div className="flex flex-row-reverse justify-between">
-                    <p>100</p>
-                    <p>FOLLOWER</p>
-                  </div>
-                  <div className="flex flex-row-reverse justify-between">
-                    <p>300</p>
-                    <p>FOLLOWING</p>
-                  </div>
-                  <div className="flex flex-row-reverse justify-between">
-                    <a
-                      href="https://etherscan.io/"
-                      target="popup"
-                      className="w-[15vw] truncate"
-                    >
-                      0x12bd534961a86dcf660dd3f3745ad6d4045eb77d
-                    </a>
-                    <div>Address</div>
-                  </div>
-                </div>
+              <div className="flex flex-row justify-between">
+                <p>FOLLOWING</p>
+                <p>300</p>
+              </div>
+              <div className="flex flex-row justify-between">
+                <div>Address</div>
+                <a
+                  href="https://etherscan.io/"
+                  target="popup"
+                  className="w-[15vw] truncate"
+                >
+                  {userAddress}
+                </a>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Product Section */}
-      <div className="m-10">
-        <div className="m-5 flex flex-row gap-10 font-bold">
-          <div>On Sale</div>
-          <div>Owned</div>
-          <div>Created</div>
-          <div>Activity</div>
-        </div>
-        <div className="bg-[#55555555] h-[2px] w-[100vw] mb-[50px]"></div>
-        <div className="flex justify-center items-center">
-          <div className="w-[95vw] h-[20vh] border-2 bg-[grey]"></div>
-        </div>
+        {/* Product Section */}
+        <ProductSection />
       </div>
     </>
   );
 }
 
-export default user;
+export default User;

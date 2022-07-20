@@ -15,13 +15,10 @@ import Explore from "./page/explore/main";
 function App() {
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
-  const theme = ["cupcake", "lofi","luxury"];
+  const theme = ["cupcake", "lofi", "luxury"];
 
   return (
-    <html
-      data-theme={theme[1]}
-      className="flex flex-col h-screen justify-between"
-    >
+    <html data-theme={theme[1]} className="flex flex-col justify-between">
       <BrowserRouter>
         <Head />
 
