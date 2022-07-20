@@ -1,4 +1,5 @@
 import React from "react";
+import ProductItem from "../elements/productItem";
 
 function ProductSection() {
   const onSaleSelect = "font-bold bg-[white] text-[black]";
@@ -24,9 +25,22 @@ function ProductSection() {
         </div>
         <div className="bg-[#00000022] h-[2px] mb-[50px]"></div>
         <div className="flex justify-center items-center">
-          <div className="w-[95vw] rounded-3xl border-2 border-[#00000020]">
+          <div className="rounded-3xl border-2 border-[#00000020]">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <ProductItem/>
+            </div>
             {/* Product items start at below */}
-            <div className="m-3 w-[300px] h-[600px] border-2 border-[#00000020] rounded-3xl flex flex-col items-center">
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default ProductSection;
+
+
+            /* <div className="m-3 w-[300px] h-[600px] border-2 border-[#00000020] rounded-3xl flex flex-col items-center">
               <div className="m-3 w-[260px] h-[350px]">
                 <img
                   className="rounded-2xl"
@@ -48,12 +62,4 @@ function ProductSection() {
                   <p>On Sale</p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
-
-export default ProductSection;
+            </div> */
