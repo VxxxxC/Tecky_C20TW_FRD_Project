@@ -1,11 +1,25 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, SyntheticEvent, useState } from 'react';
 import { Menu, Tabs } from 'react-daisyui';
 import useFetch from "react-fetch-hook";
 import useWindowDimensions from '../../hook/useWindowDimensions';
 import UniLoader from '../elements/loader';
 import UserProfileComponent from '../elements/UserProfileComponent';
+import UserProfileComponentTest from '../elements/UserProfileComponent_test';
 import "./main.scss"
 
+let items = [{
+  bg: "string",
+  icon: "string",
+  name : "string",
+  username: "string",
+  bio: "string"
+}, {
+  bg: "string",
+  icon: "string",
+  name : "string",
+  username: "string",
+  bio: "string"
+}]
 
 function Explore(){
     const { height, width } = useWindowDimensions();
@@ -13,6 +27,18 @@ function Explore(){
     const [filter2, setFilter2] = useState(0);
     const [MobileMenu, setMobileMenu] = useState(false);
     const [filterTest, setfilterTest] = useState([]);
+
+    // {Object.keys(items).map(item => ({
+    //   return()
+    // }))}
+    const listItems = items.map((item) => 
+    <UserProfileComponentTest bg={item.bg} icon={item.icon} name={item.name} username={item.username} bio={item.bio}/>
+    )
+
+        // const listItemsLazy = React.lazy(() :any => import ("../elements/UserProfileComponent_test"));
+
+
+
     const UsertProfile = React.lazy(() :any => 
     {  return new Promise(resolve => {
       setTimeout(() => resolve(import("../elements/UserProfileComponent")), 500);
@@ -56,7 +82,6 @@ function Explore(){
             </Tabs.Tab>
           </Tabs>
         </div>
-        {/* className="hover-bordered" */}
         <div className="grid grid-col-7 gap-4 px-5">
           <div className="p-3 col-start-1 col-end-2 max-w-[20rem]">
             {/* *************** filter *********************** */}
@@ -118,7 +143,7 @@ function Explore(){
                 <a>Not Verified</a>
               </li>
             </ul>
-            {/* *************** filter *********************** */}
+            {/* *************** UserProfile *********************** */}
           </div>
           <div className="col-start-2 col-end-8">
             <div className="grid grid-cols-3 gap-x-4 p-2">
@@ -186,8 +211,11 @@ function Explore(){
         <div className="min-h-[100vh]">
         <div className="m-5 p-5 flex flex-col">
         <Suspense fallback={<UniLoader />}>
-            <UsertProfile />
+            {/* <UsertProfile /> */}
+            {/* {listItems} */}
+            <UserProfileComponentTest bg="" icon="" name="" username="" bio=""/>
         </Suspense>
+        {listItems}
         </div>
         </div>
 
@@ -211,15 +239,15 @@ function Explore(){
             <div className="p-4 text-white ">
                 <span>Type</span>
                 <div className="mt-5 flex item-start">
-                    <input type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
+                    <input value={1} type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
                     <div>Creator</div>
                 </div>
                 <div className="mt-5 flex item-start">
-                    <input type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
+                    <input value={2} type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
                     <div>Collector</div>
                 </div>
                 <div className="mt-5 flex item-start">
-                    <input type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
+                    <input value={3} onClick={(e)=>{console.log(e.currentTarget.value);}} type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
                     <div>Other</div>
                 </div>
             </div>

@@ -8,7 +8,7 @@ function Category() {
     return(
         <div className="
         carousel carousel-start p-4 space-x-4 rounded-box
-        mt-6 h-96 text-primary-content text-center rounded-3xl drop-shadow-md border-2">
+        mt-6 h-96 text-primary-content text-center drop-shadow-md border-2">
             
             <CategoryItem/>
             <div className="carousel-item drop-shadow-md border-2">
