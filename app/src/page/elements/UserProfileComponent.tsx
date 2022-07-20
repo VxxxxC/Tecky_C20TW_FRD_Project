@@ -1,4 +1,5 @@
 import React from "react";
+import { Image } from "react-image-and-background-image-fade";
 
 function UserProfileComponent() {
   type profile = {
@@ -10,17 +11,23 @@ function UserProfileComponent() {
 
   let item = (
       <div className="flex mb-5 flex-col overflow-hidden rounded-xl shadow-xl">
-      <div className="relative block border-2 bg-primary">
-        <div className="object-cover h-[15rem]">
-          <img src="http://127.0.0.1:8080/img/1.jpeg" alt="" width="100%" />
+      <div className="relative block bg-primary">
+        <div className="h-[15rem]">
+        <div className="object-cover z-2">
+
+          <Image src="http://127.0.0.1:8080/img/1.jpeg" alt="" width="100%" height="100%" />
         </div>
-        <div className="absolute w-[96px] h-[96px]
+        </div>
+        <div className="z-50 absolute w-[96px] h-[96px] overflow-hidden
           bg-success rounded-full border-8 border-[white]
           -translate-y-[50%] translate-x-[15%] 
         ">
+        <div className="object-cover z-2">
+        <Image src="http://127.0.0.1:8080/img/2.jpeg" alt="" width="100%" height="100%" />
+        </div>
         </div>
       </div>
-      <div className="pt-10 px-6 pb-8 block">
+      <div className="z-30 pt-10 px-6 pb-8 block bg-[white]">
         <div className="text-3xl">Name</div>
         <div className="text-2xl">@xxx</div>
         <div className="text-lg">description</div>

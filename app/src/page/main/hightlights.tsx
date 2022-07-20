@@ -3,6 +3,7 @@ import ItemTest from "../elements/item_test";
 import { Image } from "react-image-and-background-image-fade";
 import useWindowDimensions from "../../hook/useWindowDimensions";
 import "./hightlights.scss";
+import ProductItem from "../elements/productItem";
 
 function Highlights() {
   const { height, width } = useWindowDimensions();
@@ -25,7 +26,7 @@ function Highlights() {
           Hightlights.
         </div>
         <div className="mobileCarouselStyle">
-          <ItemTest />
+          <ProductItem />
         </div>
       </div>
     </>
@@ -36,7 +37,7 @@ function Highlights() {
         Hightlights
       </div>
       <div className={desktopCarouselStyle}>
-        <ItemTest />
+        <ProductItem />
       </div>
     </div>
   );
