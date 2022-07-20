@@ -9,7 +9,7 @@ function UserProfileComponent() {
   }
 
   let item = (
-      <div className="flex flex-col overflow-hidden rounded-xl shadow-xl">
+      <div className="flex mb-5 flex-col overflow-hidden rounded-xl shadow-xl">
       <div className="relative block border-2 bg-primary">
         <div className="object-cover h-[15rem]">
           <img src="http://127.0.0.1:8080/img/1.jpeg" alt="" width="100%" />
