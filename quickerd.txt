@@ -6,6 +6,8 @@ id integer PK
 email varchar(255) unique
 password varchar(128)
 name varchar(128) NULL
+username varchar(128) NULL
+wallet_address varchar(255) NULL
 publickey varchar(255) NULL
 image varchar(255) NULL
 created_at timestamp
@@ -82,3 +84,8 @@ status enum('pending','finished','failed')
 product_type
 ----
 product_type_id integer PK 
+
+contribution
+------
+id integer PK
+contributor_id integer FK >- users.id

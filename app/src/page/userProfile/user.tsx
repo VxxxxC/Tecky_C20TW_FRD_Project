@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link, Routes } from "react-router-dom";
 import useWindowDimensions from "../../hook/useWindowDimensions";
+import CreateProduct from "./createProduct";
 import ProductSection from "./productSection";
+import useStorageState from "react-use-storage-state";
 import "./user.scss";
 
 function User() {
   const { height, width } = useWindowDimensions();
+
+  const [click, setClick] = useStorageState("createBios", "");
+
+  function changeBios() {
+    setClick("true");
+  }
+
+  const bios: any = useStorageState("createBios", "");
+  console.log(bios);
 
   const userAddress = "0x12bd534961a86dcf660dd3f3745ad6d4045eb77d";
 
@@ -73,10 +85,16 @@ function User() {
                 </a>
               </div>
             </div>
+            <button
+              onClick={changeBios}
+              className="m-5 h-[100px] w-[300px] border-[#F96248] border-2 text-[white] text-3xl bg-[#f96248b4] rounded-lg flex justify-center items-center transition ease-linear duration-150 hover:scale-110 hover:bg-[#F96248]"
+            >
+              <p>Create Product</p>
+            </button>
           </div>
         </div>
         {/* Product Section */}
-        <ProductSection />
+        {bios.createBios == "true" ? <CreateProduct /> : <ProductSection />}
       </div>
     </>
   );
