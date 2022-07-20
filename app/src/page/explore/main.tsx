@@ -12,6 +12,7 @@ function Explore(){
     const [filter, setFilter] = useState(1);
     const [filter2, setFilter2] = useState(0);
     const [MobileMenu, setMobileMenu] = useState(false);
+    const [filterTest, setfilterTest] = useState([]);
     const UsertProfile = React.lazy(() :any => 
     {  return new Promise(resolve => {
       setTimeout(() => resolve(import("../elements/UserProfileComponent")), 500);
@@ -22,6 +23,7 @@ function Explore(){
 
 
     return width > 600 ? (
+        // Desktop Version //
       <div className="mx-auto max-w-screen-2xl">
         <div className="flex mx-7 py-3">
           <Tabs
@@ -134,8 +136,10 @@ function Explore(){
         </div>
       </div>
     ) : (
+        // Mobile Version //
       <div>
         <div className="flex py-3 ">
+        {/* Top Tab */}
           <Tabs
             value={filter}
             className="cursor-default border-b-[1px] border-[#b0b0b0] w-full h-[3rem] font-mono font-medium shadow-xl"
@@ -165,10 +169,8 @@ function Explore(){
               Profiles
             </Tabs.Tab>
           </Tabs>
-          {/* <div className="">123</div> */}
-
-
-          <button
+        {/* filter button */}
+        <button
             onClick={() => {
               setMobileMenu(true);
             }}
@@ -179,91 +181,72 @@ function Explore(){
           >
             Filters
           </button>
+        {/* products brower */}
         </div>
         <div className="min-h-[100vh]">
         <div className="m-5 p-5 flex flex-col">
         <Suspense fallback={<UniLoader />}>
             <UsertProfile />
-          </Suspense>
-
+        </Suspense>
         </div>
-
         </div>
-
 
         {/* pop-up menu */}
-        <div
-          className={`${
-            MobileMenu ? "flex scale-up-ver-bottom" : "hidden scale-up-ver-bottom"
-          } mobile-menu z-[9999]
-        fixed top-[20vh] left-0 h-[80vh] w-[100vw] bg-base-100 text-primary font-mono font-medium
-        items-center justify-center rounded-3xl shadow-lg
-        `}
-        >
-          <button 
-        onClick={() => {
-                        setMobileMenu(false);
-                      }}
-          className="btn btn-primary rounded-full">x</button>
 
-<ul className="mb-5 menu bg-base-100 w-full rounded-md shadow-xl">
-              <span className="p-3 text-md text-content-secondary font-mono font-medium">
-                Type
-              </span>
-              <li
-                className={`${filter2 == 1 ? "border-b-2 bg-base-300" : ""}`}
-                onClick={() => {
-                  setFilter2(1);
-                }}
-              >
-                <a>Creator</a>
-              </li>
-              <li
-                className={`${filter2 == 2 ? "border-b-2 bg-base-300" : ""}`}
-                onClick={() => {
-                  setFilter2(2);
-                }}
-              >
-                <a>Collector</a>
-              </li>
-              <li
-                className={`${filter2 == 3 ? "border-b-2 bg-base-300" : ""}`}
-                onClick={() => {
-                  setFilter2(3);
-                }}
-              >
-                <a>Other</a>
-              </li>
-            </ul>
-            <ul className="mb-5 menu bg-base-100 w-full rounded-md shadow-xl">
-              <span className="p-3 text-md text-content-secondary font-mono font-medium">
-                Social Verification
-              </span>
-              <li
-                className={`${filter2 == 1 ? "border-b-2 bg-base-300" : ""}`}
-                onClick={() => {
-                  setFilter2(1);
-                }}
-              >
-                <a>Twitter</a>
-              </li>
-              <li
-                className={`${filter2 == 2 ? "border-b-2 bg-base-300" : ""}`}
-                onClick={() => {
-                  setFilter2(2);
-                }}
-              >
-                <a>Instagram</a>
-              </li>
-              <li
-                className={`${filter2 == 3 ? "border-b-2 bg-base-300" : ""}`}
-                onClick={() => {
-                  setFilter2(3);
-                }}
-              >
-                <a>Not Verified</a>
-              </li>
-            </ul>
+        <div
+          className={`${MobileMenu ? "flex scale-up-ver-bottom" : "hidden scale-up-ver-bottom"}
+            mobile-menu z-[9999] fixed top-[20vh] left-0 h-[80vh] w-[100vw] bg-base-100 text-primary font-mono font-medium
+            items-center justify-center rounded-3xl border-neutral-content border-[1px]
+            `}>
+        
+        <div className="grid grid-cols-1 text-center divide-y divide-[#b0b0b0] divide-dotted w-full p-5">
+        <div className="p-4 text-white ">
+            <div className="flex justify-between">
+            <div className="card-title">Filter</div>
+            <button 
+                onClick={() => {setMobileMenu(false)}}
+                className="btn btn-primary rounded-full">X</button>
+        </div>
+            </div>
+            <div className="p-4 text-white ">
+                <span>Type</span>
+                <div className="mt-5 flex item-start">
+                    <input type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
+                    <div>Creator</div>
+                </div>
+                <div className="mt-5 flex item-start">
+                    <input type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
+                    <div>Collector</div>
+                </div>
+                <div className="mt-5 flex item-start">
+                    <input type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
+                    <div>Other</div>
+                </div>
+            </div>
+            <div className="p-4 text-white ">
+                <span>Social Verification</span>
+                <div className="mt-5 flex item-start">
+                    <input type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
+                    <div>Twitter</div>
+                </div>
+                <div className="mt-5 flex item-start">
+                    <input type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
+                    <div>Instagram</div>
+                </div>
+                <div className="mt-5 flex item-start">
+                    <input type="checkbox" checked={false} className="mx-3 checkbox checkbox-sm rounded-md" /> 
+                    <div>Not Verified</div>
+                </div>
+            </div>
+            <div>
+                <button className="mt-5 btn btn-primary w-[80vw] rounded-lg">Save</button>
+            </div>
+        </div>
+
+
+
+
+
 
         </div>
       </div>
@@ -271,3 +254,6 @@ function Explore(){
 }
 
 export default Explore;
+
+
+
