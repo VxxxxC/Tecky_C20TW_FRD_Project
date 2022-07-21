@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import productSeed from '../stuff/product_seed.json';
+import productSeed from '../stuff/Unipiece_Product_0.json';
 import cateogrySeed from '../stuff/category.json';
 
 
@@ -11,13 +11,13 @@ export async function seed(knex: Knex): Promise<void> {
 
 
     // Insert Products
-    type ProductSeed =  {
-        "image": string,
-        "name": string,
-        "nft_address": string
-    }
+    // type ProductSeed =  {
+    //     "image": string,
+    //     "name": string,
+    //     "nft_address": string
+    // }
     
-    const seed : ProductSeed[] = productSeed
+    // const seed : ProductSeed[] = productSeed
 
     const content = `The Vekil Mosque, which was built by the founder of the Zend Dynasty, Kerim Khan Zend, to display the magnificence of his dynasty, has a different architectural plan with its two large courtyards. The mosaic work of the mosque's mihrab and the tile work of the inner courtyard are among the prominent features of the building.
 
@@ -39,22 +39,23 @@ export async function seed(knex: Knex): Promise<void> {
     }
 
 
-    for(let i of seed) {
+    for(let i of productSeed) {
         // i.name
         const randomCategory = getRandomInt(1, cateogrySeed.length)
 
         await knex("product").insert(
             {   name: i.name,
+                price: i.price,
+                type: i.type,
                 nft_address: i.nft_address,
                 image: i.image,
                 content: content,
                 quantity: 1,
                 status: 1,
-                created_at: timestamp,
-                updated_at: timestamp,
-                type: 1,
-                owner_id: 1,
-                category_id: randomCategory,
+                created_at: i.created_at,
+                updated_at: i.updated_at,
+                owner_id: i.owner_id,
+                category_id: i.category_id,
             }
         );
     }

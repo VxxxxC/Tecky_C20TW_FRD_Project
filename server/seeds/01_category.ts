@@ -11,7 +11,7 @@ export async function seed(knex: Knex): Promise<void> {
     // Insert Category
     for (let each of cateogrySeed){
         await knex("category").insert([
-            {name: each.name, updated_at: timestamp_primary, created_at: timestamp_primary},
+            {name: each.name},
         ]);
     }
 };
