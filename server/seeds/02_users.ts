@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import userSeed from '../stuff/users_seed_2.json';
+import userSeed from '../stuff/Unipiece_Users_0.json';
 
 export async function seed(knex: Knex): Promise<void> {
     // const pw1 = `$2b$12$V2H.h87uqNotL7ghOrt/bOEiSjTysL3WEpvW5yGKhqRb3rjvNNcWi`
@@ -8,17 +8,22 @@ export async function seed(knex: Knex): Promise<void> {
     await knex("users").del();
 
     for (let user of userSeed ){
+        
         await knex("users").insert(
             {      
                 email: user.email,
                 password: user.password,
                 name: user.name,
                 username: user.username,
-                publickey: user.publickey,
+                token_amount: user.token_amount,
                 wallet_address: user.wallet_address,
+                publickey: user.publickey,
                 image: user.image,
+                bg_image: user.bg_image,
                 created_at: user.created_at,
-                shipping_address: user.shipping_address
+                shipping_address: user.shipping_address,
+                style: user.style,
+                bio: user.bio
             }
         )
     }
