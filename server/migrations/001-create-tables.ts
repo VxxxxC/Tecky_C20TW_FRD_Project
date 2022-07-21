@@ -10,34 +10,24 @@ export async function up(knex: Knex): Promise<void> {
       table.string('username', 128).nullable()
       table.string('publickey', 255).nullable()
       table.string('wallet_address', 255).nullable()
+      table.integer('token_amount').nullable()
       table.string('image', 255).nullable()
+      table.string('bg_image', 255).nullable()
       table.timestamp('created_at').notNullable()
       table.string('shipping_address', 255).nullable()
-    })
-  }
-
-  if (!(await knex.schema.hasTable('user_profile'))) {
-    await knex.schema.createTable('user_profile', table => {
-      table.increments('id').unsigned().references('users.id')
       table.integer('style').nullable()
       table.text('bio').nullable()
-      table.timestamps(false, true)
     })
   }
 
-  if (!(await knex.schema.hasTable('product_type'))) {
-    await knex.schema.createTable('product_type', table => {
-      table.increments('product_type_id')
-      table.timestamps(false, true)
-    })
-  }
 
   if (!(await knex.schema.hasTable('series'))) {
     await knex.schema.createTable('series', table => {
       table.increments('id')
       table.string('name', 128).nullable()
       table.text('bio').nullable()
-      table.timestamps(false, true)
+      table.string('image', 255).nullable()
+      table.string('bg_image', 255).nullable()
     })
   }
 
@@ -45,7 +35,12 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('category', table => {
       table.increments('id')
       table.string('name', 255).notNullable()
-      table.timestamps(false, true)
+    })
+  }
+
+  if (!(await knex.schema.hasTable('contribution'))) {
+    await knex.schema.createTable('contribution', table => {
+      table.increments('id')
     })
   }
 
@@ -53,12 +48,15 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('product', table => {
       table.increments('id')
       table.string('name', 128).notNullable()
+      table.integer('price').notNullable()
+      table.enum('type', ['virtual', 'physical']).notNullable()
       table.string('nft_address', 255).nullable()
       table.string('image', 255).nullable()
       table.text('content').nullable()
       table.integer('quantity').nullable()
       table.integer('status').nullable()
-      table.timestamps(false, true)
+      table.timestamp('created_at').notNullable()
+      table.timestamp('updated_at').nullable()
     })
   }
 
@@ -84,7 +82,6 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('collection', table => {
       table.increments('id')
       table.string('name', 255).notNullable()
-      table.timestamps(false, true)
     })
   }
 }
