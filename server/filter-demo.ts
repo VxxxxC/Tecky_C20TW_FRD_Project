@@ -6,3 +6,4 @@ let items = [
 ]
 
 console.log(items.filter((item)=>item.price > 500))
+
