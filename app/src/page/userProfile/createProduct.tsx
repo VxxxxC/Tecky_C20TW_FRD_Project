@@ -16,14 +16,13 @@ function CreateProduct() {
   /********** Form Submit *********/
   const { handleSubmit }: any = useForm();
 
-  const onSubmit = async (e: { preventDefault: () => void }) => {
-    console.log({ product_type, price, name, content, credit_by });
-
-    e.preventDefault();
+  const onSubmit = async (e: any) => {
+    console.log({ image, product_type, price, name, content, credit_by });
 
     const response = await axios.post(
       "http://localhost:8080/user/create_product",
       {
+        image: image,
         product_type: product_type,
         product_price: price,
         product_name: name,
@@ -31,14 +30,25 @@ function CreateProduct() {
         credit_by: credit_by,
       }
     );
-    console.log(response);
+    console.log(response.data);
   };
   /******************************************************/
 
   /********** each Form input value by useState *********/
   // 1. image upload
+  const [image, setImage]: null | any = useState(null);
+  console.log(image);
+
+  // Image preview
+  const [preview, setPreview]: null | any = useState(null);
+  console.log(preview);
+
   function imageHandler(e: any): any {
-    console.log(e.target.files[0]);
+    const previewImg = URL.createObjectURL(e.target.files[0]);
+    const imgData = e.target.files[0].name;
+
+    setPreview(previewImg);
+    setImage(imgData);
   }
 
   // 2. Price
@@ -93,24 +103,31 @@ function CreateProduct() {
               Create New Product
             </div>
 
-            <div className="grid overflow- md grid-cols-3 auto-rows-auto gap-2 grid-flow-row ">
+            <div className="flex flex-col overflow md grid-cols-3 auto-rows-auto gap-2 grid-flow-row ">
               <div className="m-3 text-2xl font-bold">Upload image</div>
 
-              <label
-                htmlFor={"upload-image"}
-                className="col-start-1 col-end-4 h-[10rem] cursor-pointer hover:bg-[#f962483a] border-[#F96248] border-2 border-dashed rounded-3xl flex justify-center items-center"
-              >
-                <input
-                  id="upload-image"
-                  type="file"
-                  onChange={imageHandler}
-                  style={{ display: "none" }}
+              {preview ? (
+                <img
+                  className="m-10 object-cover border-[#F96248] border-2 border-dashed rounded-3xl flex justify-center items-center"
+                  src={preview}
                 />
-                <div className="w-[15rem] h-[4rem] border-2 bg-[#0000009a] text-[white] rounded-full flex flex-col justify-center items-center">
-                  <p>Click here to upload image</p>
-                  <p>Choose Your Product Pic! :)</p>
-                </div>
-              </label>
+              ) : (
+                <label
+                  htmlFor={"upload-image"}
+                  className="col-start-1 col-end-4 h-[10rem] cursor-pointer hover:bg-[#f962483a] border-[#F96248] border-2 border-dashed rounded-3xl flex justify-center items-center"
+                >
+                  <input
+                    id="upload-image"
+                    type="file"
+                    onChange={imageHandler}
+                    style={{ display: "none" }}
+                  />
+                  <div className="w-[15rem] h-[4rem] border-2 bg-[#0000009a] text-[white] rounded-full flex flex-col justify-center items-center">
+                    <p>Click here to upload image</p>
+                    <p>Choose Your Product Pic! :)</p>
+                  </div>
+                </label>
+              )}
 
               <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl font-bold flex items-center">
                 Product Type
@@ -194,7 +211,7 @@ function CreateProduct() {
 
               <button
                 type="submit"
-                className="col-start-1 mt-3 h-[3rem] p-5 hover:bg-[white] border-[white] bg-[#3EC8F9] hover:border-[#3EC8F9] text-[white] hover:text-[#3EC8F9] font-bold border-4 rounded-3xl flex justify-center items-center"
+                className="col-start-1 mt-10 h-[3rem] p-5 hover:bg-[white] border-[white] bg-[#3EC8F9] hover:border-[#3EC8F9] text-[white] hover:text-[#3EC8F9] font-bold border-4 rounded-3xl flex justify-center items-center"
               >
                 <p>Create Product!</p>
               </button>
