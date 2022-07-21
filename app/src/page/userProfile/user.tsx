@@ -4,18 +4,25 @@ import useWindowDimensions from "../../hook/useWindowDimensions";
 import CreateProduct from "./createProduct";
 import ProductSection from "./productSection";
 import useStorageState from "react-use-storage-state";
-import "./user.scss";
+import { useJWTPayload } from "../../hook/useToken";
 
 function User() {
   const { height, width } = useWindowDimensions();
 
-  const [click, setClick] = useStorageState("createBios", "");
+  const [click, setClick] = useStorageState("createBios", "false");
   const bios: any = useStorageState("createBios", "");
-  console.log(bios[0]);
+  console.log(bios);
 
   function changeBios() {
     setClick("true");
   }
+
+  const user_jwtToken = useStorageState("token", "");
+  console.log({ user_jwtToken });
+
+  const localStore = useJWTPayload();
+  const tokenInfo = localStore;
+  console.log({ tokenInfo });
 
   const userAddress = "0x12bd534961a86dcf660dd3f3745ad6d4045eb77d";
 
@@ -23,7 +30,7 @@ function User() {
     "btn-outline font-bold rounded-2xl flex justify-center items-center border-2 w-[120px] h-[40px] hover:btn-primary";
 
   const responsive = width < 800 ? true : false;
-  const webContainer = "flex justify-between w-[95vw]";
+  const webContainer = "flex justify-between";
   const mobileContainer = "block";
 
   return (
@@ -34,8 +41,8 @@ function User() {
           className="h-[35vh] w-[95vw] object-cover rounded-2xl"
           src="https://rarible.mypinata.cloud/ipfs/QmSwWeeDg3dNxnYoGfAjJnAJAEdYG7FMvtQzzkAEvH32m4"
         />
-        <div className="absolute right-0 desktop:bottom-2 mobile:top-2 rounded-2xl mobile:-translate-x-[10%] desktop:-translate-x-[20%] bg-[#80808071] w-[200px] h-[50px]">
-          Social Media button
+        <div className="absolute right-[5%] desktop:bottom-2 mobile:top-2 rounded-2xl bg-[#80808071] w-[300px] h-[50px] flex justify-center items-center">
+          Social Media button area
         </div>
       </div>
 
@@ -44,7 +51,7 @@ function User() {
           {/************** Top container *****************/}
           <div className={!responsive ? webContainer : mobileContainer}>
             {/************** Top left container *****************/}
-            <div className="m-5 h-[350px] w-[400px]  mobile:-translate-y-[30%] desktop:-translate-y-[30%] rounded-2xl flex flex-col">
+            <div className="m-5 h-[350px] w-[400px] -translate-y-[30%] rounded-2xl flex flex-col">
               <div className="m-5 space-y-5">
                 <div className="rounded-full border-8 border-[white] w-[150px] h-[150px] flex justify-center items-center bg-[#80808044]">
                   {/* User picture */}
@@ -64,8 +71,8 @@ function User() {
               </div>
             </div>
             {/************** Top right container *****************/}
-            <div className=" h-[400px] w-[400px rounded-2xl flex flex-col text-sm">
-              <div className="m-5 rounded-3xl border-[#01010139] border-2 w-[300px] h-[250px] p-5 flex flex-col justify-between">
+            <div className="-translate-x-[10%] rounded-2xl flex flex-col text-base">
+              <div className="m-5 rounded-3xl border-[#01010139] border-2 w-[400px] h-[250px] p-5 flex flex-col justify-between">
                 <div className="flex flex-row justify-between">
                   <p>FOLLOWER</p>
                   <p>100</p>
@@ -79,7 +86,7 @@ function User() {
                   <a
                     href="https://etherscan.io/"
                     target="popup"
-                    className="w-[15vw] truncate"
+                    className="w-[10vw] truncate"
                   >
                     {userAddress}
                   </a>
@@ -87,7 +94,7 @@ function User() {
               </div>
               <button
                 onClick={changeBios}
-                className="m-5 h-[100px] w-[300px] border-[#F96248] border-2 text-[white] text-3xl bg-[#f96248b4] rounded-lg flex justify-center items-center transition ease-linear duration-150 hover:scale-110 hover:bg-[#F96248]"
+                className="m-5 h-[100px]  border-[#F96248] border-2 text-[white] text-3xl bg-[#f96248b4] rounded-lg flex justify-center items-center transition ease-linear duration-150 hover:scale-110 hover:bg-[#F96248]"
               >
                 <p>Create Product</p>
               </button>

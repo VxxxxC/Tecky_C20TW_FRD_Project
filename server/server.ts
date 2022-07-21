@@ -4,6 +4,7 @@ import cors from 'cors'
 import { client } from "./db"
 import { loginRoute } from './loginRoute'
 import { signUpRoute } from './signupRoute'
+import { userRoute } from './userRoute'
 
 
 export let app = express()
@@ -16,6 +17,7 @@ app.use(express.json());
 /* ----------------Express Auth Router------------ */
 app.use('/login', loginRoute)
 app.use('/signup', signUpRoute)
+app.use('/user', userRoute)
 /* ----------------------------------------------- */
 
 type req = express.Request

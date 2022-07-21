@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { env } from './env';
 import { knex } from './knex'; /* MUST BE very careful !!! don't import "knex" , will cause sqlite error !! IT IS import "{knex}" !! from knex.ts <- knexfile.ts */
 
-export let signUpRoute = express.Router();
+export const signUpRoute = express.Router();
 
 
 /******************* Signup Form **********************/

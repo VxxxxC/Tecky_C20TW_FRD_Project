@@ -1,12 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import style from "./menulist.module.scss";
 
 function Menulist() {
+  const navigate = useNavigate();
   return (
     <>
-      <div className={style.menulist}>
+      <button onClick={() => navigate("/user")} className={style.menulist}>
         <p className={style.ListItem}>Profile</p>
-      </div>
+      </button>
       <div className={style.menulist}>
         <p className={style.ListItem}>Explore</p>
       </div>

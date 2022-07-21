@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import useStorageState from "react-use-storage-state";
 
 function CreateProduct() {
@@ -11,17 +13,53 @@ function CreateProduct() {
   const bios: any = useStorageState("createBios", "");
   console.log(bios[0]);
 
-  const [value, setValue] = useState("");
+  /********** Form Submit *********/
+  const { handleSubmit }: any = useForm();
 
-  const handleChange = (event: { target: { value: string } }) => {
-    const result = event.target.value.replace(/\D/g, "");
+  const onSubmit = async (e: { preventDefault: () => void }) => {
+    console.log({ product_type, price, name, content, credit_by });
 
-    setValue(result);
+    e.preventDefault();
+
+    const response = await axios.post(
+      "http://localhost:8080/user/create_product",
+      {
+        product_type: product_type,
+        product_price: price,
+        product_name: name,
+        content: content,
+        credit_by: credit_by,
+      }
+    );
+    console.log(response);
   };
+  /******************************************************/
 
-  console.log(value);
-  console.log(typeof value);
-  console.log(Number(value));
+  /********** each Form input value by useState *********/
+  // 1. image upload
+  function imageHandler(e: any): any {
+    console.log(e.target.files[0]);
+  }
+
+  // 2. Price
+  const [price, setPrice] = useState("");
+
+  //3. Product Name
+  const [name, setName] = useState("");
+
+  //4. Description
+  const [content, setContent] = useState("");
+
+  //5. Product type
+  const [product_type, setProduct_type] = useState("");
+
+  //6. Alternative text
+  const [credit_by, setCredit_by] = useState("");
+
+  useEffect(() => {
+    console.log({ product_type, price, name, content, credit_by });
+  }, [product_type, price, name, content, credit_by]);
+  /******************************************************/
 
   return (
     <>
@@ -48,37 +86,86 @@ function CreateProduct() {
 
       <div className="mx-10">
         <div className="bg-[#00000022] h-[2px] mb-[50px]"></div>
-        <div className="w-[90vw] border-[black] border-2 bg-[#0000001d] p-10">
+        <div className="w-[90vw] bg-[#00000035] rounded-3xl p-10">
           {/* create product from start from here! */}
-          <form>
-            <div className="w-[17rem] text-[white] text-3xl bg-[black]">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="w-[17rem] text-[white] text-3xl bg-[grey] rounded-3xl flex justify-center items-center">
               Create New Product
             </div>
 
             <div className="grid overflow- md grid-cols-3 auto-rows-auto gap-2 grid-flow-row ">
-              <div className="m-3 text-2xl font-bold">Upload file</div>
-              <div className="col-start-1 col-end-4 h-[10rem] border-[#F96248] border-2 border-dashed rounded-3xl flex justify-center items-center">
-                <div className="w-[15rem] h-[3rem] border-2 bg-[#0000009a] text-[white] rounded-full flex justify-center items-center">
-                  Choose Your Product Pic! :)
+              <div className="m-3 text-2xl font-bold">Upload image</div>
+
+              <label
+                htmlFor={"upload-image"}
+                className="col-start-1 col-end-4 h-[10rem] cursor-pointer hover:bg-[#f962483a] border-[#F96248] border-2 border-dashed rounded-3xl flex justify-center items-center"
+              >
+                <input
+                  id="upload-image"
+                  type="file"
+                  onChange={imageHandler}
+                  style={{ display: "none" }}
+                />
+                <div className="w-[15rem] h-[4rem] border-2 bg-[#0000009a] text-[white] rounded-full flex flex-col justify-center items-center">
+                  <p>Click here to upload image</p>
+                  <p>Choose Your Product Pic! :)</p>
                 </div>
+              </label>
+
+              <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl font-bold flex items-center">
+                Product Type
+                <span className="text-[red] text-xl font-normal">
+                  (*required)
+                </span>
               </div>
-              <div className="m-3 text-2xl font-bold">Price</div>
+              <select
+                value={product_type}
+                onChange={(e) => setProduct_type(e.target.value)}
+                defaultValue={product_type}
+                className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
+                required
+              >
+                <option disabled selected>
+                  Virtual or Physical?
+                </option>
+                <option>virtual</option>
+                <option>physical</option>
+              </select>
+
+              <div className="w-[30rem] m-3 text-2xl font-bold flex items-center">
+                Price
+                <span className="text-[red] text-xl font-normal">
+                  (*required)
+                </span>
+              </div>
               <input
                 type="text"
                 placeholder="Enter Price for one piece"
-                value={value}
-                onChange={handleChange}
+                value={price}
+                onChange={(e) =>
+                  setPrice(e.target.value.replace(/([^0-9.]+)/, ""))
+                }
                 className="col-start-1 col-end-4 h-[3rem] p-5 hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
+                required
               />
-              <div className="m-3 text-2xl font-bold">Product Name</div>
 
+              <div className="w-[30rem] m-3 text-2xl font-bold flex items-center">
+                Product Name
+                <span className="text-[red] text-xl font-normal">
+                  (*required)
+                </span>
+              </div>
               <input
                 type="text"
-                placeholder="Enter Name for your piece :)"
+                placeholder="Name your piece :)"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="col-start-1 col-end-4 h-[3rem] p-5 hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
+                required
               />
+
               <div className="m-3 text-2xl font-bold flex items-center">
-                Description
+                Content/Description
                 <span className="text-[grey] text-xl font-normal">
                   (Optional)
                 </span>
@@ -86,45 +173,22 @@ function CreateProduct() {
               <input
                 type="text"
                 placeholder="Tell us the story of piece :)"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
                 className="col-start-1 col-end-4 h-[3rem] p-5 hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
-              />
-              <div className="m-3 text-2xl font-bold flex items-center">
-                Properties
-                <span className="text-[grey] text-xl font-normal">
-                  (Optional)
-                </span>
-              </div>
-              <input
-                type="text"
-                placeholder="e.g. Size"
-                className="col-start-1 col-end-2 h-[3rem] p-5 hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
-              />
-              <input
-                type="text"
-                placeholder="e.g. Large"
-                className="col-start-2 col-end-3 h-[3rem] p-5 hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
               />
 
-              <div className="col-start-1 col-end-1 m-3 text-2xl font-bold flex items-center">
-                Materials
-                <span className="text-[grey] text-xl font-normal">
-                  (Optional)
-                </span>
-              </div>
-              <input
-                type="text"
-                placeholder="e.g. Leather"
-                className="col-start-1 col-end-4 h-[3rem] p-5 hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
-              />
               <div className="col-start-1 col-end-1 m-3 w-[30rem] text-2xl font-bold flex items-center">
-                Alternative text for piece
+                Credit By / Alternative text
                 <span className="text-[grey] text-xl font-normal">
                   (Optional)
                 </span>
               </div>
               <input
                 type="text"
-                placeholder="e.g. Leave some message to attach on your piece <3"
+                placeholder="Credit someone or Leave some message to attach on your piece <3"
+                value={credit_by}
+                onChange={(e) => setCredit_by(e.target.value)}
                 className="col-start-1 col-end-4 h-[3rem] p-5 hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
               />
 
