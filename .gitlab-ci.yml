@@ -16,8 +16,8 @@ variables:
   WEB_SERVER_ROOT: server
   WEB_SERVER_NAME: Unipiece
 
-testing:
-  stage: testing
+build:
+  stage: build
 
   services:
     - postgres:14.3-alpine
@@ -25,22 +25,12 @@ testing:
   artifacts:
     paths:
       - $WEB_SERVER_ROOT/node_modules
+      - $WEB_SERVER_ROOT/dist
 
   before_script:
     - pwd
     - npm i -g pnpm
     - pnpm i
-
-build:
-  stage: build
-  dependencies:
-    - testing
-
-  artifacts:
-    paths:
-      - $WEB_SERVER_ROOT/dist
-
-  before_script:
     - cd $WEB_SERVER_ROOT
     - npm install
 
