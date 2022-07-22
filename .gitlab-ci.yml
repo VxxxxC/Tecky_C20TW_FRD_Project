@@ -24,7 +24,6 @@ build:
   artifacts:
     paths:
       - $WEB_SERVER_ROOT/node_modules
-      - $WEB_SERVER_ROOT/dist
 
   before_script:
     - pwd
