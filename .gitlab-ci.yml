@@ -31,9 +31,6 @@ testing:
     - npm i -g pnpm
     - pnpm i
 
-  # script:
-  #   - npm test
-
 build:
   stage: build
   dependencies:
