@@ -59,7 +59,6 @@ deploy:
     - cat ~/.ssh/config
     - pwd
     - ls -la
-    - cd $WEB_SERVER_ROOT
 
   script:
     - rsync -SavLP dist "server:$PROJECT_ROOT/$WEB_SERVER_ROOT"
