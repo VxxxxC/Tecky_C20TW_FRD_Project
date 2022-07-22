@@ -12,9 +12,9 @@ variables:
   POSTGRES_HOST: postgres
   SERVER_HOST: 44.209.198.71
   SERVER_USER: bad_project
-  PROJECT_ROOT: ~/Unipeice-FRD-Project
+  PROJECT_ROOT: ~/unipeice-FRD-Project
   WEB_SERVER_ROOT: server
-  WEB_SERVER_NAME: Unipiece
+  WEB_SERVER_NAME: unipeice-frd-project/
 
 testing:
   services:
@@ -25,6 +25,7 @@ testing:
       - $WEB_SERVER_ROOT/node_modules
 
   before_script:
+    - pwd
     - cd $WEB_SERVER_NAME
     - npm i -g pnpm
     - pnpm i
