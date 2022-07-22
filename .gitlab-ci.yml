@@ -17,6 +17,8 @@ variables:
   WEB_SERVER_NAME: Unipiece
 
 testing:
+  stage: testing
+
   services:
     - postgres:14.3-alpine
 
@@ -29,9 +31,8 @@ testing:
     - npm i -g pnpm
     - pnpm i
 
-  stage: testing
-  script:
-    - npm test
+  # script:
+  #   - npm test
 
 build:
   stage: build
