@@ -3,7 +3,7 @@ import { productRoute } from './products'
 import cors from 'cors'
 import { client } from "./db"
 import { loginRoute } from './loginRoute'
-import { signUpRoute } from './signupRoute'
+import { signUpRoute } from './signUpRoute'
 import { userRoute } from './userRoute'
 
 
