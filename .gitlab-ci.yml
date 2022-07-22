@@ -13,7 +13,7 @@ variables:
   SERVER_HOST: 44.209.198.71
   SERVER_USER: bad_project
   PROJECT_ROOT: ~/unipeice-FRD-Project
-  WEB_SERVER_ROOT: /server
+  WEB_SERVER_ROOT: server
   WEB_SERVER_NAME: Unipiece
 
 build:
@@ -31,6 +31,7 @@ build:
     - pwd
     - npm i -g pnpm
     - pnpm i
+    - ls -a
     - cd $WEB_SERVER_ROOT
     - npm install
 
