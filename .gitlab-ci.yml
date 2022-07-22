@@ -14,7 +14,7 @@ variables:
   SERVER_USER: bad_project
   PROJECT_ROOT: ~/unipeice-FRD-Project
   WEB_SERVER_ROOT: server
-  WEB_SERVER_NAME: unipeice-frd-project/
+  WEB_SERVER_NAME: Unipiece
 
 testing:
   services:
@@ -26,7 +26,6 @@ testing:
 
   before_script:
     - pwd
-    - cd $WEB_SERVER_NAME
     - npm i -g pnpm
     - pnpm i
 
