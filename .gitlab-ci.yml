@@ -58,6 +58,7 @@ deploy:
     - echo "  IdentityFile ~/.ssh/id_rsa " >> ~/.ssh/config
     - cat ~/.ssh/config
     - pwd
+    - cd $WEB_SERVER_ROOT
     - ls -la
 
   script:
