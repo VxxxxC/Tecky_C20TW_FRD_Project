@@ -11,7 +11,7 @@ variables:
   POSTGRES_PASSWORD: postgres
   POSTGRES_HOST: postgres
   SERVER_HOST: 44.209.198.71
-  SERVER_USER: bad_project
+  SERVER_USER: ubuntu
   PROJECT_ROOT: ~/unipeice-FRD-Project
   WEB_SERVER_ROOT: server
   WEB_SERVER_NAME: Unipiece
