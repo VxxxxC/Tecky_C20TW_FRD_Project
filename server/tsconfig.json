@@ -1,8 +1,22 @@
 {
   "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES6",
+    "lib": ["es6", "dom"],
+    "sourceMap": false,
+    "allowJs": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "moduleResolution": "node",
     "jsx": "react",
     "outDir": "dist"
-  }
+  },
+  "exclude": [
+    //
+    "public",
+    "node_modules",
+    "dist",
+    "scripts",
+    "index.js"
+  ]
 }
