@@ -1,7 +1,6 @@
 image: node:16.15.0-slim
 
 stages:
-  - testing
   - build
   - deploy
 
