@@ -62,6 +62,7 @@ deploy:
     - ls -la
 
   script:
+    - pwd
     - rsync -SavLP dist "server:$PROJECT_ROOT/$WEB_SERVER_ROOT"
     - ssh server "
       source ~/.nvm/nvm.sh &&
