@@ -36,6 +36,7 @@ build:
     - npm install
 
   script:
+    - ls -a
     - npm run build
 
 deploy:
