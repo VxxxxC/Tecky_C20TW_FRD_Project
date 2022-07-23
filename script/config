@@ -1,0 +1,5 @@
+text="Deployment being start..."
+
+PROJECT_ROOT="unipeice-frd-project"
+SERVER_ROOT="server"
+REACT_ROOT="app"
