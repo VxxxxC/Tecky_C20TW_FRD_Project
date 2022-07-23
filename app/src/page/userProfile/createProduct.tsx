@@ -96,15 +96,17 @@ function CreateProduct() {
 
       <div className="mx-10">
         <div className="bg-[#00000022] h-[2px] mb-[50px]"></div>
-        <div className="w-[90vw] bg-[#00000035] rounded-3xl p-10">
+        <div className="bg-[#00000035] rounded-3xl p-2">
           {/* create product from start from here! */}
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="w-[17rem] text-[white] text-3xl bg-[grey] rounded-3xl flex justify-center items-center">
+            <div className="w-[17rem] text-[white] text-3xl mobile:text-xl bg-[grey] rounded-3xl flex justify-center items-center">
               Create New Product
             </div>
 
             <div className="flex flex-col overflow md grid-cols-3 auto-rows-auto gap-2 grid-flow-row ">
-              <div className="m-3 text-2xl font-bold">Upload image</div>
+              <div className="m-3 text-2xl mobile:text-lg font-bold">
+                Upload image
+              </div>
 
               {preview ? (
                 <img
@@ -122,16 +124,16 @@ function CreateProduct() {
                     onChange={imageHandler}
                     style={{ display: "none" }}
                   />
-                  <div className="w-[15rem] h-[4rem] border-2 bg-[#0000009a] text-[white] rounded-full flex flex-col justify-center items-center">
+                  <div className="w-[15rem] h-[4rem] mobile:text-sm border-2 bg-[#0000009a] text-[white] rounded-full flex flex-col justify-center items-center">
                     <p>Click here to upload image</p>
                     <p>Choose Your Product Pic! :)</p>
                   </div>
                 </label>
               )}
 
-              <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl font-bold flex items-center">
+              <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Product Type
-                <span className="text-[red] text-xl font-normal">
+                <span className="text-[red] text-xl mobile:text-base font-normal">
                   (*required)
                 </span>
               </div>
@@ -139,7 +141,7 @@ function CreateProduct() {
                 value={product_type}
                 onChange={(e) => setProduct_type(e.target.value)}
                 defaultValue={product_type}
-                className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
+                className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl mobile:text-lg hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
                 required
               >
                 <option disabled selected>
@@ -149,9 +151,9 @@ function CreateProduct() {
                 <option>physical</option>
               </select>
 
-              <div className="w-[30rem] m-3 text-2xl font-bold flex items-center">
+              <div className="w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Price
-                <span className="text-[red] text-xl font-normal">
+                <span className="text-[red] text-xl mobile:text-lg font-normal">
                   (*required)
                 </span>
               </div>
@@ -166,9 +168,9 @@ function CreateProduct() {
                 required
               />
 
-              <div className="w-[30rem] m-3 text-2xl font-bold flex items-center">
+              <div className="w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Product Name
-                <span className="text-[red] text-xl font-normal">
+                <span className="text-[red] text-xl mobile:text-lg font-normal">
                   (*required)
                 </span>
               </div>
@@ -181,9 +183,9 @@ function CreateProduct() {
                 required
               />
 
-              <div className="m-3 text-2xl font-bold flex items-center">
+              <div className="m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Content/Description
-                <span className="text-[grey] text-xl font-normal">
+                <span className="text-[grey] text-xl mobile:text-lg font-normal">
                   (Optional)
                 </span>
               </div>
@@ -195,9 +197,9 @@ function CreateProduct() {
                 className="col-start-1 col-end-4 h-[3rem] p-5 hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
               />
 
-              <div className="col-start-1 col-end-1 m-3 w-[30rem] text-2xl font-bold flex items-center">
+              <div className="col-start-1 col-end-1 m-3 w-[30rem] mobile:w-[15rem] text-2xl mobile:text-lg font-bold flex items-center flex-wrap">
                 Credit By / Alternative text
-                <span className="text-[grey] text-xl font-normal">
+                <span className="text-[grey] text-xl mobile:text-lg font-normal">
                   (Optional)
                 </span>
               </div>

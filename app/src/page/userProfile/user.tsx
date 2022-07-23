@@ -30,8 +30,8 @@ function User() {
     "btn-outline font-bold rounded-2xl flex justify-center items-center border-2 w-[120px] h-[40px] hover:btn-primary";
 
   const responsive = width < 800 ? true : false;
-  const webContainer = "flex justify-between";
-  const mobileContainer = "block";
+  const webContainer = "flex justify-between p-10";
+  const mobileContainer = "block max-w-[800px]";
 
   return (
     <>
@@ -71,8 +71,8 @@ function User() {
               </div>
             </div>
             {/************** Top right container *****************/}
-            <div className="-translate-x-[10%] rounded-2xl flex flex-col text-base">
-              <div className="m-5 rounded-3xl border-[#01010139] border-2 w-[400px] h-[250px] p-5 flex flex-col justify-between">
+            <div className="rounded-2xl flex flex-col text-base">
+              <div className="m-5 rounded-3xl border-[#01010139] border-2 w-[350px] h-[250px] p-5 flex flex-col justify-between">
                 <div className="flex flex-row justify-between">
                   <p>FOLLOWER</p>
                   <p>100</p>
@@ -86,7 +86,7 @@ function User() {
                   <a
                     href="https://etherscan.io/"
                     target="popup"
-                    className="w-[10vw] truncate"
+                    className="w-[15vw] truncate"
                   >
                     {userAddress}
                   </a>
