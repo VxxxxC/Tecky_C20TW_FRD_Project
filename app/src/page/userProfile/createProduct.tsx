@@ -32,7 +32,16 @@ function CreateProduct() {
   const { handleSubmit }: any = useForm();
 
   const onSubmit = async (e: any) => {
-    console.log({ image, product_type, price, name, content, credit_by });
+    console.log({
+      image,
+      product_type,
+      category,
+      price,
+      name,
+      series,
+      content,
+      credit_by,
+    });
 
     // let formData = new FormData();
 
@@ -56,8 +65,10 @@ function CreateProduct() {
       {
         image: image,
         product_type: product_type,
+        product_category: category,
         product_price: price,
         product_name: name,
+        product_series: series,
         content: content,
         credit_by: credit_by,
       }
@@ -94,6 +105,10 @@ function CreateProduct() {
 
   //5. Product type
   const [product_type, setProduct_type] = useState("");
+  //5. Series type
+  const [series, setSeries] = useState("");
+  //5. Product type
+  const [category, setCategory] = useState("");
 
   //6. Alternative text
   const [credit_by, setCredit_by] = useState("");
@@ -184,15 +199,15 @@ function CreateProduct() {
               </select>
 
               <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
-                Product Type
+                Product Category
                 <span className="text-[red] text-xl mobile:text-base font-normal">
                   (*required)
                 </span>
               </div>
               <select
-                value={product_type}
-                onChange={(e) => setProduct_type(e.target.value)}
-                defaultValue={product_type}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                defaultValue={category}
                 className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl mobile:text-lg hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
                 required
               >
@@ -220,24 +235,6 @@ function CreateProduct() {
                 required
               />
 
-              <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
-                Product Type
-                <span className="text-[red] text-xl mobile:text-base font-normal">
-                  (*required)
-                </span>
-              </div>
-              <select
-                value={product_type}
-                onChange={(e) => setProduct_type(e.target.value)}
-                defaultValue={product_type}
-                className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl mobile:text-lg hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
-                required
-              >
-                <option disabled selected></option>
-                <option>virtual</option>
-                <option>physical</option>
-              </select>
-
               <div className="w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Product Name
                 <span className="text-[red] text-xl mobile:text-lg font-normal">
@@ -252,6 +249,27 @@ function CreateProduct() {
                 className="col-start-1 col-end-4 h-[3rem] p-5 hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
                 required
               />
+
+              <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
+                Series
+                <span className="text-[grey] text-xl mobile:text-base font-normal">
+                  (Optional)
+                </span>
+              </div>
+              <select
+                value={series}
+                onChange={(e) => setSeries(e.target.value)}
+                defaultValue={series}
+                className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl mobile:text-lg hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
+                required
+              >
+                <option disabled selected>
+                  Pick Your Series
+                </option>
+                <option>NONE</option>
+                <option>Series1</option>
+                <option>Series2</option>
+              </select>
 
               <div className="m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Content/Description

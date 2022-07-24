@@ -20,9 +20,8 @@ loginRoute.post('/', async (req, res) => {
    let verifyUser = await knex('users').select("*").where("email", email).first();
    console.log({ verifyUser })
 
-   const userId: string = verifyUser.id
-
    if (verifyUser) {
+      const userId: string = verifyUser.id
       const comparePassword = await bcrypt.compare(password, verifyUser.password);
       // console.log(comparePassword)
       if (comparePassword) {
@@ -36,6 +35,7 @@ loginRoute.post('/', async (req, res) => {
             },
             (err, token) => {
                if (err) {
+                  console.log("sign failed : ", err)
                   return res.status(500).json({ err });
                } else {
                   console.log({ Login: 'success', JWTtoken: token })
@@ -46,9 +46,11 @@ loginRoute.post('/', async (req, res) => {
 
 
       } else {
+         console.log("login fail , wrong password")
          return res.status(401).json({ Login: 'fail', msg: "Wrong Password" })
       }
    } else {
+      console.log("login in fail , user does not exist")
       return res.status(401).json({ Login: 'fail', msg: "User doesn't existed" })
    }
 })

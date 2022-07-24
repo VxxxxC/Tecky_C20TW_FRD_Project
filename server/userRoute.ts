@@ -34,16 +34,20 @@ userRoute.post('/create_product', async (req, res) => {
     const {
         image,
         product_type,
+        product_category,
         product_price,
         product_name,
+        product_series,
         content,
         credit_by
     } = req.body
 
     console.log(image,
         product_type,
+        product_category,
         product_price,
         product_name,
+        product_series,
         content,
         credit_by)
 
