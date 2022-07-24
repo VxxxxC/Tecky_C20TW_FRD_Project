@@ -9,17 +9,17 @@ function Menulist() {
 
   /*********** check user login token and get user id for url params **************/
   const user_jwtToken = useStorageState("token", "");
-  console.log({ user_jwtToken });
+  // console.log({ user_jwtToken });
 
   const localStore: any = useJWTPayload();
   const tokenInfo = localStore;
-  console.log({ tokenInfo });
+  // console.log({ tokenInfo });
 
   const userId = tokenInfo?.userId;
-  console.log(userId);
+  // console.log(userId);
 
   const userEmail = tokenInfo?.email;
-  console.log(userEmail);
+  // console.log(userEmail);
 
   return (
     <>

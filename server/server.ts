@@ -25,7 +25,7 @@ type req = express.Request
 type res = express.Response
 
 app.get('/', function (req, res) {
-  res.end('Hello World')
+  res.end('Unipiece EC2 Server index')
 })
 
 app.get("test", (req, res) => {

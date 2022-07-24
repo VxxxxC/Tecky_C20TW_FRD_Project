@@ -2,8 +2,23 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useStorageState from "react-use-storage-state";
+import { useJWTPayload } from "../../hook/useToken";
 
 function CreateProduct() {
+  /*********** check user login token and get user id for url params **************/
+  const user_jwtToken = useStorageState("token", "");
+  // console.log({ user_jwtToken });
+
+  const localStore: any = useJWTPayload();
+  const tokenInfo = localStore;
+  // console.log({ tokenInfo });
+
+  const userId = tokenInfo?.userId;
+  // console.log(userId);
+
+  const userEmail = tokenInfo?.email;
+  // console.log(userEmail);
+
   const [click, setClick] = useStorageState("createBios", "");
 
   function changeBios() {
@@ -35,6 +50,7 @@ function CreateProduct() {
     //   }
     // );
 
+    // FIXME: also need passing userId input , for reference product related to user
     const response = await axios.post(
       "http://localhost:8080/user/create_product",
       {
@@ -167,6 +183,26 @@ function CreateProduct() {
                 <option>physical</option>
               </select>
 
+              <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
+                Product Type
+                <span className="text-[red] text-xl mobile:text-base font-normal">
+                  (*required)
+                </span>
+              </div>
+              <select
+                value={product_type}
+                onChange={(e) => setProduct_type(e.target.value)}
+                defaultValue={product_type}
+                className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl mobile:text-lg hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
+                required
+              >
+                <option disabled selected>
+                  Category
+                </option>
+                <option>Cat.1</option>
+                <option>Cat.2</option>
+              </select>
+
               <div className="w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Price
                 <span className="text-[red] text-xl mobile:text-lg font-normal">
@@ -183,6 +219,24 @@ function CreateProduct() {
                 className="col-start-1 col-end-4 h-[3rem] p-5 hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
                 required
               />
+
+              <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
+                Product Type
+                <span className="text-[red] text-xl mobile:text-base font-normal">
+                  (*required)
+                </span>
+              </div>
+              <select
+                value={product_type}
+                onChange={(e) => setProduct_type(e.target.value)}
+                defaultValue={product_type}
+                className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl mobile:text-lg hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
+                required
+              >
+                <option disabled selected></option>
+                <option>virtual</option>
+                <option>physical</option>
+              </select>
 
               <div className="w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Product Name

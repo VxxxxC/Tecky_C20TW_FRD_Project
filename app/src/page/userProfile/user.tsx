@@ -13,8 +13,11 @@ function User() {
       .post(`http://localhost:8080/user/${userId}`)
       .then(function (response) {
         if (response.status == 200) {
-          console.log("fetch success :", response.data);
-          //handle success here
+          console.log(
+            "fetch success! Your tokenID matching with this profile is :",
+            response.data
+          );
+          //handle success here TODO: to define owner function and visitor function in profile page
           const viewerIsOwner = response.data;
         }
       })
@@ -28,7 +31,7 @@ function User() {
 
   const [click, setClick] = useStorageState("createBios", "false");
   const bios: any = useStorageState("createBios", "");
-  console.log(bios);
+  // console.log(bios);
 
   function changeBios() {
     setClick("true");
@@ -36,17 +39,17 @@ function User() {
 
   /*********** check user login token and get user id for url params **************/
   const user_jwtToken = useStorageState("token", "");
-  console.log({ user_jwtToken });
+  // console.log({ user_jwtToken });
 
   const localStore: any = useJWTPayload();
   const tokenInfo = localStore;
-  console.log({ tokenInfo });
+  // console.log({ tokenInfo });
 
   const userId = tokenInfo?.userId;
-  console.log(userId);
+  // console.log(userId);
 
   const userEmail = tokenInfo?.email;
-  console.log(userEmail);
+  // console.log(userEmail);
 
   // const response = axios.get(`/user/${userId}`);
   // response.then((res: any) => {
