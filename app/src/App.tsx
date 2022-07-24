@@ -11,11 +11,36 @@ import ProductProfile from "./page/product/profile";
 import User from "./page/userProfile/user";
 import { BlurMenu } from "./hook/useBlur";
 import Explore from "./page/explore/main";
+import useStorageState from "react-use-storage-state";
+import { useJWTPayload } from "./hook/useToken";
 
 function App() {
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
   const theme = ["cupcake", "lofi", "luxury"];
+
+  /*********** check user login token and get user id for url params **************/
+  const user_jwtToken = useStorageState("token", "");
+  console.log({ user_jwtToken });
+
+  const localStore: any = useJWTPayload();
+  const tokenInfo = localStore;
+  console.log({ tokenInfo });
+
+  const userId = tokenInfo?.userId;
+  console.log(userId);
+
+  const userEmail = tokenInfo?.email;
+  console.log(userEmail);
+
+  // const response = axios.post(`/user/${userId}`, {
+  //   headers: { Authorization: `Bearer${tokenInfo}` },
+  // });
+  // response.then((res: any) => {
+  //   console.log(res);
+  // });
+
+  /********************************************************************************/
 
   return (
     <html data-theme={theme[1]} className="flex flex-col justify-between">
@@ -28,7 +53,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<ProductProfile />} />
-            <Route path="/user" element={<User />} />
+            <Route path={`/user/${userId}`} element={<User />} />
             <Route path="/explore" element={<Explore />} />
           </Routes>
         </div>

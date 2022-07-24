@@ -5,8 +5,25 @@ import CreateProduct from "./createProduct";
 import ProductSection from "./productSection";
 import useStorageState from "react-use-storage-state";
 import { useJWTPayload } from "../../hook/useToken";
+import axios from "axios";
 
 function User() {
+  useEffect(() => {
+    axios
+      .post(`http://localhost:8080/user/${userId}`)
+      .then(function (response) {
+        if (response.status == 200) {
+          console.log("fetch success :", response.data);
+          //handle success here
+          const viewerIsOwner = response.data;
+        }
+      })
+      .catch(function (error) {
+        console.log("fetch error", error);
+        //handle error here
+      });
+  }, []);
+
   const { height, width } = useWindowDimensions();
 
   const [click, setClick] = useStorageState("createBios", "false");
@@ -17,12 +34,26 @@ function User() {
     setClick("true");
   }
 
+  /*********** check user login token and get user id for url params **************/
   const user_jwtToken = useStorageState("token", "");
   console.log({ user_jwtToken });
 
-  const localStore = useJWTPayload();
+  const localStore: any = useJWTPayload();
   const tokenInfo = localStore;
   console.log({ tokenInfo });
+
+  const userId = tokenInfo?.userId;
+  console.log(userId);
+
+  const userEmail = tokenInfo?.email;
+  console.log(userEmail);
+
+  // const response = axios.get(`/user/${userId}`);
+  // response.then((res: any) => {
+  //   console.log(res);
+  // });
+
+  /********************************************************************************/
 
   const userAddress = "0x12bd534961a86dcf660dd3f3745ad6d4045eb77d";
 
@@ -51,7 +82,7 @@ function User() {
           {/************** Top container *****************/}
           <div className={!responsive ? webContainer : mobileContainer}>
             {/************** Top left container *****************/}
-            <div className="m-5 h-[350px] w-[400px] -translate-y-[30%] rounded-2xl flex flex-col">
+            <div className="m-5 h-[350px] w-[400px] -translate-y-[30%] flex flex-col">
               <div className="m-5 space-y-5">
                 <div className="rounded-full border-8 border-[white] w-[150px] h-[150px] flex justify-center items-center bg-[#80808044]">
                   {/* User picture */}
@@ -71,7 +102,7 @@ function User() {
               </div>
             </div>
             {/************** Top right container *****************/}
-            <div className="rounded-2xl flex flex-col text-base">
+            <div className="flex flex-col text-base">
               <div className="m-5 rounded-3xl border-[#01010139] border-2 w-[350px] h-[250px] p-5 flex flex-col justify-between">
                 <div className="flex flex-row justify-between">
                   <p>FOLLOWER</p>
@@ -94,7 +125,7 @@ function User() {
               </div>
               <button
                 onClick={changeBios}
-                className="m-5 h-[100px]  border-[#F96248] border-2 text-[white] text-3xl bg-[#f96248b4] rounded-lg flex justify-center items-center transition ease-linear duration-150 hover:scale-110 hover:bg-[#F96248]"
+                className="m-5 h-[100px] w-[350px] border-[#F96248] border-2 text-[white] text-3xl bg-[#f96248b4] rounded-lg flex justify-center items-center transition ease-linear duration-150 hover:scale-110 hover:bg-[#F96248]"
               >
                 <p>Create Product</p>
               </button>

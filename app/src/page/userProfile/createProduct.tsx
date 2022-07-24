@@ -13,11 +13,27 @@ function CreateProduct() {
   const bios: any = useStorageState("createBios", "");
   console.log(bios[0]);
 
-  /********** Form Submit *********/
+  /******************* Form Submit *********************/
   const { handleSubmit }: any = useForm();
 
   const onSubmit = async (e: any) => {
     console.log({ image, product_type, price, name, content, credit_by });
+
+    // let formData = new FormData();
+
+    // formData.append("image", image);
+    // formData.append("product_type", product_type);
+    // formData.append("price", price);
+    // formData.append("name", name);
+    // formData.append("content", content);
+    // formData.append("credit_by", credit_by);
+
+    // const response = await axios.post(
+    //   "http://localhost:8080/user/create_product",
+    //   {
+    //     body: formData,
+    //   }
+    // );
 
     const response = await axios.post(
       "http://localhost:8080/user/create_product",
@@ -45,7 +61,7 @@ function CreateProduct() {
 
   function imageHandler(e: any): any {
     const previewImg = URL.createObjectURL(e.target.files[0]);
-    const imgData = e.target.files[0].name;
+    const imgData = e.target.files[0];
 
     setPreview(previewImg);
     setImage(imgData);

@@ -6,7 +6,6 @@ import style from "./head.module.scss";
 import { useToken, useJWTPayload } from "../../hook/useToken";
 import { BlurMenu } from "../../hook/useBlur";
 
-
 function Head() {
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
@@ -14,12 +13,13 @@ function Head() {
   // const [isActive, setIsActive] = useStorageState<any>("blur", false);
   const navigate = useNavigate();
 
-  /***********change login button **************/
+  /*********** change login button **************/
   const [login, setLogin] = useState(
     localStorage.getItem("token") ? true : false
   );
 
-  console.log(useToken());
+  /*********** check user login token and get user email display **************/
+  // console.log(useToken());
   const localStore = useJWTPayload();
   const userEmail = localStore?.email;
 
@@ -44,7 +44,7 @@ function Head() {
       >
         {/* <Link to="/" className={style.leftContent}  onClick={()=>setShowFooter(true)}> */}
         <Link to="/" className="flex items-center mx-8 ">
-        {/* Paul deleted: style.leftContent */}
+          {/* Paul deleted: style.leftContent */}
           <button className="btn btn-primary rounded-xl">LOGO</button>
         </Link>
       </div>
@@ -52,24 +52,26 @@ function Head() {
       <div
         className={`${style.rightContainer} ${menuBlur == 0 ? "" : "blur-sm"}`}
       >
-        {/* <Link to="/login" className={style.rightContent} onClick={()=>setShowFooter(!showFooter)}> */}
         {!login ? (
           <>
             <Link to="/login" className="flex items-center mx-8">
               {/* Paul deleted: style.loginBtn */}
-            <button className="btn bg-primary-content text-primary rounded-xl border-2 hover:text-primary-content">Login</button>
+              <button className="btn bg-primary-content text-primary rounded-xl border-2 hover:text-primary-content">
+                Login
+              </button>
             </Link>
           </>
         ) : (
-          <>
-            {/* <button onClick={Logout} className={style.logoutBtn}>
-              Logout */}
-            <button onClick={Logout} className="btn bg-primary-content text-primary rounded-xl border-2 hover:text-primary-content">Logout</button>
-            {/* </button> */}
-          </>
+          <div className="block items-center mx-8">
+            {userEmail ? <div className="username">{userEmail}</div> : null}
+            <button
+              onClick={Logout}
+              className="btn bg-primary-content text-primary rounded-xl border-2 hover:text-primary-content"
+            >
+              Logout
+            </button>
+          </div>
         )}
-
-        {userEmail ? <div className="username">{userEmail}</div> : null}
 
         <button
           className={style.menuBtn}
