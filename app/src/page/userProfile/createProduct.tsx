@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useStorageState from "react-use-storage-state";
 import { useJWTPayload } from "../../hook/useToken";
+import Category from "./components/category";
 
 function CreateProduct() {
   /*********** check user login token and get user id for url params **************/
@@ -47,8 +48,10 @@ function CreateProduct() {
 
     // formData.append("image", image);
     // formData.append("product_type", product_type);
+    // formData.append("category", category);
     // formData.append("price", price);
     // formData.append("name", name);
+    // formData.append("series", series);
     // formData.append("content", content);
     // formData.append("credit_by", credit_by);
 
@@ -71,9 +74,11 @@ function CreateProduct() {
         product_series: series,
         content: content,
         credit_by: credit_by,
-      }
+      },
+      { headers: { "Content-Type": "multipart/form-data" } }
     );
-    console.log(response.data);
+    console.log(response);
+    alert(`message${response.data}, status: ${response.status}`);
   };
   /******************************************************/
 
@@ -214,8 +219,7 @@ function CreateProduct() {
                 <option disabled selected>
                   Category
                 </option>
-                <option>Cat.1</option>
-                <option>Cat.2</option>
+                {/* <Category /> */}
               </select>
 
               <div className="w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
