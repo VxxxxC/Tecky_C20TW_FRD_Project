@@ -3,3 +3,6 @@ text="Deployment being start..."
 PROJECT_ROOT="unipeice-frd-project"
 SERVER_ROOT="server"
 REACT_ROOT="app"
+
+S3_BUCKET_NAME=unipiece
+CLOUDFONT_DISTRIBUTION=E3P66WD0E266T0

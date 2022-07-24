@@ -60,10 +60,14 @@ function RegisterPage() {
     // console.log(Axios.defaults.headers.post);
     // console.log(Axios.defaults.headers.common);
 
-    const response = await axios.post("http://localhost:8080/signup", {
-      email: email,
-      password: password,
-    });
+    const response = await axios.post(
+      "https://unipiece-api.full-stack.app/signup",
+      {
+        // const response = await axios.post("http://localhost:8080/signup", {
+        email: email,
+        password: password,
+      }
+    );
 
     console.log(response);
     const registerResult = response.data;

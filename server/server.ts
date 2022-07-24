@@ -10,8 +10,9 @@ import { userRoute } from './userRoute'
 export let app = express()
 let port = 8080
 
-app.use('/img', express.static('img'))
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use('/img', express.static('../img'))
+app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
+// app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -25,14 +26,7 @@ type req = express.Request
 type res = express.Response
 
 app.get('/', function (req, res) {
-  res.end('Unipiece EC2 Server index')
-})
-
-app.get("test", (req, res) => {
-
-  console.log("hi")
-
-  res.json("hi")
+  res.json('Unipiece EC2 Server index')
 })
 
 

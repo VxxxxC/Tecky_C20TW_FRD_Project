@@ -63,16 +63,20 @@ function LoginPage() {
     //   setError(true);
     //   setSubmitted(false);
     // }
-    console.log(email, password);
-    console.log(email.length, password.length);
+    // console.log(email, password);
+    // console.log(email.length, password.length);
 
     // console.log(Axios.defaults.headers.post);
     // console.log(Axios.defaults.headers.common);
 
-    const response = await axios.post("http://localhost:8080/login", {
-      email: email,
-      password: password,
-    });
+    const response = await axios.post(
+      "https://unipiece-api.full-stack.app/login",
+      {
+        // const response = await axios.post("http://localhost:8080/login", {
+        email: email,
+        password: password,
+      }
+    );
 
     console.log(response);
     const token = response["data"].JWTtoken;

@@ -16,7 +16,7 @@
 #
 
 set -e
-set -v
+set -x
 
 source ../script/config
 echo $text
@@ -42,8 +42,11 @@ ssh veper-ec2 "
     pwd &&
     cd $SERVER_ROOT &&
     pwd && 
+    npm install &&
+    npx knex migrate:latest &&
+    npx knex seed:run &&
     cd dist &&
-    pm2 restart server.js
+    pm2 restart server.js --name unipiece-api
     exit
 "
 
@@ -52,8 +55,12 @@ ssh veper-ec2 "
 # 3. update and deplpoy to frontend
 pwd
 cd ..
+pwd
 cd $REACT_ROOT
+yarn
 yarn build
-cd build
-# aws s3 sync . s3://<YOUR_BUCKET_NAME>
+pwd
+aws s3 sync build s3://$S3_BUCKET_NAME
+aws cloudfront create-invalidation --distribution-id $CLOUDFONT_DISTRIBUTION --paths '/*'
+
 

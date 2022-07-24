@@ -64,7 +64,8 @@ function CreateProduct() {
 
     // FIXME: also need passing userId input , for reference product related to user
     const response = await axios.post(
-      "http://localhost:8080/user/create_product",
+      "https://unipiece-api.full-stack.app/user/create_product",
+      // "http://localhost:8080/user/create_product",
       {
         image: image,
         product_type: product_type,
@@ -219,7 +220,7 @@ function CreateProduct() {
                 <option disabled selected>
                   Category
                 </option>
-                {/* <Category /> */}
+                <Category />
               </select>
 
               <div className="w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">

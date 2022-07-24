@@ -73,7 +73,7 @@ userRoute.post('/:UserId', async (req, res) => {
 
         return res.json(profileViewerWithCorrectToken == false)
     } else {
-        return res.json(profileViewerWithCorrectToken = true)
+        return res.json(profileViewerWithCorrectToken == true)
     }
 
     // console.log(req.body, req.params, req.query)

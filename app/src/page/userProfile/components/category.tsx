@@ -1,7 +1,7 @@
-import React from "react";
+// import React, { useEffect } from "react";
 
 function Category() {
-  const category = [
+  const categories = [
     {
       name: "PFPs and Avatars",
     },
@@ -55,11 +55,13 @@ function Category() {
     },
   ];
 
-  for (let cat of category) {
-    console.log(cat);
-  }
-
-  return;
+  return (
+    <>
+      {categories.map((category) => (
+        <option>{category.name}</option>
+      ))}
+    </>
+  );
 }
 Category();
-// export default Category;
+export default Category;
