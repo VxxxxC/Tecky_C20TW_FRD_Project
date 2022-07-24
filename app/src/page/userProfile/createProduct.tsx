@@ -2,8 +2,23 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useStorageState from "react-use-storage-state";
+import { useJWTPayload } from "../../hook/useToken";
 
 function CreateProduct() {
+  /*********** check user login token and get user id for url params **************/
+  const user_jwtToken = useStorageState("token", "");
+  // console.log({ user_jwtToken });
+
+  const localStore: any = useJWTPayload();
+  const tokenInfo = localStore;
+  // console.log({ tokenInfo });
+
+  const userId = tokenInfo?.userId;
+  // console.log(userId);
+
+  const userEmail = tokenInfo?.email;
+  // console.log(userEmail);
+
   const [click, setClick] = useStorageState("createBios", "");
 
   function changeBios() {
@@ -13,19 +28,47 @@ function CreateProduct() {
   const bios: any = useStorageState("createBios", "");
   console.log(bios[0]);
 
-  /********** Form Submit *********/
+  /******************* Form Submit *********************/
   const { handleSubmit }: any = useForm();
 
   const onSubmit = async (e: any) => {
-    console.log({ image, product_type, price, name, content, credit_by });
+    console.log({
+      image,
+      product_type,
+      category,
+      price,
+      name,
+      series,
+      content,
+      credit_by,
+    });
 
+    // let formData = new FormData();
+
+    // formData.append("image", image);
+    // formData.append("product_type", product_type);
+    // formData.append("price", price);
+    // formData.append("name", name);
+    // formData.append("content", content);
+    // formData.append("credit_by", credit_by);
+
+    // const response = await axios.post(
+    //   "http://localhost:8080/user/create_product",
+    //   {
+    //     body: formData,
+    //   }
+    // );
+
+    // FIXME: also need passing userId input , for reference product related to user
     const response = await axios.post(
       "http://localhost:8080/user/create_product",
       {
         image: image,
         product_type: product_type,
+        product_category: category,
         product_price: price,
         product_name: name,
+        product_series: series,
         content: content,
         credit_by: credit_by,
       }
@@ -45,7 +88,7 @@ function CreateProduct() {
 
   function imageHandler(e: any): any {
     const previewImg = URL.createObjectURL(e.target.files[0]);
-    const imgData = e.target.files[0].name;
+    const imgData = e.target.files[0];
 
     setPreview(previewImg);
     setImage(imgData);
@@ -62,6 +105,10 @@ function CreateProduct() {
 
   //5. Product type
   const [product_type, setProduct_type] = useState("");
+  //5. Series type
+  const [series, setSeries] = useState("");
+  //5. Product type
+  const [category, setCategory] = useState("");
 
   //6. Alternative text
   const [credit_by, setCredit_by] = useState("");
@@ -96,15 +143,17 @@ function CreateProduct() {
 
       <div className="mx-10">
         <div className="bg-[#00000022] h-[2px] mb-[50px]"></div>
-        <div className="w-[90vw] bg-[#00000035] rounded-3xl p-10">
+        <div className="bg-[#00000035] rounded-3xl p-2">
           {/* create product from start from here! */}
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="w-[17rem] text-[white] text-3xl bg-[grey] rounded-3xl flex justify-center items-center">
+            <div className="w-[17rem] text-[white] text-3xl mobile:text-xl bg-[grey] rounded-3xl flex justify-center items-center">
               Create New Product
             </div>
 
             <div className="flex flex-col overflow md grid-cols-3 auto-rows-auto gap-2 grid-flow-row ">
-              <div className="m-3 text-2xl font-bold">Upload image</div>
+              <div className="m-3 text-2xl mobile:text-lg font-bold">
+                Upload image
+              </div>
 
               {preview ? (
                 <img
@@ -122,16 +171,16 @@ function CreateProduct() {
                     onChange={imageHandler}
                     style={{ display: "none" }}
                   />
-                  <div className="w-[15rem] h-[4rem] border-2 bg-[#0000009a] text-[white] rounded-full flex flex-col justify-center items-center">
+                  <div className="w-[15rem] h-[4rem] mobile:text-sm border-2 bg-[#0000009a] text-[white] rounded-full flex flex-col justify-center items-center">
                     <p>Click here to upload image</p>
                     <p>Choose Your Product Pic! :)</p>
                   </div>
                 </label>
               )}
 
-              <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl font-bold flex items-center">
+              <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Product Type
-                <span className="text-[red] text-xl font-normal">
+                <span className="text-[red] text-xl mobile:text-base font-normal">
                   (*required)
                 </span>
               </div>
@@ -139,7 +188,7 @@ function CreateProduct() {
                 value={product_type}
                 onChange={(e) => setProduct_type(e.target.value)}
                 defaultValue={product_type}
-                className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
+                className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl mobile:text-lg hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
                 required
               >
                 <option disabled selected>
@@ -149,9 +198,29 @@ function CreateProduct() {
                 <option>physical</option>
               </select>
 
-              <div className="w-[30rem] m-3 text-2xl font-bold flex items-center">
+              <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
+                Product Category
+                <span className="text-[red] text-xl mobile:text-base font-normal">
+                  (*required)
+                </span>
+              </div>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                defaultValue={category}
+                className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl mobile:text-lg hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
+                required
+              >
+                <option disabled selected>
+                  Category
+                </option>
+                <option>Cat.1</option>
+                <option>Cat.2</option>
+              </select>
+
+              <div className="w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Price
-                <span className="text-[red] text-xl font-normal">
+                <span className="text-[red] text-xl mobile:text-lg font-normal">
                   (*required)
                 </span>
               </div>
@@ -166,9 +235,9 @@ function CreateProduct() {
                 required
               />
 
-              <div className="w-[30rem] m-3 text-2xl font-bold flex items-center">
+              <div className="w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Product Name
-                <span className="text-[red] text-xl font-normal">
+                <span className="text-[red] text-xl mobile:text-lg font-normal">
                   (*required)
                 </span>
               </div>
@@ -181,9 +250,30 @@ function CreateProduct() {
                 required
               />
 
-              <div className="m-3 text-2xl font-bold flex items-center">
+              <div className="col-start-1 col-end-1 w-[30rem] m-3 text-2xl mobile:text-lg font-bold flex items-center">
+                Series
+                <span className="text-[grey] text-xl mobile:text-base font-normal">
+                  (Optional)
+                </span>
+              </div>
+              <select
+                value={series}
+                onChange={(e) => setSeries(e.target.value)}
+                defaultValue={series}
+                className="select select-bordered col-start-1 col-end-4 h-[5rem] p-5 text-2xl mobile:text-lg hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
+                required
+              >
+                <option disabled selected>
+                  Pick Your Series
+                </option>
+                <option>NONE</option>
+                <option>Series1</option>
+                <option>Series2</option>
+              </select>
+
+              <div className="m-3 text-2xl mobile:text-lg font-bold flex items-center">
                 Content/Description
-                <span className="text-[grey] text-xl font-normal">
+                <span className="text-[grey] text-xl mobile:text-lg font-normal">
                   (Optional)
                 </span>
               </div>
@@ -195,9 +285,9 @@ function CreateProduct() {
                 className="col-start-1 col-end-4 h-[3rem] p-5 hover:border-[#3EC8F9] hover:border-2 rounded-3xl flex justify-center items-center"
               />
 
-              <div className="col-start-1 col-end-1 m-3 w-[30rem] text-2xl font-bold flex items-center">
+              <div className="col-start-1 col-end-1 m-3 w-[30rem] mobile:w-[15rem] text-2xl mobile:text-lg font-bold flex items-center flex-wrap">
                 Credit By / Alternative text
-                <span className="text-[grey] text-xl font-normal">
+                <span className="text-[grey] text-xl mobile:text-lg font-normal">
                   (Optional)
                 </span>
               </div>

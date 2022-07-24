@@ -1,0 +1,77 @@
+image: node:16.15.0-slim
+
+stages:
+  - build
+  - deploy
+
+variables:
+  POSTGRES_DB: unipiece
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_HOST: postgres
+  SERVER_HOST: 44.209.198.71
+  SERVER_USER: ubuntu
+  PROJECT_ROOT: ~/unipeice-FRD-Project
+  WEB_SERVER_ROOT: server
+  WEB_SERVER_NAME: Unipiece
+
+build:
+  stage: build
+
+  services:
+    - postgres:14.3-alpine
+
+  artifacts:
+    paths:
+      - $WEB_SERVER_ROOT/node_modules
+      - $WEB_SERVER_ROOT/dist
+
+  before_script:
+    - pwd
+    - npm i -g pnpm
+    - pnpm i
+    - ls -a
+    - cd $WEB_SERVER_ROOT
+    - npm install
+
+  script:
+    - ls -a
+    - npm run build
+
+deploy:
+  stage: deploy
+  image: ubuntu:22.04
+
+  dependencies:
+    - build
+
+  before_script:
+    - apt update
+    - apt install --yes rsync openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -H $SERVER_HOST > ~/.ssh/known_hosts
+    - echo "Host server" >> ~/.ssh/config
+    - echo "  Hostname $SERVER_HOST" >> ~/.ssh/config
+    - echo "  User $SERVER_USER" >> ~/.ssh/config
+    - echo "  IdentityFile ~/.ssh/id_rsa " >> ~/.ssh/config
+    - cat ~/.ssh/config
+    - pwd
+    - cd $WEB_SERVER_ROOT
+    - ls -la
+
+  script:
+    - pwd
+    - rsync -SavLP dist "server:$PROJECT_ROOT/$WEB_SERVER_ROOT"
+    - ssh server "
+      source ~/.nvm/nvm.sh &&
+      cd $PROJECT_ROOT/$WEB_SERVER_ROOT &&
+      git fetch &&
+      git checkout $CI_COMMIT_SHA &&
+      pnpm i --prod &&
+      cd dist &&
+      npx knex migrate:latest &&
+      pm2 start --name $WEB_SERVER_NAME server.js ||
+      pm2 reload $WEB_SERVER_NAME
+      "
