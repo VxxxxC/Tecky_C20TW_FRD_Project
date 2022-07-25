@@ -5,14 +5,16 @@ import { client } from "./db"
 import { loginRoute } from './loginRoute'
 import { signUpRoute } from './signUpRoute'
 import { userRoute } from './userRoute'
+import jwt from 'jsonwebtoken'
 
 
 export let app = express()
 let port = 8080
 
-app.use('/img', express.static('../img'))
-app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
-// app.use(cors({ origin: 'http://localhost:3000' }));
+app.use('/img', express.static('/img'))
+// app.use('/img', express.static('../img')) FIXME: remember change this image path when deploy to S3 
+// app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -26,8 +28,14 @@ type req = express.Request
 type res = express.Response
 
 app.get('/', function (req, res) {
-  res.json('Unipiece EC2 Server index')
+  res.json('This is Unipiece API by AWS EC2')
 })
+
+// app.get('/auth', (req, res) => {
+//   console.log(req.header)
+
+//   res.status(200).json("Token setted in head")
+// })
 
 
 // app.get("/products", (req, res) => {

@@ -12,8 +12,8 @@ function ProductItem() {
   // this useEffect will run once
   // similar to componentDidMount()
   useEffect(() => {
-    fetch("https://unipiece-api.full-stack.app/testproducts")
-      // fetch("http://localhost:8080/testproducts")
+    // fetch("https://unipiece-api.full-stack.app/testproducts")
+    fetch("http://localhost:8080/testproducts")
       .then((res) => res.json())
       .then(
         (result) => {
@@ -42,12 +42,16 @@ function ProductItem() {
         {items.map((item) => (
           <div className="hover:-translate-y-2 ease-in-out duration-200 item overflow-hidden m-5 w-3/12 bg-base-100 shadow-xl rounded-lg">
             <div className="h-96">
-              <Image
+              {/* <Image
                 className="object-cover"
                 src={`https://unipiece-api.full-stack.app/${item.img}`}
                 width="100%"
+                height="100%" */}
+              <Image
+                className="object-cover"
+                src={`http://localhost:8080/${item.img}`}
+                width="100%"
                 height="100%"
-                // <Image className="object-cover" src={`http://127.0.0.1:8080/${item.img}`} width="100%" height="100%"
                 renderLoader={({ hasLoaded, hasFailed }: any) => (
                   <div className="font-mono loader animate-pulse content-center flex items-center">
                     {hasFailed && (

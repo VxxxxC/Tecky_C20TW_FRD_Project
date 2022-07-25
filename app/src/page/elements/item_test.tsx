@@ -12,8 +12,8 @@ function ItemTest() {
   // this useEffect will run once
   // similar to componentDidMount()
   useEffect(() => {
-    fetch("https://unipiece-api.full-stack.app/testproducts")
-      // fetch("http://localhost:8080/testproducts")
+    // fetch("https://unipiece-api.full-stack.app/testproducts")
+    fetch("http://localhost:8080/testproducts")
       .then((res) => res.json())
       .then(
         (result) => {
@@ -44,8 +44,8 @@ function ItemTest() {
             <div className="h-96">
               <Image
                 className="object-cover"
-                src={`https://unipiece-api.full-stack.app/${item.img}`}
-                // src={`http://127.0.0.1:8080/${item.img}`}
+                // src={`https://unipiece-api.full-stack.app/${item.img}`}
+                src={`http://localhost:8080/${item.img}`}
                 width="100%"
                 height="100%"
                 renderLoader={({ hasLoaded, hasFailed }: any) => (

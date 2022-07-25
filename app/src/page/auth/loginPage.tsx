@@ -69,18 +69,26 @@ function LoginPage() {
     // console.log(Axios.defaults.headers.post);
     // console.log(Axios.defaults.headers.common);
 
-    const response = await axios.post(
-      "https://unipiece-api.full-stack.app/login",
-      {
-        // const response = await axios.post("http://localhost:8080/login", {
-        email: email,
-        password: password,
-      }
-    );
+    // const response = await axios.post(
+    //   "https://unipiece-api.full-stack.app/login",
+    //   {
+    const response = await axios.post("http://localhost:8080/login", {
+      email: email,
+      password: password,
+    });
 
-    console.log(response);
+    // console.log(response);
     const token = response["data"].JWTtoken;
-    console.log(token);
+    console.log(token ? "Jwt Token generated" : "Jwt Token fail to generate");
+    // console.log(token);
+
+    // const setHeader = await axios.get("http://localhost:8080/auth", {
+    //   headers: {
+    //     "content-type": "application/json",
+    //     Authorization: `Bearer${token}`,
+    //   },
+    // });
+    // console.log(setHeader);
 
     setToken(token);
     navigate("/");
