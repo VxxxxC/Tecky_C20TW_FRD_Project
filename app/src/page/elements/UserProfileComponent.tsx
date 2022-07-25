@@ -14,13 +14,18 @@ function UserProfileComponent() {
       <div className="relative block bg-primary">
         <div className="h-[15rem]">
           <div className="object-cover z-2">
-            <Image
+            {/* <Image
               src="https://unipiece-api.full-stack.app/img/1.jpeg"
               alt=""
               width="100%"
               height="100%"
+            /> */}
+            <Image
+              src="http://localhost:8080/img/1.jpeg"
+              alt=""
+              width="100%"
+              height="100%"
             />
-            {/* <Image src="http://127.0.0.1:8080/img/1.jpeg" alt="" width="100%" height="100%" /> */}
           </div>
         </div>
         <div
@@ -30,13 +35,18 @@ function UserProfileComponent() {
         "
         >
           <div className="object-cover z-2">
-            <Image
+            {/* <Image
               src="https://unipiece-api.full-stack.app/img/2.jpeg"
               alt=""
               width="100%"
               height="100%"
+            /> */}
+            <Image
+              src="http://localhost:8080/img/2.jpeg"
+              alt=""
+              width="100%"
+              height="100%"
             />
-            {/* <Image src="http://127.0.0.1:8080/img/2.jpeg" alt="" width="100%" height="100%" /> */}
           </div>
         </div>
       </div>

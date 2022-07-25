@@ -10,8 +10,8 @@ import axios from "axios";
 function User() {
   useEffect(() => {
     axios
-      .post(`https://unipiece-api.full-stack.app/user/${userId}`)
-      // .post(`http://localhost:8080/user/${userId}`)
+      // .post(`https://unipiece-api.full-stack.app/user/${userId}`)
+      .post(`http://localhost:8080/user/${userId}`)
       .then(function (response) {
         if (response.status == 200) {
           console.log(

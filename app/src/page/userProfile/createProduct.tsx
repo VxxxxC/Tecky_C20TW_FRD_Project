@@ -1,11 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import useStorageState from "react-use-storage-state";
 import { useJWTPayload } from "../../hook/useToken";
 import Category from "./components/category";
 
 function CreateProduct() {
+  /******** Redirect function *********/
+  const navigate = useNavigate();
+
   /*********** check user login token and get user id for url params **************/
   const user_jwtToken = useStorageState("token", "");
   // console.log({ user_jwtToken });
@@ -15,10 +19,10 @@ function CreateProduct() {
   // console.log({ tokenInfo });
 
   const userId = tokenInfo?.userId;
-  // console.log(userId);
+  console.log(userId);
 
   const userEmail = tokenInfo?.email;
-  // console.log(userEmail);
+  console.log(userEmail);
 
   const [click, setClick] = useStorageState("createBios", "");
 
@@ -34,6 +38,7 @@ function CreateProduct() {
 
   const onSubmit = async (e: any) => {
     console.log({
+      userId,
       image,
       product_type,
       category,
@@ -44,42 +49,32 @@ function CreateProduct() {
       credit_by,
     });
 
-    // let formData = new FormData();
+    let formData = new FormData();
 
-    // formData.append("image", image);
-    // formData.append("product_type", product_type);
-    // formData.append("category", category);
-    // formData.append("price", price);
-    // formData.append("name", name);
-    // formData.append("series", series);
-    // formData.append("content", content);
-    // formData.append("credit_by", credit_by);
+    formData.append("user_id", userId);
+    formData.append("name", name);
+    formData.append("price", price);
+    formData.append("product_type", product_type);
+    formData.append("series", series);
+    formData.append("image", image);
+    formData.append("content", content);
+    formData.append("category", category);
+    formData.append("credit_by", credit_by);
 
-    // const response = await axios.post(
-    //   "http://localhost:8080/user/create_product",
-    //   {
-    //     body: formData,
-    //   }
-    // );
-
-    // FIXME: also need passing userId input , for reference product related to user
     const response = await axios.post(
-      "https://unipiece-api.full-stack.app/user/create_product",
-      // "http://localhost:8080/user/create_product",
+      "http://localhost:8080/user/create_product",
+      formData,
       {
-        image: image,
-        product_type: product_type,
-        product_category: category,
-        product_price: price,
-        product_name: name,
-        product_series: series,
-        content: content,
-        credit_by: credit_by,
-      },
-      { headers: { "Content-Type": "multipart/form-data" } }
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
     console.log(response);
     alert(`message${response.data}, status: ${response.status}`);
+
+    navigate("/user/" + userId);
+    window.location.reload();
   };
   /******************************************************/
 
