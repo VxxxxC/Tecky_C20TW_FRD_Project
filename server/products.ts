@@ -18,21 +18,20 @@ productRoute.get("/testproducts", (req, res) => {
 
 productRoute.get("/getcategorylist", async (req, res) =>  {
 
-    const categoryList = await knex.select('name').from('category')
+    const categoryList = await knex.select('id','name').from('category')
 
     let result = []
     for (let category of categoryList) {
         result.push(category.name)
     }
     console.log(result)
-     res.json(result)
+     res.json(categoryList)
 })
 
 
 productRoute.get("/getallitems", async (req, res) =>  {
 try{
-
-    const categoryList = await knex.select('name', 'image', 'price','category_id').from('product')
+    const categoryList = await knex.select('name', 'image', 'price','category_id', 'nft_address').from('product')
     
     let result = []
     for (let category of categoryList) {
@@ -46,3 +45,36 @@ try{
 }
 })
 
+productRoute.get("/getalluser", async (req, res) =>  {
+    try{
+        const userList = await knex.select('name','username', 'bg_image', 'image','bio').from('users')
+        
+        // let result = []
+        // for (let user of userList) {
+        //     result.push(user.name)
+        // }
+        // console.log(userList)
+        res.json(userList)
+        console.log(userList)
+    } catch (err : Error | unknown){
+        console.log("database error: " ,err)
+        res.status(500).send(`Service Unavailable: \n ***${err}***`);
+    }
+})
+
+
+productRoute.get("/getallcollection", async (req, res) =>  {
+    try{
+        const categoryList = await knex.select('id','name', 'username', 'price','category_id').from('product')
+        
+        let result = []
+        for (let category of categoryList) {
+            result.push(category.name)
+        }
+        console.log(categoryList)
+        res.json(categoryList)
+    } catch (err : Error | unknown){
+        console.log("database error: " ,err)
+        res.status(500).send(`Service Unavailable: \n ***${err}***`);
+    }
+})

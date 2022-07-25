@@ -12,7 +12,7 @@ let port = 8080
 
 app.use('/img', express.static('../img'))
 app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
-// app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

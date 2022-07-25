@@ -15,8 +15,8 @@ module.exports = {
 
       fontFamily: {
         sans: ["-apple-system"],
-        serif: ["ui-serif"],
-        mono: ["ui-monospace"],
+        // serif: ["ui-serif"],
+        // mono: ["ui-monospace"],
       },
 
       screens: {
