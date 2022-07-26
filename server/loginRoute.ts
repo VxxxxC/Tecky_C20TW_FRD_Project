@@ -39,7 +39,7 @@ loginRoute.post('/', async (req, res) => {
                   return res.status(500).json({ err });
                } else {
                   console.log({ Login: 'success', JWTtoken: token })
-                  res.status(200).json({ Login: 'success', JWTtoken: token })
+                  return res.status(200).json({ Login: 'success', JWTtoken: token })
                }
             }
          )

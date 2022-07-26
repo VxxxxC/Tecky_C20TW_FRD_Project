@@ -7,7 +7,7 @@ import style from "./menulist.module.scss";
 function Menulist() {
   const navigate = useNavigate();
 
-  /*********** check user login token and get user id for url params **************/
+  /*********** check user jwt token **************/
   const user_jwtToken = useStorageState("token", "");
   // console.log({ user_jwtToken });
 

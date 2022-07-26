@@ -5,13 +5,13 @@ import style from "./login.module.scss";
 
 function Login() {
   const [login, setLogin] = useState(true);
-  console.log(login);
+  // console.log(login);
 
   // /************** Generate JWT token after user login ***************/
   // const loginToken = async (event: SyntheticEvent) => {
   //   event.preventDefault();
   //   const token = window.localStorage.getItem("token");
-  //   const res = await fetch("http://localhost:8080/auth", {
+  //   const res = await fetch(`${process.env.REACT_APP_DEV_API}/auth`, {
   //     method: "POST",
   //     headers: {
   //       "content-type": "application/json",

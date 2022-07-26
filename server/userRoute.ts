@@ -71,36 +71,70 @@ userRoute.post('/create_product', async (req, res) => {
 
 })
 
-/**********************************************/
+/*********************** comparing login JWT token user ID , with params url user ID ***********************/
 
 
-userRoute.post('/:UserId', async (req, res) => {
+userRoute.post('/:id', async (req, res) => {
+
+    console.log([req.body, req.params, req.query])
+
     // console.log(req.url)
     // console.log(req.baseUrl)
-    console.log(req.originalUrl)
+    // console.log(req.originalUrl)
 
-    const userId = req.params
-    console.log("Login User ID : ", userId.UserId)
-    const verifiedUserUrl = req.baseUrl + "/" + userId.UserId
-    console.log(verifiedUserUrl)
+    const tokenUserId = req.body.tokenInfo.userId
+    console.log(req.body.tokenInfo.userId.toString())
 
-    let profileViewerWithCorrectToken: boolean;
+    const postParamsId = req.params.id
+    console.log({ postParamsId })
+    // console.log("Params User ID : ", paramsId.UserId)
+    // const verifiedUserUrl = req.baseUrl + "/" + paramsId.UserId
+    // console.log(verifiedUserUrl)
 
-    if (req.originalUrl !== verifiedUserUrl) {
-
-        return res.json(profileViewerWithCorrectToken == false)
+    if (tokenUserId == postParamsId) {
+        return res.json({ status: true })
     } else {
-        return res.json(profileViewerWithCorrectToken == true)
+        return res.json({ status: false })
     }
-
-    // console.log(req.body, req.params, req.query)
 })
 
 
-/**********************************************/
+/*********************** fetch user profile detail to display on corresponding params url ***********************/
+
+userRoute.get('/:id', async (req, res) => {
+    // console.log(req.body, req.params, req.query)
+
+    const getParamsId = req.params.id
+    console.log({ getParamsId })
+
+    try {
+        const response = await knex('users').select("*").where('id', getParamsId)
+        const user = response[0]
+        return res.status(200).json(user)
+    }
+    catch (err) {
+        return res.status(500).json({ status: err })
+    }
+})
 
 
 
+/***************** fetch username on display to head bar *******************/
 
+userRoute.post('/', async (req, res) => {
+    // console.log(req)
+    // console.log(req.body, req.params, req.query)
 
-/**********************************************/
+    const userId = req.body.userId;
+    console.log({ userId })
+
+    try {
+        const response = await knex('users').select("name").where('id', userId)
+        const user = response[0]
+        return res.status(200).json(user)
+    }
+    catch (err) {
+        return res.status(500).json({ status: err })
+    }
+
+})

@@ -1,6 +1,6 @@
 import React, { useContext, useReducer } from "react";
 import logo from "./logo.svg";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import "./App.css";
 import Head from "./page/head/head";
 import Item from "./page/elements/item";
@@ -15,11 +15,14 @@ import useStorageState from "react-use-storage-state";
 import { useJWTPayload } from "./hook/useToken";
 
 function App() {
+  // console.log(process.env);
+  // console.log(process.env.REACT_APP_DEV_API);
+
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
   const theme = ["cupcake", "lofi", "luxury"];
 
-  /*********** check user login token and get user id for url params **************/
+  /*********** check user login token **************/
   const user_jwtToken = useStorageState("token", "");
   console.log({ user_jwtToken });
 
@@ -53,7 +56,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<ProductProfile />} />
-            <Route path={`/user/${userId}`} element={<User />} />
+            <Route path="/user/:id" element={<User />} />
             <Route path="/explore" element={<Explore />} />
           </Routes>
         </div>
