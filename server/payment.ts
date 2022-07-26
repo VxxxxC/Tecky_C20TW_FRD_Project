@@ -3,13 +3,16 @@ import { knex } from './knex'; /* MUST BE very careful !!! don't import "knex" ,
 export let stripeRoutes = express.Router()
 import {stripe} from './server'
 // import toSQLDate from 'js-date-to-sql-datetime'
+import Cryptr from 'cryptr'
+import { stringify } from 'querystring';
 
-stripeRoutes.post('/create-checkout-session', async (req, res) => {
+
+stripeRoutes.post('/create-checkout-session/:userid/:itemid', async (req, res) => {
   try{
     // define request parameters
-    let product_id = req.body.product_id
-    let user_id = req.body.user_id
-    console.log('request parameters: ',req.body.product_id, req.body.user_id)
+    let product_id = req.params.itemid
+    let user_id = req.params.userid
+    console.log('request parameters: ',product_id, user_id)
     // find product & user in database
     const productResult = await knex.select('id','name', 'price', 'content', 'image', 'type', 'nft_address', 'owner_id').from('product').where('id', product_id)
     const buyerUserResult = await knex.select('id', 'name', 'email', 'username', 'publickey' ).from('users').where('id', user_id)
@@ -47,7 +50,7 @@ stripeRoutes.post('/create-checkout-session', async (req, res) => {
 
   
     // create pending order in database
-    await knex('order').insert({
+    const order = await knex('order').insert({
       order_type: 1,
       owner_publickey: owner_publickey,
       receiver_publickey: receiver_publickey,
@@ -62,8 +65,19 @@ stripeRoutes.post('/create-checkout-session', async (req, res) => {
       owner_id: owner_id,
       receiver_id: receiver_id,
       product_id: productId,
-    })
+    }).returning("id")
 
+    
+    //Encrypted Order No for Success URL
+    console.log(order)
+    
+    const cryptr = new Cryptr('hello');
+
+    const encryptedString = cryptr.encrypt(JSON.stringify(order[0].id));
+    const decryptedString = cryptr.decrypt(encryptedString);
+    
+    console.log("hash", encryptedString); // hash
+    console.log("order_id", decryptedString); // order_id
 
     // create stripe payment session
     const DOMAIN = 'https://unipiece.full-stack.app';
@@ -81,7 +95,7 @@ stripeRoutes.post('/create-checkout-session', async (req, res) => {
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: `${DOMAIN}/success`,
+      success_url: `${DOMAIN}/success/${encryptedString}`,
       cancel_url: `${DOMAIN}/profile/${productId}`,
     });
 
@@ -97,13 +111,20 @@ stripeRoutes.post('/create-checkout-session', async (req, res) => {
 })
 
 
-      // Stripe seesion unused scripts
-        // price_data: {
-        //   currency: 'hkd',
-        //   unit_amount: productPrice*100,
-        //   product_data: {
-        //     name: productName,
-        //     description: productContent,
-        //     images: [productImageURL],
-        //   },
-        // },
+stripeRoutes.get('/paid/:hash', async (req, res) => {
+  try{
+    console.log("received confirm request*************")
+    let params = req.params.hash
+
+    const cryptr = new Cryptr('hello');
+    const orderId = cryptr.decrypt(params);
+  
+    const confirmOrder = await knex('order').where("id", orderId).update({status: "finished"})
+    // console.log(confirmOrder)
+
+    res.status(200).json({status: true, error: false})
+  }catch(err){
+    res.status(500).json({ status: false, error: err.message })
+    console.log(err)
+  }
+})

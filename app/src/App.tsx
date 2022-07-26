@@ -55,7 +55,7 @@ function App() {
             <Route path="/profile/:id" element={<ProductProfile />} />
             <Route path="/user/:id" element={<User />} />
             <Route path="/explore" element={<Explore />} />
-            <Route path="/success" element={<SuccessPayment />} />
+            <Route path="/success/:hash" element={<SuccessPayment />} />
           </Routes>
         </div>
         <Footer blur={menuBlur} />

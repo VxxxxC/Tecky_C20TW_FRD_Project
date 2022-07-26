@@ -15,28 +15,24 @@ productRoute.get("/testproducts", (req, res) => {
     res.json(items)
 })
 
-productRoute.get("/getitems/:id", async (req, res) => {
-    const userId = req.params.id
+// productRoute.get("/getitems/:id", async (req, res) => {
+//     const userId = req.params.id
+//     const userItemList = await knex.select('name', 'image', 'price', 'category_id', 'nft_address').from('product').where('owner_id', userId)
 
-    if (userId == null && userId == undefined) return
+//     let result = []
+//     for (let i in userItemList){
 
-    const userItemList = await knex.select('*').from('product').where('owner_id', userId)
+//         result.push({
+//             img: userItemList[i].image,
+//             name: userItemList[i].name,
+//             price: userItemList[i].price,
+//             category_id: userItemList[i].category_id,
+//             nft_address: userItemList[i].nft_address
+//         })
 
-    let result = []
-    for (let i in userItemList) {
-
-        result.push({
-            img: userItemList[i].image,
-            name: userItemList[i].name,
-            price: userItemList[i].price,
-            category_id: userItemList[i].category_id,
-            nft_address: userItemList[i].nft_address
-        })
-        console.log(result)
-
-    }
-    res.json(result)
-})
+//     }
+//     res.json(result)
+// })
 
 productRoute.get("/getcategorylist", async (req, res) => {
 
