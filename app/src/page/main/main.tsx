@@ -8,7 +8,7 @@ import HowItWorks from "./howitworks";
 import Welcome from "./welcome";
 
 function Main() {
-  console.log(process.env.REACT_APP_PRODUCTION_API);
+  console.log(process.env.REACT_APP_DEV_API);
 
   return (
     <div className="lg:px-20 md:px-10">

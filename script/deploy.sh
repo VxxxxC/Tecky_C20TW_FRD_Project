@@ -38,7 +38,6 @@ rsync -SavLP dist ubuntu@veper-ec2:~/unipeice-frd-project/server
 
 ssh veper-ec2 "
     cd $PROJECT_ROOT &&
-    git pull &&
     pwd &&
     cd $SERVER_ROOT &&
     pwd && 
