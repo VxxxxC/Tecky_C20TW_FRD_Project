@@ -64,7 +64,7 @@ function RegisterPage() {
     //   "https://unipiece-api.full-stack.app/signup",
     //   {
     const response = await axios.post(
-      `${process.env.REACT_APP_DEV_API}/signup`,
+      `${process.env.REACT_APP_PRODUCTION_API}/signup`,
       {
         email: email,
         password: password,

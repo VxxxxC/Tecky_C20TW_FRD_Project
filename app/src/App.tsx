@@ -16,7 +16,7 @@ import { useJWTPayload } from "./hook/useToken";
 
 function App() {
   // console.log(process.env);
-  // console.log(process.env.REACT_APP_DEV_API);
+  // console.log(process.env.REACT_APP_PRODUCTION_API);
 
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;

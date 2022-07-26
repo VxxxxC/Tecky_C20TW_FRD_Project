@@ -60,7 +60,7 @@ function Head() {
 
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_DEV_API}/user`, { userId: userId })
+      .post(`${process.env.REACT_APP_PRODUCTION_API}/user`, { userId: userId })
       .then(function (response) {
         console.log(response.data);
         setUserDetail(response.data);

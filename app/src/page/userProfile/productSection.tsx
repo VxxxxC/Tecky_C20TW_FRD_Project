@@ -27,7 +27,7 @@ function ProductSection() {
         <div className="flex justify-center items-center">
           <div className="rounded-3xl border-2 border-[#00000020]">
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            <ProductItem/>
+              <ProductItem />
             </div>
             {/* Product items start at below */}
           </div>
@@ -39,8 +39,7 @@ function ProductSection() {
 
 export default ProductSection;
 
-
-            /* <div className="m-3 w-[300px] h-[600px] border-2 border-[#00000020] rounded-3xl flex flex-col items-center">
+/* <div className="m-3 w-[300px] h-[600px] border-2 border-[#00000020] rounded-3xl flex flex-col items-center">
               <div className="m-3 w-[260px] h-[350px]">
                 <img
                   className="rounded-2xl"

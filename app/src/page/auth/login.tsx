@@ -11,7 +11,7 @@ function Login() {
   // const loginToken = async (event: SyntheticEvent) => {
   //   event.preventDefault();
   //   const token = window.localStorage.getItem("token");
-  //   const res = await fetch(`${process.env.REACT_APP_DEV_API}/auth`, {
+  //   const res = await fetch(`${process.env.REACT_APP_PRODUCTION_API}/auth`, {
   //     method: "POST",
   //     headers: {
   //       "content-type": "application/json",
