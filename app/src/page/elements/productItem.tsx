@@ -15,26 +15,25 @@ function ProductItem() {
   // Note: the empty deps array [] means
   // this useEffect will run once
   // similar to componentDidMount()
-  useEffect(() => {
-    // fetch("https://unipiece-api.full-stack.app/testproducts")
-    fetch(`${process.env.REACT_APP_DEV_API}/getitems/${id}`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          setIsLoaded(true);
-          setItems(result);
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          console.log("what happened: ", error);
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
-  }, []);
+  // fetch("https://unipiece-api.full-stack.app/testproducts")
+  // fetch(`${process.env.REACT_APP_DEV_API}/getitems/${id}`)
+  //   .then((res) => res.json())
+  //   .then(
+  //     (result) => {
+  //       console.log(result);
+  //       setIsLoaded(true);
+  //       setItems(result);
+  //     },
+  //     // Note: it's important to handle errors here
+  //     // instead of a catch() block so that we don't swallow
+  //     // exceptions from actual bugs in components.
+  //     (error) => {
+  //       console.log("what happened: ", error);
+  //       setIsLoaded(true);
+  //       setError(error);
+  //     }
+  //   );
+  // FIXME:
 
   if (error) {
     return <div>Error: {error.message}</div>;

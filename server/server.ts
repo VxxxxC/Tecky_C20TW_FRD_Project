@@ -28,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(stripeRoutes)
+app.use(productRoute);
 
 /* ----------------Express Auth Router------------ */
 app.use('/login', loginRoute)
@@ -93,9 +94,6 @@ app.get('/profile/:product_Id', async (req, res) => {
 
 //      res.json(items)
 // })
-
-app.use(productRoute);
-
 
 app.listen(port, () => {
   console.log(port)

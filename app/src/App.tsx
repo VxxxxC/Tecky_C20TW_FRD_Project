@@ -50,14 +50,12 @@ function App() {
 
         <div className={`"mx-auto " ${menuBlur ? "blur-sm" : ""}`}>
           <Routes>
-            {/* <Route path="/login" element={<Login showFooter={showFooter} setShowFooter={setShowFooter}/>} /> */}
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:id" element={<ProductProfile />} />
             <Route path="/user/:id" element={<User />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/success" element={<SuccessPayment />} />
-            
           </Routes>
         </div>
         <Footer blur={menuBlur} />
