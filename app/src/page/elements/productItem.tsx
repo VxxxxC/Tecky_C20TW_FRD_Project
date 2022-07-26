@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Image } from "react-image-and-background-image-fade";
+import { useParams } from "react-router-dom";
 // import LargeItem from './large_item';
 import "./large_item.scss";
 
 function ProductItem() {
+  const { id } = useParams();
+  console.log({ id });
+
   const [error, setError] = useState<any>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState<any[]>([]);
@@ -13,7 +17,7 @@ function ProductItem() {
   // similar to componentDidMount()
   useEffect(() => {
     // fetch("https://unipiece-api.full-stack.app/testproducts")
-    fetch(`${process.env.REACT_APP_DEV_API}/testproducts`)
+    fetch(`${process.env.REACT_APP_DEV_API}/getitems/${id}`)
       .then((res) => res.json())
       .then(
         (result) => {

@@ -43,7 +43,7 @@ app.get('/', function (req, res) {
   res.json('This is Unipiece API by AWS EC2')
 })
 
-/* ----------------------------------------------- */
+/* --------------------- Product Profile details -------------------------- */
 app.get('/profile/:product_Id', async (req, res) => {
   console.log(req.params.product_Id)
 
@@ -80,7 +80,7 @@ app.get('/profile/:product_Id', async (req, res) => {
   }
 
 })
-/* ----------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
 // app.get("/products", (req, res) => {
 
