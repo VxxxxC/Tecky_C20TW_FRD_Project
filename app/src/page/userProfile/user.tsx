@@ -78,13 +78,13 @@ function User() {
     axios
       .get(`${process.env.REACT_APP_DEV_API}/user/${id}`)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         setUserDetail(response.data);
       });
   }, []);
 
   useEffect(() => {
-    console.log(userDetail);
+    // console.log(userDetail);
   }, [userDetail]);
 
   // const {

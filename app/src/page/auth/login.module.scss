@@ -20,7 +20,7 @@
 }
 
 .titleLogin {
-  font-size: 30px;
+  font-size: 20px;
   width: 50vw;
   height: 75px;
   padding-top: 20px;
@@ -32,7 +32,7 @@
 }
 
 .titleReg {
-  font-size: 30px;
+  font-size: 20px;
   width: 50vw;
   height: 75px;
   padding-top: 20px;
@@ -78,6 +78,7 @@
   border: 1px solid black;
   border-radius: 0px 0px 30px 30px;
   width: 60vw;
+  height: 55vh;
   background: linear-gradient(310deg, #eaeaea, #bfbdbd, #a3a3a3, #929292, #767676, #727272, #9f9f9f, #b9b9b9, #ececec);
   background-size: 1800% 1800%;
   -webkit-animation: AnimationName 26s ease infinite;
