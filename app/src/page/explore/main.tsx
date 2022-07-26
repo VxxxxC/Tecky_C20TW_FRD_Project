@@ -77,8 +77,8 @@ function Explore() {
 
 
   useEffect(() => {
-    fetch("https://unipiece-api.full-stack.app/getalluser")
-      fetch(`${host}/getalluser`)
+    // fetch("https://unipiece-api.full-stack.app/getalluser")
+    fetch(`${host}/getalluser`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -116,8 +116,8 @@ function Explore() {
     }, []);
 
     useEffect(() => {
-        fetch("https://unipiece-api.full-stack.app/getallitems")
-          fetch(`${host}/getallitems`)
+        // fetch("https://unipiece-api.full-stack.app/getallitems")
+        fetch(`${host}/getallitems`)
           .then((res) => res.json())
           .then(
             (result) => {
@@ -135,8 +135,8 @@ function Explore() {
       }, []);
       
       useEffect(() => {
-        console.log(selected)
-      }, [selected])
+        console.log(items)
+      }, [items])
   
 
   function clickSubmit(){

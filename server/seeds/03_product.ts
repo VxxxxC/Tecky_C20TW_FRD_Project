@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import productSeed from '../stuff/Unipiece_Product_0.json';
+import productSeed from '../stuff/Unipiece_Product_2_1-1700.json';
 import cateogrySeed from '../stuff/category.json';
 
 
