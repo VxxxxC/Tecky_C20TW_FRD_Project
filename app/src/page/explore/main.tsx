@@ -72,7 +72,7 @@ function Explore() {
     }
 }
 
-  let host = `http://localhost:8080`
+  let host = process.env.REACT_APP_URL
   // let host = `https://unipiece-api.full-stack.app`
 
 

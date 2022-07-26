@@ -17,7 +17,7 @@ function ProductItemProps(props : any) {
             <div className="h-96">
               <Image
                 className="object-cover"
-                src={`http://localhost:8080/${img}`}
+                src={`${process.env.REACT_APP_URL}/${img}`}
                 width="100%"
                 height="100%"
                 // <Image className="object-cover" src={`http://127.0.0.1:8080/${img}`} width="100%" height="100%"
