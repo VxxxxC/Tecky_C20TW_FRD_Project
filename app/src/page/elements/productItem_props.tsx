@@ -11,13 +11,15 @@ function ProductItemProps(props: any) {
   const name = props.name;
   const price = props.price;
   const nft_address = props.nft_address;
+  let host = process.env.REACT_APP_URL
+
   return (
     <>
       <div className="hover:-translate-y-2 ease-in-out duration-200 item overflow-hidden m-5 w-3/12 bg-base-100 shadow-xl rounded-lg">
         <div className="h-96">
           <Image
             className="object-cover"
-            src={`${process.env.REACT_APP_URL}/${img}`} // fetch S3 server itself
+            src={`https://unipiece.full-stack.app/${img}`} // fetch S3 server itself
             width="100%"
             height="100%"
             // <Image className="object-cover" src={`http://127.0.0.1:8080/${img}`} width="100%" height="100%"
@@ -50,7 +52,7 @@ function ProductItemProps(props: any) {
           </div>
           <div className="flex flex-row justify-between">
             <p>{price}</p>
-            <p>On Sale</p>
+            <p>On Sale {host}</p>
           </div>
         </div>
       </div>

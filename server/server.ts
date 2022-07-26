@@ -23,7 +23,7 @@ app.use('/img', express.static('../img'))
 // app.use('/img', express.static('./img'))
 // app.use('/img', express.static('../img')) FIXME: remember change this image path when deploy to S3 
 app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
-// app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -55,7 +55,8 @@ app.get('/profile/:product_Id', async (req, res) => {
   let seriesId;
 
   try {
-    const response = await knex('product').select("*").where('id', productId)
+    const response : any = await knex.select("*").from('product').where('id', productId)
+    
     console.log(response[0])
 
     productDetail = response[0]
@@ -73,13 +74,11 @@ app.get('/profile/:product_Id', async (req, res) => {
       console.error(err);
       return res.status(500).json({ response: err })
     }
-
   }
   catch (err) {
     console.error(err);
     return res.status(500).json({ response: err })
   }
-
 })
 /* --------------------------------------------------------------------------- */
 

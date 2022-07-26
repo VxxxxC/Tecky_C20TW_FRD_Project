@@ -8,6 +8,9 @@ import UniLoader from "../elements/loader";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+const host = process.env.REACT_APP_URL
+// const host = `http://localhost:3000`
+
 function ProductProfile() {
   const { id }: string | any = useParams();
   const productId: any = id;
@@ -87,7 +90,7 @@ function ProductProfile() {
   console.log(count);
   return (
     <div
-      className={`min-h-[70vh] flex gap-x-20 gap-y-8 justify-center ${
+      className={`min-h-[70vh] p-12 flex gap-y-8 justify-center ${
         responsive ? mobile : desktop
       }`}
     >
@@ -96,12 +99,12 @@ function ProductProfile() {
           // outline outline-offset-4 outline-2 outline-dashed outline-primary
           // outline outline-offset-2 outline-2 outline-secondary
           className={`drop-shadow-lg rounded-2xl ${
-            responsive ? "h-[80vw] w-[80vw]" : "mt-8 h-[30vw] w-[30vw]"
+            responsive ? "h-[80vw] w-[80vw]" : "mt-8 h-[30vw] w-[30vw] mx-8"
           }`}
         >
           <Image
             className="object-cover rounded-2xl "
-            src={getDetail?.productDetail.image}
+            src={`${host}/${getDetail?.productDetail.image}`}
             alt="flying cat"
             title="Neon cat"
             width="100%"
@@ -161,7 +164,7 @@ function ProductProfile() {
           <div className="col-start-1 col-end-4">
             <div className="avatar">
               <div className="mx-3 w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src={getDetail?.owner[0].image} />
+                <img src={`${host}/${getDetail?.owner[0].image}`} />
               </div>
               <div className="">{getDetail?.owner[0].name}</div>
             </div>

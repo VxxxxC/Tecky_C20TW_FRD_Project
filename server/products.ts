@@ -120,10 +120,10 @@ productRoute.get("/gethighlights", async (req, res) => {
         for (let randomId of randomArr) {
             const no = JSON.parse(randomId)
             const randomResult = await knex.select('name', 'image', 'price', 'category_id', 'nft_address').from('product').where('id', no)
-            randomItemList.push(randomResult)
+            randomItemList.push(randomResult[0])
         }
         
-        res.json([randomItemList])
+        res.json(randomItemList)
     } catch (err: Error | unknown) {
         console.log("database error: ", err)
         res.status(500).send(`Service Unavailable: \n ***${err}***`);

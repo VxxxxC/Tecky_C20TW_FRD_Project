@@ -9,8 +9,8 @@ import ProductItemProps from "../elements/productItem_props";
 import UniLoader from "../elements/loader";
 import { ListItem } from "../explore/main";
 
-// const host = process.env.REACT_APP_DEV_API
-const host = `http://localhost:8080`
+const host = process.env.REACT_APP_DEV_API
+// const host = `http://localhost:8080`
 
 function Highlights() {
   const [highlightsItems, setHighlightsItems] = useState<ListItem[]>();
@@ -88,9 +88,25 @@ function Highlights() {
         Hightlights
       </div>
       <div className={desktopCarouselStyle}>
-        {
-          highlightsItems?highlightsItems.map((item : ListItem) => (<div>{item.nft_address}</div>)):"2"
-        }
+      {
+            //TODO FIXME
+                          highlightsItems ? (
+                            highlightsItems.map((item) => (
+                              <div>
+                                <ProductItemProps
+                                  name={item.name}
+                                  img={item.image}
+                                  price={item.price}
+                                  nft_address={item.nft_address}
+                                />
+                              </div>
+                            ))
+                          ) : (
+                            <div className="col-start-1 col-end-8 h-screen">
+                              <UniLoader />
+                            </div>
+                          )
+          }
       </div>
     </div>
   );
