@@ -28,7 +28,7 @@ function User() {
   useEffect(() => {
     axios
       // .post(`https://unipiece-api.full-stack.app/user/${userId}`)
-      .post(`${process.env.REACT_APP_PRODUCTION_API}/user/${id}`, {
+      .post(`${process.env.REACT_APP_DEV_API}/user/${id}`, {
         tokenInfo,
       })
       .then(function (response) {
@@ -76,7 +76,7 @@ function User() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_PRODUCTION_API}/user/${id}`)
+      .get(`${process.env.REACT_APP_DEV_API}/user/${id}`)
       .then(function (response) {
         console.log(response.data);
         setUserDetail(response.data);
@@ -147,9 +147,7 @@ function User() {
         {/* User profile page picture */}
         <img
           className="h-[35vh] w-[95vw] object-cover rounded-2xl"
-          src={
-            process.env.REACT_APP_PRODUCTION_API + "/" + userDetail?.bg_image
-          }
+          src={process.env.REACT_APP_DEV_API + "/" + userDetail?.bg_image}
         />
         <div className="absolute right-[5%] desktop:bottom-2 mobile:top-2 rounded-2xl bg-[#80808071] w-[300px] h-[50px] flex justify-center items-center">
           Social Media button area
@@ -168,9 +166,7 @@ function User() {
                   <img
                     className="object-fill rounded-full"
                     src={
-                      process.env.REACT_APP_PRODUCTION_API +
-                      "/" +
-                      userDetail?.image
+                      process.env.REACT_APP_DEV_API + "/" + userDetail?.image
                     }
                   />
                 </div>

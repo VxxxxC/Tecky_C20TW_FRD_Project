@@ -73,7 +73,7 @@ function LoginPage() {
     //   "https://unipiece-api.full-stack.app/login",
     //   {
     const response = await axios.post(
-      `${process.env.REACT_APP_PRODUCTION_API}/login`,
+      `${process.env.REACT_APP_DEV_API}/login`,
       {
         email: email,
         password: password,
@@ -83,15 +83,6 @@ function LoginPage() {
     console.log(response);
     const token = response["data"].JWTtoken;
     console.log(token ? "Jwt Token generated" : "Jwt Token fail to generate");
-    // console.log(token);
-
-    // const setHeader = await axios.get(`${process.env.REACT_APP_PRODUCTION_API}/auth`, {
-    //   headers: {
-    //     "content-type": "application/json",
-    //     Authorization: `Bearer${token}`,
-    //   },
-    // });
-    // console.log(setHeader);
 
     setToken(token);
     navigate("/");

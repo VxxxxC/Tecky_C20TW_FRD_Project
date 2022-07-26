@@ -1,17 +1,13 @@
-import React from 'react';
+import React from "react";
 
+function ProductHistory(props: any) {
+  let address = props.address;
 
-function ProductHistory(props : any){
-    let id = props.userId
-    
-    return(
-        <>
-            <div className='card'>
-      123
-        </div>
-        </>
-    )
-
+  return (
+    <>
+      <button className="card">{address}</button>
+    </>
+  );
 }
 
-export default ProductHistory
+export default ProductHistory;

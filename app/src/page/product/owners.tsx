@@ -1,16 +1,13 @@
-import React from 'react';
+import React from "react";
 
-function ProductOwners(props : any){
-    let id = props.userId
-    
-    return(
-        <>
-            <div className='card'>
-      123
-        </div>
-        </>
-    )
+function ProductOwners(props: any) {
+  let owner = props.owner[0].name;
 
+  return (
+    <>
+      <div className="card">{owner}</div>
+    </>
+  );
 }
 
-export default ProductOwners
+export default ProductOwners;

@@ -43,10 +43,11 @@ ssh veper-ec2 "
     cd $SERVER_ROOT &&
     pwd && 
     npm install &&
+    npx knex migrate:rollback &&
     npx knex migrate:latest &&
     npx knex seed:run &&
     cd dist &&
-    pm2 restart server.js --name unipiece-api
+    pm2 restart server.js
     exit
 "
 

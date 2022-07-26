@@ -62,7 +62,7 @@ function CreateProduct() {
     formData.append("credit_by", credit_by);
 
     const response = await axios.post(
-      `${process.env.REACT_APP_PRODUCTION_API}/user/create_product`,
+      `${process.env.REACT_APP_DEV_API}/user/create_product`,
       formData,
       {
         headers: {

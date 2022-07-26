@@ -8,6 +8,7 @@ import { userRoute } from './userRoute'
 import { stripeRoutes } from './payment'
 import { stripeHookRoutes } from './paymenthook'
 import jwt from 'jsonwebtoken'
+import { knex } from './knex'
 
 
 
@@ -21,7 +22,6 @@ app.use(stripeHookRoutes)
 // app.use('/img', express.static('../img'))
 app.use('/img', express.static('./img'))
 // app.use('/img', express.static('../img')) FIXME: remember change this image path when deploy to S3 
-// app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
 // app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
@@ -38,16 +38,49 @@ app.use('/user', userRoute)
 type req = express.Request
 type res = express.Response
 
+
 app.get('/', function (req, res) {
   res.json('This is Unipiece API by AWS EC2')
 })
 
-// app.get('/auth', (req, res) => {
-//   console.log(req.header)
+/* ----------------------------------------------- */
+app.get('/profile/:product_Id', async (req, res) => {
+  console.log(req.params.product_Id)
 
-//   res.status(200).json("Token setted in head")
-// })
+  const productId = req.params.product_Id
 
+  let productDetail
+  let ownerId;
+  let seriesId;
+
+  try {
+    const response = await knex('product').select("*").where('id', productId)
+    console.log(response[0])
+
+    productDetail = response[0]
+    ownerId = response[0].owner_id
+    seriesId = response[0].series_id
+    try {
+      const owner = await knex('users').select("name", "image").where('id', ownerId);
+      const series = await knex('series').select("name").where('id', seriesId);
+      console.log({ owner })
+      console.log({ series })
+
+      return res.status(200).json({ productDetail, owner, series })
+    }
+    catch (err) {
+      console.error(err);
+      return res.status(500).json({ response: err })
+    }
+
+  }
+  catch (err) {
+    console.error(err);
+    return res.status(500).json({ response: err })
+  }
+
+})
+/* ----------------------------------------------- */
 
 // app.get("/products", (req, res) => {
 

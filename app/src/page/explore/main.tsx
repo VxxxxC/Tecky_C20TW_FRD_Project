@@ -27,18 +27,17 @@ import MobilePopUpMenuComponent from "./mobilePopUpMenu";
 //   },
 // ];
 
-
-interface ListCategory  {
-  id: number,
-  name: string,
+interface ListCategory {
+  id: number;
+  name: string;
 }
 
-interface ListItem	{
-  name: string,
-  image: string,
-  price: number,
-  category_id: number,
-  nft_address: string,
+interface ListItem {
+  name: string;
+  image: string;
+  price: number;
+  category_id: number;
+  nft_address: string;
 }
 
 function Explore() {
@@ -50,31 +49,28 @@ function Explore() {
   const [users, serUsers] = useState<any[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState<any>(null);
-  const [category, setCategory] = useState<ListCategory[]>([])
-  const [selected, setSelected] = useState<number[]>([])
-  const [submitted, setSubmitted] = useState<boolean>(false)
-  const [items, setItems] = useState<ListItem[]>()
-  const [displayed, setDisplayed] = useState<ListItem[]>()
+  const [category, setCategory] = useState<ListCategory[]>([]);
+  const [selected, setSelected] = useState<number[]>([]);
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [items, setItems] = useState<ListItem[]>();
+  const [displayed, setDisplayed] = useState<ListItem[]>();
 
-
-  function addremove(category_id : number){
-    const id :number = category_id
+  function addremove(category_id: number) {
+    const id: number = category_id;
     // const result : any = selected.find(no=> no == category_id);
 
-    if(selected.indexOf(id) >= 0){
-        //remove
-        const resultArr = selected.filter( (v : any) => v !== id)
-        setSelected(resultArr)
+    if (selected.indexOf(id) >= 0) {
+      //remove
+      const resultArr = selected.filter((v: any) => v !== id);
+      setSelected(resultArr);
+    } else {
+      // add
+      setSelected([...selected, id]);
     }
-    else{
-        // add
-        setSelected([...selected, id])
-    }
-}
+  }
 
-  let host = process.env.REACT_APP_URL
+  let host = process.env.REACT_APP_URL; // fetch S3 server itself
   // let host = `https://unipiece-api.full-stack.app`
-
 
   useEffect(() => {
     // fetch("https://unipiece-api.full-stack.app/getalluser")
@@ -98,55 +94,58 @@ function Explore() {
   }, []);
 
   useEffect(() => {
-      // fetch("https://unipiece-api.full-stack.app/getcategorylist")
-        fetch(`${host}/getcategorylist`)
-        .then((res) => res.json())
-        .then(
-          (result) => {
-            console.log(result);
-            setCategory(result);
-          },
-          // Note: it's important to handle errors here
-          // instead of a catch() block so that we don't swallow
-          // exceptions from actual bugs in components.
-          (error) => {
-            console.log("what happened: ", error);
-          }
-        );
-    }, []);
+    // fetch("https://unipiece-api.full-stack.app/getcategorylist")
+    fetch(`${host}/getcategorylist`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          setCategory(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          console.log("what happened: ", error);
+        }
+      );
+  }, []);
 
-    useEffect(() => {
-        // fetch("https://unipiece-api.full-stack.app/getallitems")
-        fetch(`${host}/getallitems`)
-          .then((res) => res.json())
-          .then(
-            (result) => {
-              console.log(result);
-              setItems(result);
-              setDisplayed(result);
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              console.log("what happened: ", error);
-            }
-          );
-      }, []);
-      
-      useEffect(() => {
-        console.log(items)
-      }, [items])
-  
+  useEffect(() => {
+    // fetch("https://unipiece-api.full-stack.app/getallitems")
+    fetch(`${host}/getallitems`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          setItems(result);
+          setDisplayed(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          console.log("what happened: ", error);
+        }
+      );
+  }, []);
 
-  function clickSubmit(){
+  useEffect(() => {
+    console.log(items);
+  }, [items]);
+
+  function clickSubmit() {
     console.log("hiiii");
 
-    const finalArr = items ? items.filter( v => selected.indexOf(v.category_id) >= 0) : []
-    setDisplayed(finalArr)
+    const finalArr = items
+      ? items.filter((v) => selected.indexOf(v.category_id) >= 0)
+      : [];
+    setDisplayed(finalArr);
   }
 
-  const UserProfileComponentTest = React.lazy(() :any => import ("../elements/UserProfileComponent_test"));
+  const UserProfileComponentTest = React.lazy(
+    (): any => import("../elements/UserProfileComponent_test")
+  );
 
   const UserProfileComponentTest2 = React.lazy((): any => {
     return new Promise((resolve) => {
@@ -160,27 +159,23 @@ function Explore() {
 
   // const filteredUsers = users.filter(user => user.style==2)
 
-
   const listUsers = users.map((item) => (
     <Suspense
-                fallback={
-                  <div className="col-start-1 col-end-4 h-[100vh]">
-                    <UniLoader />
-                  </div>
-                }
-              >
-    <UserProfileComponentTest
-      bg={item.bg}
-      icon={item.icon}
-      name={item.name}
-      username={item.username}
-      bio={item.bio}
-    />
+      fallback={
+        <div className="col-start-1 col-end-4 h-[100vh]">
+          <UniLoader />
+        </div>
+      }
+    >
+      <UserProfileComponentTest
+        bg={item.bg}
+        icon={item.icon}
+        name={item.name}
+        username={item.username}
+        bio={item.bio}
+      />
     </Suspense>
   ));
-
-
-
 
   // const listItemsLazy = React.lazy(() :any => import ("../elements/UserProfileComponent_test"));
   const UsertProfile = React.lazy((): any => {
@@ -228,49 +223,51 @@ function Explore() {
         </Tabs>
       </div>
 
-    {/* *************** Grid *********************** */}
-    <div className="grid grid-col-7 ">
-          {/* *************** filter *********************** */}
-          <div className={`${filter >=3?"hidden":""}        
-          col-start-1 col-end-2 font-mono shadow-lg p-5`}>
-          {
-          category.map((item : any)=> (
-            
+      {/* *************** Grid *********************** */}
+      <div className="grid grid-col-7 ">
+        {/* *************** filter *********************** */}
+        <div
+          className={`${filter >= 3 ? "hidden" : ""}        
+          col-start-1 col-end-2 font-mono shadow-lg p-5`}
+        >
+          {category.map((item: any) => (
             <div className="mt-5 flex item-start">
               <input
                 value={item.id}
                 onClick={(e) => {
-                    console.log('e.currentTarget.value ', e.currentTarget.value);
-                    addremove(item.id)
-                    clickSubmit()
-                  }}
+                  console.log("e.currentTarget.value ", e.currentTarget.value);
+                  addremove(item.id);
+                  clickSubmit();
+                }}
                 type="checkbox"
                 checked={selected.indexOf(item.id) >= 0}
                 className="mx-3 checkbox checkbox-sm rounded-md"
               />
               <div>{item.name}</div>
             </div>
+          ))}
+        </div>
 
-        ))}
-          </div>
-
-          {/* *************** UserProfile *********************** */}
+        {/* *************** UserProfile *********************** */}
         <div className="col-start-2 col-end-8">
           <div className="grid grid-cols-3 gap-x-4 p-2">
             {filter == 1 ? (
-              displayed ? displayed.map(item => (
-                <div>
-                  <ProductItemProps 
-                    name={item.name}
-                    img={item.image}
-                    price={item.price}
-                    nft_address={item.nft_address}
-                  />
+              displayed ? (
+                displayed.map((item) => (
+                  <div>
+                    <ProductItemProps
+                      name={item.name}
+                      img={item.image}
+                      price={item.price}
+                      nft_address={item.nft_address}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div className="col-start-1 col-end-8 h-screen">
+                  <UniLoader />
                 </div>
-              )):
-              <div className="col-start-1 col-end-8 h-screen">
-              <UniLoader />
-            </div>
+              )
             ) : (
               ""
             )}
@@ -287,17 +284,10 @@ function Explore() {
             ) : (
               ""
             )}
-            {filter == 3 ? (
-              <>
-              {listUsers}
-              </>
-            ) : (
-              ""
-            )}
+            {filter == 3 ? <>{listUsers}</> : ""}
           </div>
-        </div>   
+        </div>
       </div>
-
     </div>
   ) : (
     // Mobile Version //
@@ -340,53 +330,58 @@ function Explore() {
             setMobileMenu(true);
             setSubmitted(false);
           }}
-          className={
-        `${filter<=2?"":"hidden"} btn-primary font-mono font-medium fixed rounded-full -translate-x-[50%] left-[50%] bottom-[8vh] w-[9rem] h-[3rem]
-        hover:scale-105 transition ease-in-out z-50`
-        }
+          className={`${
+            filter <= 2 ? "" : "hidden"
+          } btn-primary font-mono font-medium fixed rounded-full -translate-x-[50%] left-[50%] bottom-[8vh] w-[9rem] h-[3rem]
+        hover:scale-105 transition ease-in-out z-50`}
         >
           Filters
         </button>
 
         {/* Brower */}
       </div>
-      {filter == 1?
-            <div className="min-h-[100vh]">
-            <div className="m-5 p-5 flex flex-col">
-              {
-                              displayed ? displayed.map(item => (
-                                <div>
-                                  <ProductItemProps 
-                                    name={item.name}
-                                    img={item.image}
-                                    price={item.price}
-                                    nft_address={item.nft_address}
-                                  />
-                                </div>
-                              )):<UniLoader />
-              }
-            </div>
+      {filter == 1 ? (
+        <div className="min-h-[100vh]">
+          <div className="m-5 p-5 flex flex-col">
+            {displayed ? (
+              displayed.map((item) => (
+                <div>
+                  <ProductItemProps
+                    name={item.name}
+                    img={item.image}
+                    price={item.price}
+                    nft_address={item.nft_address}
+                  />
+                </div>
+              ))
+            ) : (
+              <UniLoader />
+            )}
           </div>
-      :""}
-      {filter == 2?
-            <div className="min-h-[100vh]">
-            <div className="m-5 p-5 flex flex-col">
-            </div>
-          </div>
-      :""}
-      {filter == 3?
-            <div className="min-h-[100vh]">
-            <div className="m-5 p-5 flex flex-col">
-              {listUsers}
-            </div>
-          </div>
-      :""}
+        </div>
+      ) : (
+        ""
+      )}
+      {filter == 2 ? (
+        <div className="min-h-[100vh]">
+          <div className="m-5 p-5 flex flex-col"></div>
+        </div>
+      ) : (
+        ""
+      )}
+      {filter == 3 ? (
+        <div className="min-h-[100vh]">
+          <div className="m-5 p-5 flex flex-col">{listUsers}</div>
+        </div>
+      ) : (
+        ""
+      )}
 
       {/* pop-up menu */}
-      <MobilePopUpMenuComponent 
+      <MobilePopUpMenuComponent
         selected={[selected, setSelected]}
         category={[category, setCategory]}
-        submitted={[submitted, setSubmitted]} 
+        submitted={[submitted, setSubmitted]}
         MobileMenu={[MobileMenu, setMobileMenu]}
         clickSubmit={clickSubmit}
       />
@@ -396,10 +391,8 @@ function Explore() {
 
 export default Explore;
 
-
-
-
-{/* <div className="p-3 col-start-1 col-end-2 max-w-[20rem]">
+{
+  /* <div className="p-3 col-start-1 col-end-2 max-w-[20rem]">
 <ul className="mb-5 menu bg-base-100 w-full rounded-md shadow-xl">
   <span className="p-3 text-md text-content-secondary font-mono font-medium">
     Type
@@ -458,4 +451,5 @@ export default Explore;
     <a>Not Verified</a>
   </li>
 </ul>
-</div> */}
+</div> */
+}
