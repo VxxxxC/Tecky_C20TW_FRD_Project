@@ -10,7 +10,7 @@ function PurchaseButton(){
     const itemId: number = 1099
 
     // let host = process.env.REACT_APP_URL; // fetch S3 server itself
-    let host = `http://localhost:8080`
+    let host = process.env.REACT_APP_DEV_API
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -39,35 +39,3 @@ function PurchaseButton(){
 
 
 export default PurchaseButton
-
-
-
-// var Component = React.createClass({
-//     render: function(){
-//             return (
-//                 <form>
-//                     <input type="text" ref="data" placeholder="Send some data"/>
-//                     <button onClick={this.handleSubmit}>Send</button>
-//                 </form>
-//             );
-//         },
-
-//      handleSubmit: function(e) {
-//             e.preventDefault();
-//             var data = this.refs.data.getDOMNode().value;
-//             fetch("<url to where to post>", {
-//                 method: "POST",
-//                 body: 'data'
-//             }).then(this.handleRedirect)                    
-//         },
-
-//     handleRedirect: function(res){
-//         if( res.status === 200 ){
-//             // redirect here
-//             // window.location.href = 'http://localhost:300/redirect';
-//         }else {
-//           // Something went wrong here
-//         }
-
-//     }
-// });

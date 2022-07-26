@@ -7,12 +7,19 @@ import PurchaseButton from '../elements/pay';
 
 function SuccessPayment(){
     const { hash } = useParams()
-    const host = `http://localhost:8080`
+    const host = process.env.REACT_APP_DEV_API
+    const [visible, setVisible] = useState<boolean>(false)
+
+    const toggleVisible = () => {
+      setVisible(!visible)
+    }
+
 
     useEffect( () => {
         fetch(`${host}/paid/${hash}`)
         .then(response => response.json())
-        .then(() => {
+        .then((result) => {
+            console.log(result)
             window.setTimeout(function() {
             window.location.href = '/';
             }, 3000);
@@ -21,25 +28,7 @@ function SuccessPayment(){
     }, [])
 
     
-    // const localStore: any = useJWTPayload();
-    // const userId: number = localStore?.id;
 
-
-    // // const user_jwtToken = useStorageState("token", "");
-    // useEffect(() => {
-    //     console.log(localStore);
-
-
-    //     // window.setTimeout(function() {
-    //     //     window.location.href = '/';
-    //     // }, 3000);
-    // })
-
-    const [visible, setVisible] = useState<boolean>(false)
-
-    const toggleVisible = () => {
-      setVisible(!visible)
-    }
 
     let successText = (         <div className="alert alert-success shadow-lg animate-bounce w-96">
     <div>
