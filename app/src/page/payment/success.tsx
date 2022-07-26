@@ -1,14 +1,39 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import  { Modal, Button } from 'react-daisyui';
+import { useJWTPayload } from '../../hook/useToken';
 import BackgroundAnimation2 from '../elements/background_2';
+import PurchaseButton from '../elements/pay';
 
 function SuccessPayment(){
+    const { hash } = useParams()
+    const host = `http://localhost:8080`
 
-    useEffect(() => {
-        // window.setTimeout(function() {
-        //     window.location.href = '/';
-        // }, 3000);
-    })
+    useEffect( () => {
+        fetch(`${host}/paid/${hash}`)
+        .then(response => response.json())
+        .then(() => {
+            window.setTimeout(function() {
+            window.location.href = '/';
+            }, 3000);
+        });
+
+    }, [])
+
+    
+    // const localStore: any = useJWTPayload();
+    // const userId: number = localStore?.id;
+
+
+    // // const user_jwtToken = useStorageState("token", "");
+    // useEffect(() => {
+    //     console.log(localStore);
+
+
+    //     // window.setTimeout(function() {
+    //     //     window.location.href = '/';
+    //     // }, 3000);
+    // })
 
     const [visible, setVisible] = useState<boolean>(false)
 
@@ -24,11 +49,12 @@ function SuccessPayment(){
     </div>)
   
     return (
-        <>
+        
     <div className="font-mono h-[60vh] flex items-center justify-center">
         <BackgroundAnimation2 text={successText}/>
-              </div>
-      </>
+        <PurchaseButton/>
+    </div>
+      
     )
     // useNavigate
 
@@ -40,3 +66,7 @@ function SuccessPayment(){
 }
 
 export default SuccessPayment
+
+function useStorageState(arg0: string, arg1: string) {
+    throw new Error('Function not implemented.');
+}

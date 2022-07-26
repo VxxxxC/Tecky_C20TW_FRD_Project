@@ -56,7 +56,7 @@ function App() {
             <Route path="/profile" element={<ProductProfile />} />
             <Route path="/user/:id" element={<User />} />
             <Route path="/explore" element={<Explore />} />
-            <Route path="/success" element={<SuccessPayment />} />
+            <Route path="/success/:hash" element={<SuccessPayment />} />
             
           </Routes>
         </div>
