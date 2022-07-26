@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useStorageState from "react-use-storage-state";
 import { useJWTPayload } from "../../../hook/useToken";
 import style from "./menulist.module.scss";
@@ -31,9 +31,9 @@ function Menulist() {
           <p className={style.ListItem}>Profile</p>
         </button>
       ) : null}
-      <div className={style.menulist}>
+      <Link to="/explore" className={style.menulist}>
         <p className={style.ListItem}>Explore</p>
-      </div>
+      </Link>
       <div className={style.menulist}>
         <p className={style.ListItem}>How it works</p>
       </div>

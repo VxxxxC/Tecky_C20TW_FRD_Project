@@ -22,9 +22,9 @@ function Head() {
   /*********** check user login token **************/
   // console.log(useToken());
   const localStore: any = useJWTPayload();
-  console.log(localStore);
+  // console.log(localStore);
   const userId: number = localStore?.userId;
-  console.log(userId);
+  // console.log(userId);
 
   /************** logout ****************/
   function Logout() {
@@ -60,15 +60,15 @@ function Head() {
 
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_PRODUCTION_API}/user`, { userId: userId })
+      .post(`${process.env.REACT_APP_DEV_API}/user`, { userId: userId })
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         setUserDetail(response.data);
       });
   }, []);
 
   useEffect(() => {
-    console.log(userDetail);
+    // console.log(userDetail);
   }, [userDetail]);
 
   return (

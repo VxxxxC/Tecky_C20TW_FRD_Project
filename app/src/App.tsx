@@ -16,9 +16,6 @@ import { useJWTPayload } from "./hook/useToken";
 import SuccessPayment from "./page/payment/success";
 
 function App() {
-  // console.log(process.env);
-  // console.log(process.env.REACT_APP_PRODUCTION_API);
-
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
   const theme = ["cupcake", "lofi", "luxury"];

@@ -5,8 +5,49 @@ import "./profile.scss";
 import { Button, Tabs, Theme } from "react-daisyui";
 // import ProductDetail from "./details";
 import UniLoader from "../elements/loader";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 function ProductProfile() {
+  const { id }: string | any = useParams();
+  const productId: any = 50;
+  console.log({ productId });
+
+  interface ProductDetail {
+    category_id: number; //TODO:
+    content: string;
+    created_at: string;
+    credit_by: string | null;
+    id: number;
+    image: string;
+    name: string;
+    nft_address: string;
+    owner_id: number; //TODO:
+    price: number;
+    quantity: number;
+    series_id: number | null; //TODO:
+    status: number;
+    type: string;
+    updated_at: string;
+  }
+  const [getDetail, setGetDetail]: any = useState<ProductDetail>();
+  console.log(getDetail?.name);
+
+  useEffect(() => {
+    console.log(getDetail?.productDetail);
+    console.log(getDetail?.owner);
+    console.log(getDetail?.series);
+  }, [getDetail]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_DEV_API}/profile/${productId}`, productId)
+      .then(function (response) {
+        // console.log(response);
+        setGetDetail(response.data);
+      });
+  }, []);
+
   const { height, width } = useWindowDimensions();
 
   const [count, setCount] = useState(1);
@@ -60,7 +101,7 @@ function ProductProfile() {
         >
           <Image
             className="object-cover rounded-2xl "
-            src="https://placeimg.com/400/225/arch"
+            src={getDetail?.productDetail.image}
             alt="flying cat"
             title="Neon cat"
             width="100%"
@@ -91,10 +132,10 @@ function ProductProfile() {
       >
         <div className="grid grid-cols-6 gap-4">
           <div className="col-start-1 col-end-5 text-3xl font-bold">
-            Product Name
+            {getDetail?.name}
           </div>
           <div className="col-start-5 col-end-6">
-            <button className="btn btn-primary rounded-lg">like</button>
+            <button className="btn btn-primary rounded-lg">Purchase</button>
           </div>
           <div className="col-start-6 col-end-7">
             <button className="btn btn-ghost rounded-lg">border-2</button>
@@ -105,17 +146,21 @@ function ProductProfile() {
           <div className="col-start-1 col-end-4">
             <div className="avatar">
               <div className="mx-3 w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src="https://placeimg.com/192/192/people" />
+                <img src={getDetail?.owner[0].image} />
               </div>
-              <div className="">Creator Name</div>
+              <div className="">{getDetail?.owner[0].name}</div>
             </div>
           </div>
           <div className="col-start-4 col-end-7">
             <div className="avatar">
               <div className="mx-3 w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src="https://placeimg.com/192/192/people" />
+                <img src={getDetail?.owner[0].image} />
               </div>
-              <div className="">Collection Name</div>
+              <div className="">
+                {getDetail?.series.length == 0
+                  ? "Null"
+                  : getDetail?.series[0].name}
+              </div>
             </div>
           </div>
         </div>
@@ -150,7 +195,7 @@ function ProductProfile() {
             <div>
               {/* Product Details */}
               <Suspense fallback={<UniLoader />}>
-                <ProductDetail />
+                <ProductDetail content={getDetail?.productDetail.content} />
               </Suspense>
               {/* <FlexiblePopupSelect/> */}
             </div>
@@ -161,7 +206,7 @@ function ProductProfile() {
             <div>
               {/* Product Oweners */}
               <Suspense fallback={<UniLoader />}>
-                <ProductOwners />
+                <ProductOwners owner={getDetail?.owner} />
               </Suspense>
             </div>
           ) : (
@@ -171,7 +216,9 @@ function ProductProfile() {
             <div>
               {/* Product History */}
               <Suspense fallback={<UniLoader />}>
-                <ProductHistory />
+                <ProductHistory
+                  address={getDetail?.productDetail.nft_address}
+                />
               </Suspense>
             </div>
           ) : (
