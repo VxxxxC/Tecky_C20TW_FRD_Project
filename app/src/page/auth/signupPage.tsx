@@ -57,12 +57,10 @@ function RegisterPage() {
     console.log(email, password, passwordAgain);
     console.log(email.length, password.length, passwordAgain.length);
 
-    // console.log(Axios.defaults.headers.post);
-    // console.log(Axios.defaults.headers.common);
+    if (password !== passwordAgain) {
+      return alert("password not match!");
+    }
 
-    // const response = await axios.post(
-    //   "https://unipiece-api.full-stack.app/signup",
-    //   {
     const response = await axios.post(
       `${process.env.REACT_APP_DEV_API}/signup`,
       {
