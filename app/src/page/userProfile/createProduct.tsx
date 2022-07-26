@@ -10,7 +10,7 @@ function CreateProduct() {
   /******** Redirect function *********/
   const navigate = useNavigate();
 
-  /*********** check user login token and get user id for url params **************/
+  /*********** get user jwt token **************/
   const user_jwtToken = useStorageState("token", "");
   // console.log({ user_jwtToken });
 
@@ -62,7 +62,7 @@ function CreateProduct() {
     formData.append("credit_by", credit_by);
 
     const response = await axios.post(
-      "http://localhost:8080/user/create_product",
+      `${process.env.REACT_APP_PRODUCTION_API}/user/create_product`,
       formData,
       {
         headers: {

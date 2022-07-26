@@ -3,4 +3,7 @@ server/node_modules/
 .DS_Store
 .vscode
 node_modules/
+.env
+.env/
 .env*
+server/img/

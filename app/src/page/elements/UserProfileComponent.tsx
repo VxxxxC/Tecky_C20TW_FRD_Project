@@ -21,7 +21,7 @@ function UserProfileComponent() {
               height="100%"
             /> */}
             <Image
-              src="http://localhost:8080/img/1.jpeg"
+              src={`${process.env.REACT_APP_PRODUCTION_API}/img/1.jpeg`}
               alt=""
               width="100%"
               height="100%"
@@ -42,7 +42,7 @@ function UserProfileComponent() {
               height="100%"
             /> */}
             <Image
-              src="http://localhost:8080/img/2.jpeg"
+              src={`${process.env.REACT_APP_PRODUCTION_API}/img/2.jpeg`}
               alt=""
               width="100%"
               height="100%"

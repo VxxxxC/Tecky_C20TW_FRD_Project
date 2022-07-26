@@ -5,6 +5,7 @@ import Menulist from "./components/menulist";
 import style from "./head.module.scss";
 import { useToken, useJWTPayload } from "../../hook/useToken";
 import { BlurMenu } from "../../hook/useBlur";
+import axios from "axios";
 
 function Head() {
   const menuBlurSwitch = BlurMenu();
@@ -18,10 +19,12 @@ function Head() {
     localStorage.getItem("token") ? true : false
   );
 
-  /*********** check user login token and get user email display **************/
+  /*********** check user login token **************/
   // console.log(useToken());
-  const localStore = useJWTPayload();
-  const userEmail = localStore?.email;
+  const localStore: any = useJWTPayload();
+  console.log(localStore);
+  const userId: number = localStore?.userId;
+  console.log(userId);
 
   /************** logout ****************/
   function Logout() {
@@ -36,6 +39,37 @@ function Head() {
   // console.log(ref.current);
 
   useOnClickOutside(ref, () => menuBlurSwitch.setIsActive(false));
+
+  interface UserDetail {
+    bg_image: string;
+    bio: string;
+    created_at: string;
+    email: string;
+    id: number;
+    image: string;
+    name: string;
+    password: string;
+    publickey: string;
+    shipping_address: string;
+    style: number;
+    token_amount: string;
+    username: string;
+    wallet_address: string;
+  }
+  const [userDetail, setUserDetail] = useState<UserDetail>();
+
+  useEffect(() => {
+    axios
+      .post(`${process.env.REACT_APP_PRODUCTION_API}/user`, { userId: userId })
+      .then(function (response) {
+        console.log(response.data);
+        setUserDetail(response.data);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log(userDetail);
+  }, [userDetail]);
 
   return (
     <div className={style.headBar}>
@@ -63,7 +97,7 @@ function Head() {
           </>
         ) : (
           <div className="block items-center mx-8">
-            {userEmail ? <div className="username">{userEmail}</div> : null}
+            {userId ? <div className="username">{userDetail?.name}</div> : null}
             <button
               onClick={Logout}
               className="btn bg-primary-content text-primary rounded-xl border-2 hover:text-primary-content"

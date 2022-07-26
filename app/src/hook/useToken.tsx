@@ -24,12 +24,12 @@ export function useLogout() {
   };
 }
 
-function dispatch(key:string,value:any){
-	localStorage.setItem(key,value)
-	let event =new StorageEvent('')
-	window.dispatchEvent(event)
+function dispatch(key: string, value: any) {
+  localStorage.setItem(key, value);
+  let event = new StorageEvent("");
+  window.dispatchEvent(event);
 }
 
 export function logout() {
-  dispatch('token', null)
+  dispatch("token", null);
 }

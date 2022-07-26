@@ -13,7 +13,7 @@ function ProductItem() {
   // similar to componentDidMount()
   useEffect(() => {
     // fetch("https://unipiece-api.full-stack.app/testproducts")
-    fetch("http://localhost:8080/testproducts")
+    fetch(`${process.env.REACT_APP_PRODUCTION_API}/testproducts`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -49,7 +49,7 @@ function ProductItem() {
                 height="100%" */}
               <Image
                 className="object-cover"
-                src={`http://localhost:8080/${item.img}`}
+                src={`${process.env.REACT_APP_PRODUCTION_API}/${item.img}`}
                 width="100%"
                 height="100%"
                 renderLoader={({ hasLoaded, hasFailed }: any) => (
