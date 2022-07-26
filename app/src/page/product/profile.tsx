@@ -10,7 +10,7 @@ import axios from "axios";
 
 function ProductProfile() {
   const { id }: string | any = useParams();
-  const productId: any = 50;
+  const productId: any = id;
   console.log({ productId });
 
   interface ProductDetail {
@@ -43,7 +43,7 @@ function ProductProfile() {
     axios
       .get(`${process.env.REACT_APP_DEV_API}/profile/${productId}`, productId)
       .then(function (response) {
-        // console.log(response);
+        console.log(response);
         setGetDetail(response.data);
       });
   }, []);

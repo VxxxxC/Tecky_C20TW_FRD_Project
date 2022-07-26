@@ -53,7 +53,7 @@ function App() {
             {/* <Route path="/login" element={<Login showFooter={showFooter} setShowFooter={setShowFooter}/>} /> */}
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<ProductProfile />} />
+            <Route path="/profile/:id" element={<ProductProfile />} />
             <Route path="/user/:id" element={<User />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/success/:hash" element={<SuccessPayment />} />
