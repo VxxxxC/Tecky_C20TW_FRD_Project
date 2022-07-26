@@ -5,20 +5,29 @@ import { client } from "./db"
 import { loginRoute } from './loginRoute'
 import { signUpRoute } from './signUpRoute'
 import { userRoute } from './userRoute'
+import { stripeRoutes } from './payment'
+import { stripeHookRoutes } from './paymenthook'
 import jwt from 'jsonwebtoken'
+
 
 
 export let app = express()
 let port = 8080
 
-app.use('/img', express.static('../img'))
-app.use('/img', express.static('/img'))
+export const stripe = require("stripe")('sk_test_51KyUlaDdiwtuqw1vAQVdCWI2ed6FIjxIxgRu1QAwxWp86WfVqYuTEAqAHCt6YXJnjRZi2GoIcdkgmwFLwzjKOEmB00Ci8x9VsU');
+app.use(stripeHookRoutes)
+
+
+// app.use('/img', express.static('../img'))
+app.use('/img', express.static('./img'))
 // app.use('/img', express.static('../img')) FIXME: remember change this image path when deploy to S3 
 // app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
-app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
+// app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(stripeRoutes)
 
 /* ----------------Express Auth Router------------ */
 app.use('/login', loginRoute)

@@ -72,8 +72,8 @@ function Explore() {
     }
 }
 
-  // let host = `http://localhost:8080`
-  let host = `https://unipiece-api.full-stack.app`
+  let host = `http://localhost:8080`
+  // let host = `https://unipiece-api.full-stack.app`
 
 
   useEffect(() => {

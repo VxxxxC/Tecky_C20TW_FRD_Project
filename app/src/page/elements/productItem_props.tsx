@@ -7,7 +7,7 @@ function ProductItemProps(props : any) {
   const [error, setError] = useState<any>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState<any[]>([]);
-  const img = props.image
+  const img = props.img
   const name = props.name
   const price = props.price
   const nft_address = props.nft_address
@@ -17,7 +17,7 @@ function ProductItemProps(props : any) {
             <div className="h-96">
               <Image
                 className="object-cover"
-                src={`https://unipiece.full-stack.app/${img}`}
+                src={`http://localhost:8080/${img}`}
                 width="100%"
                 height="100%"
                 // <Image className="object-cover" src={`http://127.0.0.1:8080/${img}`} width="100%" height="100%"

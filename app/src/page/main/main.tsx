@@ -12,7 +12,7 @@ function Main() {
     <div className="lg:px-20 md:px-10">
       {/* <Welcome/> */}
       <BackgroundAnimation />
-      <Category />
+      {/* <Category /> */}
       <Highlights />
       {/* <HowItWorks/> */}
       {/* <CyberpunkBg/> */}
