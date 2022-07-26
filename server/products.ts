@@ -96,3 +96,36 @@ productRoute.get("/getallcollection", async (req, res) => {
         res.status(500).send(`Service Unavailable: \n ***${err}***`);
     }
 })
+
+
+
+productRoute.get("/gethighlights", async (req, res) => {
+    function getTenRandomIntArr(min, max) {
+        let resultArr = []
+        let count = 0
+
+        for (let i = 0; i < 30; i++) {
+            let result = Math.floor(Math.random() * max);
+            if (result >= min && result <= max) {
+                resultArr.push(result)
+                i++;
+            }
+        }
+        return resultArr;
+    }
+      
+    try {
+        const randomArr = getTenRandomIntArr(1000, 1600)
+        const randomItemList = []
+        for (let randomId of randomArr) {
+            const no = JSON.parse(randomId)
+            const randomResult = await knex.select('name', 'image', 'price', 'category_id', 'nft_address').from('product').where('id', no)
+            randomItemList.push(randomResult)
+        }
+        
+        res.json([randomItemList])
+    } catch (err: Error | unknown) {
+        console.log("database error: ", err)
+        res.status(500).send(`Service Unavailable: \n ***${err}***`);
+    }
+})

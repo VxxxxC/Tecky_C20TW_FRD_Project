@@ -32,7 +32,7 @@ interface ListCategory {
   name: string;
 }
 
-interface ListItem {
+export interface ListItem {
   name: string;
   image: string;
   price: number;
@@ -69,7 +69,7 @@ function Explore() {
     }
   }
 
-  let host = process.env.REACT_APP_URL; // fetch S3 server itself
+  let host = process.env.REACT_APP_DEV_API; // fetch S3 server itself
   // let host = `https://unipiece-api.full-stack.app`
 
   useEffect(() => {

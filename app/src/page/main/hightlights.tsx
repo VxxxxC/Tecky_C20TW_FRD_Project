@@ -1,11 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ItemTest from "../elements/item_test";
 import { Image } from "react-image-and-background-image-fade";
 import useWindowDimensions from "../../hook/useWindowDimensions";
 import "./hightlights.scss";
 import ProductItem from "../elements/productItem";
+import axios from "axios";
+import ProductItemProps from "../elements/productItem_props";
+import UniLoader from "../elements/loader";
+import { ListItem } from "../explore/main";
+
+// const host = process.env.REACT_APP_DEV_API
+const host = `http://localhost:8080`
 
 function Highlights() {
+  const [highlightsItems, setHighlightsItems] = useState<ListItem[]>();
+
+  const [isloaded, serIsloaded] = useState(false)
+  
+  useEffect( () => {
+    fetch(`${host}/gethighlights`)
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        console.log(`${host}/gethighlights`)
+        console.log(result)
+        setHighlightsItems(result)
+        serIsloaded(true)
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        console.log("what happened: ", error);
+      })
+  }, []) //Empty array for deps.
+  
+  useEffect(() => {
+    console.log(highlightsItems);
+  }, [highlightsItems]);
+
   const { height, width } = useWindowDimensions();
 
   const desktopCarouselStyle = `carousel hightlights-carousel rounded-box bg-transparent shadow-inner p-3`;
@@ -26,7 +59,25 @@ function Highlights() {
           Hightlights.
         </div>
         <div className="mobileCarouselStyle">
-          <ProductItem />
+          {
+            //TODO FIXME
+                          highlightsItems ? (
+                            highlightsItems.map((item) => (
+                              <div>
+                                <ProductItemProps
+                                  name={item.name}
+                                  img={item.image}
+                                  price={item.price}
+                                  nft_address={item.nft_address}
+                                />
+                              </div>
+                            ))
+                          ) : (
+                            <div className="col-start-1 col-end-8 h-screen">
+                              <UniLoader />
+                            </div>
+                          )
+          }
         </div>
       </div>
     </>
@@ -37,7 +88,9 @@ function Highlights() {
         Hightlights
       </div>
       <div className={desktopCarouselStyle}>
-        <ProductItem />
+        {
+          highlightsItems?highlightsItems.map((item : ListItem) => (<div>{item.nft_address}</div>)):"2"
+        }
       </div>
     </div>
   );
