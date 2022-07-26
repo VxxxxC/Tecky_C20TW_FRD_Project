@@ -13,6 +13,7 @@ import { BlurMenu } from "./hook/useBlur";
 import Explore from "./page/explore/main";
 import useStorageState from "react-use-storage-state";
 import { useJWTPayload } from "./hook/useToken";
+import SuccessPayment from "./page/payment/success";
 
 function App() {
   const menuBlurSwitch = BlurMenu();
@@ -55,6 +56,8 @@ function App() {
             <Route path="/profile/:id" element={<ProductProfile />} />
             <Route path="/user/:id" element={<User />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/success" element={<SuccessPayment />} />
+            
           </Routes>
         </div>
         <Footer blur={menuBlur} />

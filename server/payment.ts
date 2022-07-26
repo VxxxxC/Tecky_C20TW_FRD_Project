@@ -1,127 +1,109 @@
 import express from 'express'
-// import { client } from './database'
+import { knex } from './knex'; /* MUST BE very careful !!! don't import "knex" , will cause sqlite error !! IT IS import "{knex}" !! from knex.ts <- knexfile.ts */
 export let stripeRoutes = express.Router()
 import {stripe} from './server'
+// import toSQLDate from 'js-date-to-sql-datetime'
 
 stripeRoutes.post('/create-checkout-session', async (req, res) => {
-    // try {
-    //     let stringCartItem : any = JSON.stringify(req.body.items).replace(/\\/g, "");
-    //     let cleanStringCartItems : any = stringCartItem.replace(/""/g, "")
-    //     let clientCartItems : any = JSON.parse(cleanStringCartItems)
-    //     // let user :any = req.session.user
-    //     // let user_id = user.id
-
-    //     // console.log(clientCartItems);
-
-    //     const sqlSelectedItems : any = []
-        
-    //     // for (let item of clientCartItems) {
-    //     //     let SQLresult = await client.query(`
-    //     //     select
-    //     //     product_name,
-    //     //     price,
-    //     //     product_image
-    //     //     from product
-    //     //     where id = $1
-    //     //     `, [item.productId],
-    //     // ) 
-    //     // // add product details into item object
-    //     // item.product = SQLresult.rows[0]
-
-    //     const product = {
-    //             price_data: {
-    //               currency: "hkd",
-    //               product_data: {
-    //                 name: JSON.stringify(SQLresult.rows[0].product_name),
-    //               },
-    //               unit_amount: parseInt(SQLresult.rows[0].price) * 100,
-    //             },
-    //             quantity: parseInt(item.cart_qty),
-    //           } 
-        
-    //     // console.log("product： ",product)
-    //     sqlSelectedItems.push(product)
-    //     }
-    //     // console.log(sqlSelectedItems)
-    //     // console.log("req.session.user id: ", user_id)
-    //     // output: req.session.user:  { id: 3, username: 'june2001', email: '', password: '1234' }
-
-    //     // res.json({url: sqlSelectedItems})
-
-    //     // TODO: cancel pending order
-    //     // add one more column to the "order" table (e.g. stripeOrderId inserted when hooks listened a payment intent)
-    //     // stating order id (stripe), check if there is "pending" & column(stripeId is not null) 
-    //     // cancel the previous order (maybe needed more order/ordered product verification)
-
-    //     let orderResult = await client
-    //     .query(`
-    //     INSERT INTO
-    //     "order" (status, user_id, created_at) values ($1, $2, now())
-    //     returning id
-    //     `, ["pending", user_id])
-
-    //     let orderId = orderResult.rows[0].id;
-    //     let orderAmount = 0;
-
-    //     for(let item of clientCartItems){
-    //         let product = item.product
-    //         await client
-    //         .query(`
-    //         INSERT INTO
-    //         productHistory
-    //         (order_id, product_name, product_price, price_total, product_id, quantity, created_at)
-    //         values ($1, $2, $3, $4, $5, $6, now())
-    //         `, 
-    //       [
-    //         orderId, product.product_name, product.price,
-    //         (product.price * item.cart_qty), item.productId, item.cart_qty,
-    //       ])
-    //       orderAmount += (product.price * item.cart_qty)
-    //     }
-
-    //     await client.query(`
-    //     UPDATE
-    //     "order"
-    //     SET order_total = $1
-    //     WHERE id = $2;
-    //     `,[orderAmount, orderId])
-        
-
-    //     const session = await stripe.checkout.sessions.create({
-    //       payment_method_types: ["card"],
-    //       mode: "payment",
-    //       line_items: sqlSelectedItems,
-    //       success_url: `https://pet-shop.loca.lt/success.html?id=${orderId}`,
-    //       cancel_url: `https://pet-shop.loca.lt/cancel.html?id=${orderId}`,
-    //     })
-    //     res.json({ url: session.url })
-
-    //     }catch(err: any) {
-    //         res.status(500).json({ error: err.message })
-    //         console.error(err.message)
-    //     }
-     }
-)
-
-// stripeRoutes.post('/order/:order_id/status/:status', async (req, res) => {
+  try{
+    // define request parameters
+    let product_id = req.body.product_id
+    let user_id = req.body.user_id
+    console.log('request parameters: ',req.body.product_id, req.body.user_id)
+    // find product & user in database
+    const productResult = await knex.select('id','name', 'price', 'content', 'image', 'type', 'nft_address', 'owner_id').from('product').where('id', product_id)
+    const buyerUserResult = await knex.select('id', 'name', 'email', 'username', 'publickey' ).from('users').where('id', user_id)
+    const ownerUserResult = await knex.select('id', 'name', 'email', 'username','publickey').from('users').where('id', productResult[0].owner_id)
     
+    // change date to sql format
+    let SQLdate = Date.now()
+    console.log("*** SQLdate ***", SQLdate)
 
-//     try {
-//         let orderId = req.params.order_id
+    var date;
+    date = new Date();
+    date = date.getUTCFullYear() + '-' +
+        ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+        ('00' + date.getUTCDate()).slice(-2) + ' ' + 
+        ('00' + date.getUTCHours()).slice(-2) + ':' + 
+        ('00' + date.getUTCMinutes()).slice(-2) + ':' + 
+        ('00' + date.getUTCSeconds()).slice(-2);
+    console.log(date);
+    console.log(productResult)
+    // define variables
+    const productId = productResult[0].id;
+    const productName = productResult[0].name
+    const productPrice = productResult[0].price
+    const productContent = productResult[0].content
+    const productImage = productResult[0].image
 
-//         await client
-//             .query(`
-//             UPDATE 
-//             order
-//             SET
-//             status = $1
-//             WHERE 
-//             id = $2
-//             `,[req.params.status, orderId])
+    const owner_publickey = ownerUserResult[0].publickey
+    const owner_id = ownerUserResult[0].id
+    const receiver_publickey = buyerUserResult[0].publickey
+    const receiver_id = buyerUserResult[0].id
+    const product_nft_address = productResult[0].nft_address
+    const product_series_id = productResult[0].series_id
+    const total_price = productPrice
+    const created_at = date
 
-//     }catch(err: any){
-//         res.status(500).json({error: err.message})
-//         console.error(err.message)
-//     }
+  
+    // create pending order in database
+    await knex('order').insert({
+      order_type: 1,
+      owner_publickey: owner_publickey,
+      receiver_publickey: receiver_publickey,
+      product_nft_address: product_nft_address,
+      product_series_id: product_series_id,
+      quantity: 1,
+      total_price: total_price,
+      created_at: created_at,
+      timeout_at: null,
+      shipping_address: null,
+      status: "pending",
+      owner_id: owner_id,
+      receiver_id: receiver_id,
+      product_id: productId,
+    })
 
-// })
+
+    // create stripe payment session
+    const DOMAIN = 'https://unipiece.full-stack.app';
+    
+    const productImageURL = `${DOMAIN}/${productImage}`
+  
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [{
+        name: productName,
+        description: productContent,
+        images: [productImageURL],
+        amount: productPrice*100,
+        currency: 'hkd',
+        quantity: 1,
+      }],
+      mode: 'payment',
+      success_url: `${DOMAIN}/success`,
+      cancel_url: `${DOMAIN}/profile/${productId}`,
+    });
+
+    // redirect to stripe payment page
+    // res.redirect(303, session.url);
+    res.json({status: true, url:session.url, error:false});
+  }catch(err){
+    // error handling
+    res.status(500).json({ status: false, url: null, error: err.message })
+    console.log(err)
+  }
+
+})
+
+
+      // Stripe seesion unused scripts
+        // price_data: {
+        //   currency: 'hkd',
+        //   unit_amount: productPrice*100,
+        //   product_data: {
+        //     name: productName,
+        //     description: productContent,
+        //     images: [productImageURL],
+        //   },
+        // },
