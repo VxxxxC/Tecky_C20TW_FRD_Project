@@ -5,10 +5,10 @@ import "./profile.scss";
 import { Button, Tabs, Theme } from "react-daisyui";
 // import ProductDetail from "./details";
 import UniLoader from "../elements/loader";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-const host = process.env.REACT_APP_URL
+const host = process.env.REACT_APP_URL;
 // const host = `http://localhost:3000`
 
 function ProductProfile() {
@@ -50,6 +50,8 @@ function ProductProfile() {
         setGetDetail(response.data);
       });
   }, []);
+
+  const navigate = useNavigate();
 
   const { height, width } = useWindowDimensions();
 
@@ -94,6 +96,28 @@ function ProductProfile() {
         responsive ? mobile : desktop
       }`}
     >
+      <button
+        onClick={() => {
+          navigate("/explore");
+        }}
+        className="m-10 btn-primary w-[100px] h-[60px] rounded-lg"
+      >
+        <svg
+          className="w-24 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            d="M7 16l-4-4m0 0l4-4m-4 4h18"
+          ></path>
+        </svg>
+        Go Back
+      </button>
       <div className={responsive ? mobileCol1 : desktopRow1}>
         <div
           // outline outline-offset-4 outline-2 outline-dashed outline-primary
