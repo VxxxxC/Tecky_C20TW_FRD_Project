@@ -129,7 +129,7 @@ userRoute.post('/', async (req, res) => {
     console.log({ userId })
 
     try {
-        const response = await knex('users').select("name").where('id', userId)
+        const response = await knex('users').select("name", "image").where('id', userId)
         const user = response[0]
         return res.status(200).json(user)
     }

@@ -33,14 +33,14 @@ function Head() {
   const userId: number = localStore?.userId;
   // console.log(userId);
 
-  /************** logout ****************/
-  function Logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("is_login");
+  // /************** logout ****************/
+  // function Logout() {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("is_login");
 
-    navigate("/");
-    window.location.reload();
-  }
+  //   navigate("/");
+  //   window.location.reload();
+  // }
 
   const ref: any = useRef();
   // console.log(ref.current);
@@ -69,7 +69,7 @@ function Head() {
     axios
       .post(`${process.env.REACT_APP_DEV_API}/user`, { userId: userId })
       .then(function (response) {
-        // console.log(response.data);
+        console.log(response.data);
         setUserDetail(response.data);
       });
   }, []);
@@ -80,9 +80,7 @@ function Head() {
 
   return (
     <div className={style.headBar}>
-      <div
-        className={`${style.leftContainer} ${menuBlur == 0 ? "" : "blur-sm"}`}
-      >
+      <div className={`flex ${menuBlur == 0 ? "" : "blur-sm"}`}>
         {/* <Link to="/" className={style.leftContent}  onClick={()=>setShowFooter(true)}> */}
         <Link to="/" className="flex items-center mx-8 ">
           {/* Paul deleted: style.leftContent */}
@@ -92,9 +90,7 @@ function Head() {
         </Link>
       </div>
 
-      <div
-        className={`${style.rightContainer} ${menuBlur == 0 ? "" : "blur-sm"}`}
-      >
+      <div className={`flex ${menuBlur == 0 ? "" : "blur-sm"}`}>
         {!token ? (
           <>
             <Link to="/login" className="flex items-center mx-8">
@@ -104,17 +100,23 @@ function Head() {
               </button>
             </Link>
           </>
-        ) : (
-          <div className="block items-center mx-8">
-            {userId ? <div className="username">{userDetail?.name}</div> : null}
+        ) : null}
+
+        {userId ? (
+          <div className="flex flex-col">
             <button
-              onClick={Logout}
-              className="btn bg-primary-content text-primary rounded-xl border-2 hover:text-primary-content"
+              onClick={() => navigate(`/user/${userId}`)}
+              className="m-3 rounded-full border-2 border-[white] flex flex-col justify-center items-center bg-[#80808044]"
             >
-              Logout
+              {/* User picture */}
+              <img
+                className=" w-[70px] h-[70px] object-cover rounded-full"
+                src={process.env.REACT_APP_IMG_URL + "/" + userDetail?.image}
+              />
             </button>
+            {/* <div className="username">{userDetail?.name}</div>{" "} */}
           </div>
-        )}
+        ) : null}
 
         <button
           className={style.menuBtn}
