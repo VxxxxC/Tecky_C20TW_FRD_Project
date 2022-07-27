@@ -2,8 +2,22 @@ import express from 'express'
 import fs from 'fs'
 import formidable from "formidable";
 import { knex } from './knex';
+import AWS from 'aws-sdk';
+import awsCloudfrontInvalidate from 'aws-cloudfront-invalidate';
 
 export const userRoute = express.Router();
+
+const s3 = new AWS.S3({
+    accessKeyId: "AKIAZ4X2C6I5JGJ7B3MX",
+    secretAccessKey: "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",
+  })
+
+//   S3_BUCKET_NAME=unipiece
+//   CLOUDFONT_DISTRIBUTION=E3P66WD0E266T0
+// AWS_ACCESS_KEY_ID=AKIAZ4X2C6I5JGJ7B3MX
+// AWS_ACCESS_KEY_ID=bzHlDqDVI+WNeYrkU/2Qoc2hxThKoWrby53+On10
+// AWS_CLOUDFONT_DISTRIBUTION=E3P66WD0E266T0
+// AWS_S3_REGION_NAME=ap-northeast-2
 
 const uploadDir = "product_image";
 fs.mkdirSync(uploadDir, { recursive: true })
@@ -58,6 +72,24 @@ userRoute.post('/create_product', async (req, res) => {
         const category_id = getCategoryId[0].id
         const credit_by = fields.credit_by
 
+        const imagePath = uploadDir+"/"+image
+        const blob = fs.readFileSync(imagePath)
+
+        const uploadedImage = await s3.upload({
+            Bucket: "unipiece/img",
+            Key: files.newFilename,
+            Body: blob,
+          }).promise()
+
+        const uploadImgURL = uploadedImage.Location
+        console.log("[AWS S3]image uploaded to S3 :",uploadImgURL)
+        
+        const distributionId = 'E3P66WD0E266T0'; // something like this
+ 
+        awsCloudfrontInvalidate(distributionId).then((data) => {
+            console.log('invalidating created', data.Invalidation.Id);
+        });
+
         try {
             const res = await knex('product').insert({ image: image, owner_id: owner_id, name: name, price: price, type: type, content: content, quantity: quantity, created_at: created_at, credit_by: credit_by, category_id: category_id }).returning('id')
             console.log(res)
@@ -75,7 +107,11 @@ userRoute.post('/create_product', async (req, res) => {
 
 
 userRoute.post('/:id', async (req, res) => {
+    if(!req.body.tokenInfo){
+        return
+    }
 
+try{
     console.log([req.body, req.params, req.query])
 
     // console.log(req.url)
@@ -96,6 +132,10 @@ userRoute.post('/:id', async (req, res) => {
     } else {
         return res.json({ status: false })
     }
+
+}catch(err){
+    console.log("[ERROR]userRoute.post('/:id') ",err.message)
+}
 })
 
 
@@ -103,11 +143,11 @@ userRoute.post('/:id', async (req, res) => {
 
 userRoute.get('/:id', async (req, res) => {
     // console.log(req.body, req.params, req.query)
+    try {
 
     const getParamsId = req.params.id
     console.log({ getParamsId })
 
-    try {
         const response = await knex('users').select("*").where('id', getParamsId)
         const user = response[0]
         return res.status(200).json(user)
@@ -124,11 +164,11 @@ userRoute.get('/:id', async (req, res) => {
 userRoute.post('/', async (req, res) => {
     // console.log(req)
     // console.log(req.body, req.params, req.query)
+    try {
 
     const userId = req.body.userId;
     console.log({ userId })
 
-    try {
         const response = await knex('users').select("name", "image").where('id', userId)
         const user = response[0]
         return res.status(200).json(user)
