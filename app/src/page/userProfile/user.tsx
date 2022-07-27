@@ -161,10 +161,10 @@ function User() {
             {/************** Top left container *****************/}
             <div className="m-5 h-[350px] w-[400px] -translate-y-[30%] flex flex-col">
               <div className="m-5 space-y-5">
-                <div className="rounded-full border-8 border-[white] w-[150px] h-[150px] flex justify-center items-center bg-[#80808044]">
+                <div className="rounded-full  w-[150px] h-[150px] flex justify-center items-center bg-[#80808044]">
                   {/* User picture */}
                   <img
-                    className="object-fill rounded-full"
+                    className="object-cover w-[150px] h-[150px] rounded-full border-8 border-[white]"
                     src={
                       process.env.REACT_APP_IMG_URL + "/" + userDetail?.image
                     }

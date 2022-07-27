@@ -97,11 +97,11 @@ function Head() {
           <div className="flex flex-col">
             <button
               onClick={() => navigate(`/user/${userId}`)}
-              className="m-3 rounded-full border-2 border-[white] w-[80px] h-[80px] flex flex-col justify-center items-center bg-[#80808044]"
+              className="m-3 rounded-full border-2 border-[white] flex flex-col justify-center items-center bg-[#80808044]"
             >
               {/* User picture */}
               <img
-                className="object-cover rounded-full"
+                className=" w-[70px] h-[70px] object-cover rounded-full"
                 src={process.env.REACT_APP_IMG_URL + "/" + userDetail?.image}
               />
             </button>
