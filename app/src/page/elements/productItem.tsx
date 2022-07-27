@@ -35,6 +35,27 @@ function ProductItem() {
   //   );
   // FIXME:
 
+  useEffect(() =>{
+      fetch(`${process.env.REACT_APP_DEV_API}/getitems/${id}`)
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        console.log(result);
+        setIsLoaded(true);
+        setItems(result);
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        console.log("what happened: ", error);
+        setIsLoaded(true);
+        setError(error);
+      }
+    );
+
+  }, [items])
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
@@ -52,7 +73,7 @@ function ProductItem() {
                 height="100%" */}
               <Image
                 className="object-cover"
-                src={`${process.env.REACT_APP_DEV_API}/${item.img}`}
+                src={`https://unipiece.full-stack.app/${item.img}`}
                 width="100%"
                 height="100%"
                 renderLoader={({ hasLoaded, hasFailed }: any) => (

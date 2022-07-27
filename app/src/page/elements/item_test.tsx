@@ -45,7 +45,7 @@ function ItemTest() {
               <Image
                 className="object-cover"
                 // src={`https://unipiece-api.full-stack.app/${item.img}`}
-                src={`${process.env.REACT_APP_DEV_API}/${item.img}`}
+                src={`${process.env.REACT_APP_IMG_URL}/${item.img}`}
                 width="100%"
                 height="100%"
                 renderLoader={({ hasLoaded, hasFailed }: any) => (

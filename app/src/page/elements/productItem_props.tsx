@@ -11,7 +11,7 @@ function ProductItemProps(props: any) {
   const name = props.name;
   const price = props.price;
   const nft_address = props.nft_address;
-  let host = process.env.REACT_APP_URL
+  let host = process.env.REACT_APP_IMG_URL
 
   return (
     <>
