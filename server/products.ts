@@ -16,7 +16,13 @@ productRoute.get("/testproducts", (req, res) => {
 })
 
 productRoute.get("/getitems/:id", async (req, res) => {
-    const userId = req.params.id
+    const userId = JSON.parse(req.params.id)
+
+    if(userId == undefined || userId == null || isNaN(userId) == true){
+        res.status(500).json({ message: "Invalid User ID" })
+        return
+    }
+
     const userItemList = await knex.select('name', 'image', 'price', 'category_id', 'nft_address').from('product').where('owner_id', userId)
 
     let result = []
@@ -65,7 +71,7 @@ productRoute.get("/getallitems", async (req, res) => {
 
 productRoute.get("/getalluser", async (req, res) => {
     try {
-        const userList = await knex.select('name', 'username', 'bg_image', 'image', 'bio').from('users')
+        const userList = await knex.select('id','name', 'username', 'bg_image', 'image', 'bio').from('users')
 
         // let result = []
         // for (let user of userList) {

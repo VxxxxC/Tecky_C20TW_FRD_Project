@@ -79,9 +79,9 @@ function Highlights() {
                               </div>
                             ))
                           ) : (
-                            <div className="col-start-1 col-end-8 h-screen">
+                            // <div className="col-start-1 col-end-8 h-screen">
                               <UniLoader />
-                            </div>
+                            /* // </div> */
                           )
           }
         </div>
@@ -112,8 +112,8 @@ function Highlights() {
                               </div>
                             ))
                           ) : (
-                            <div className="col-start-1 col-end-8 h-screen">
-                              <UniLoader />
+                            <div className="mx-[500px] mt-[100px] w-3/12 h-96">
+                              {/* <UniLoader /> */}
                             </div>
                           )
           }

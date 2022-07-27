@@ -10,8 +10,14 @@ import { stringify } from 'querystring';
 stripeRoutes.post('/create-checkout-session/:userid/:itemid', async (req, res) => {
   try{
     // define request parameters
-    let product_id = req.params.itemid
-    let user_id = req.params.userid
+    let product_id = JSON.parse(req.params.itemid)
+    let user_id = JSON.parse(req.params.userid)
+    
+    if(isNaN(product_id) == true || isNaN(user_id) == true){
+      res.status(500).json({ message: "invalid product_id/user_id input"})
+      return
+    }
+
     console.log('request parameters: ',product_id, user_id)
     // find product & user in database
     const productResult = await knex.select('id','name', 'price', 'content', 'image', 'type', 'nft_address', 'owner_id').from('product').where('id', product_id)
