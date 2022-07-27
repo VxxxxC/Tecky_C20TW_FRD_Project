@@ -8,6 +8,7 @@ import { BlurMenu } from "../../hook/useBlur";
 import axios from "axios";
 
 function Head() {
+  // const [loaded, setLoaded] = useState(false);
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
   // const [isActive, setIsActive] = useState(false);
@@ -69,11 +70,21 @@ function Head() {
         // console.log(response.data);
         setUserDetail(response.data);
       });
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     // console.log(userDetail);
   }, [userDetail]);
+
+  // useEffect(() => {
+  //   if (userId) {
+  //     setLoaded(true);
+  //     console.log(loaded);
+  //   } else if (!userId) {
+  //     setLoaded(false);
+  //     console.log(loaded);
+  //   }
+  // }, [userId]);
 
   return (
     <div className={style.headBar}>

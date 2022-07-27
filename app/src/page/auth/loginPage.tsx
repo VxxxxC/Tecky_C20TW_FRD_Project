@@ -86,7 +86,7 @@ function LoginPage() {
 
     setToken(token);
     navigate(-1);
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
