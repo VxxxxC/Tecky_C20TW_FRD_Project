@@ -8,7 +8,7 @@ import UniLoader from "../elements/loader";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-const host = process.env.REACT_APP_URL;
+const host = process.env.REACT_APP_IMG_URL;
 // const host = `http://localhost:3000`
 
 function ProductProfile() {
@@ -49,6 +49,7 @@ function ProductProfile() {
         console.log(response);
         setGetDetail(response.data);
       });
+    console.log(`${process.env.REACT_APP_DEV_API}/profile/${productId}`)
   }, []);
 
   const navigate = useNavigate();

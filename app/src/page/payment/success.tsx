@@ -3,7 +3,6 @@ import { useParams } from 'react-router';
 import  { Modal, Button } from 'react-daisyui';
 import { useJWTPayload } from '../../hook/useToken';
 import BackgroundAnimation2 from '../elements/background_2';
-import PurchaseButton from '../elements/pay';
 
 function SuccessPayment(){
     const { hash } = useParams()
@@ -41,7 +40,6 @@ function SuccessPayment(){
         
     <div className="font-mono h-[60vh] flex items-center justify-center">
         <BackgroundAnimation2 text={successText}/>
-        <PurchaseButton/>
     </div>
       
     )
