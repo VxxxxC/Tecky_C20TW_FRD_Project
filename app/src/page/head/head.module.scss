@@ -4,10 +4,6 @@
   justify-content: space-between;
 }
 
-.leftContainer, .rightContainer {
-  display: flex;
-}
-
 .leftContent {
   display: flex;
   justify-content: center;
@@ -121,6 +117,22 @@
   }
 }
 
+.menuBtnMobile{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 20px 20px 0px;
+  transition: 0.3s;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}
+
 .showSideMenu {
   color: white;
   margin: 5px;
@@ -153,14 +165,13 @@
 
 @media screen and (min-width: 200px) and (max-width: 600px) {
   .showSideMenu {
-    display: block;
     flex-wrap: wrap;
     color: white;
     margin: 5px;
     position: fixed;
     z-index: 10;
     right: 0;
-    width: 150px;
+    width: 300px;
     height: 80vh;
     border-radius: 20px;
     background: black;

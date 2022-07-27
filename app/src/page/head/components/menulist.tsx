@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useStorageState from "react-use-storage-state";
 import { useJWTPayload } from "../../../hook/useToken";
@@ -21,24 +21,47 @@ function Menulist() {
   const userEmail = tokenInfo?.email;
   // console.log(userEmail);
 
+  /*********** change login button **************/
+  const [login, setLogin] = useState(
+    localStorage.getItem("token") ? true : false
+  );
+
+  /************** logout ****************/
+  function Logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("is_login");
+
+    navigate("/");
+    window.location.reload();
+  }
+
   return (
     <>
-      {tokenInfo ? (
-        <button
-          onClick={() => navigate(`/user/${userId}`)}
-          className={style.menulist}
-        >
-          <p className={style.ListItem}>Profile</p>
-        </button>
-      ) : null}
-      <Link to="/explore" className={style.menulist}>
-        <p className={style.ListItem}>Explore</p>
-      </Link>
-      <div className={style.menulist}>
-        <p className={style.ListItem}>How it works</p>
-      </div>
-      <div className={style.menulist}>
-        <p className={style.ListItem}>Make your piece be unique</p>
+      <div className="flex flex-col justify-between">
+        <div>
+          <Link to="/explore" className={style.menulist}>
+            <p className={style.ListItem}>Explore</p>
+          </Link>
+          <div className={style.menulist}>
+            <p className={style.ListItem}>How it works</p>
+          </div>
+          <div className={style.menulist}>
+            <p className={style.ListItem}>Make your piece be unique</p>
+          </div>
+        </div>
+
+        <div>
+          {login ? (
+            <>
+              <button
+                onClick={Logout}
+                className="mt-[25px] mx-10 btn bg-primary-content text-primary rounded-xl border-2 hover:text-primary-content"
+              >
+                Logout
+              </button>
+            </>
+          ) : null}
+        </div>
       </div>
     </>
   );
