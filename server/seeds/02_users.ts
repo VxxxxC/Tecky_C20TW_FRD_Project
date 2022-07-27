@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import userSeed from '../stuff/Unipiece_Users_0.json';
+import userSeed from '../stuff/Unipiece_Users_new.json';
 
 export async function seed(knex: Knex): Promise<void> {
     // const pw1 = `$2b$12$V2H.h87uqNotL7ghOrt/bOEiSjTysL3WEpvW5yGKhqRb3rjvNNcWi`

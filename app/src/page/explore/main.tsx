@@ -4,7 +4,7 @@ import useFetch from "react-fetch-hook";
 import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "../../hook/useWindowDimensions";
 import UniLoader from "../elements/loader";
-import ProductItemProps from "../elements/productItem_props";
+// import ProductItemProps from "../elements/productItem_props";
 import UserProfileComponent from "../elements/UserProfileComponent";
 import UserProfileComponent_test from "../elements/UserProfileComponent_test";
 // import UserProfileComponentTest from "../elements/UserProfileComponent_test";
@@ -47,7 +47,7 @@ function Explore() {
   const [filter2, setFilter2] = useState(0);
   const [MobileMenu, setMobileMenu] = useState(false);
   const [filterTest, setfilterTest] = useState([]);
-  const [users, serUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState<any>(null);
   const [category, setCategory] = useState<ListCategory[]>([]);
@@ -87,7 +87,7 @@ function Explore() {
         (result) => {
           console.log(result);
           setIsLoaded(true);
-          serUsers(result);
+          setUsers(result);
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -159,15 +159,19 @@ function Explore() {
     (): any => import("../elements/UserProfileComponent_test")
   );
 
-  const UserProfileComponentTest2 = React.lazy((): any => {
-    return new Promise((resolve) => {
-      setTimeout(
-        () => resolve(import("../elements/UserProfileComponent_test")),
-        500
-      );
-      clearTimeout();
-    });
-  });
+  const ProductItemPropsLazy = React.lazy(
+    (): any => import("../elements/productItem_props")
+  );
+
+  // const UserProfileComponentTest2 = React.lazy((): any => {
+  //   return new Promise((resolve) => {
+  //     setTimeout(
+  //       () => resolve(import("../elements/UserProfileComponent_test")),
+  //       500
+  //     );
+  //     clearTimeout();
+  //   });
+  // });
 
   // const filteredUsers = users.filter(user => user.style==2)
 
@@ -179,26 +183,35 @@ function Explore() {
         </div>
       }
     >
+      <div
+         onClick={() =>
+           navigate(`/user/${item.id}`)
+         }
+      >
+
       <UserProfileComponentTest
-        bg={item.bg}
-        icon={item.icon}
+        bg={item.bg_image}
+        icon={item.image}
         name={item.name}
         username={item.username}
         bio={item.bio}
       />
+
+      </div>
+
     </Suspense>
   ));
 
   // const listItemsLazy = React.lazy(() :any => import ("../elements/UserProfileComponent_test"));
-  const UsertProfile = React.lazy((): any => {
-    return new Promise((resolve) => {
-      setTimeout(
-        () => resolve(import("../elements/UserProfileComponent")),
-        500
-      );
-      clearTimeout();
-    });
-  });
+  // const UsertProfile = React.lazy((): any => {
+  //   return new Promise((resolve) => {
+  //     setTimeout(
+  //       () => resolve(import("../elements/UserProfileComponent")),
+  //       500
+  //     );
+  //     clearTimeout();
+  //   });
+  // });
 
   return width > 600 ? (
     // Desktop Version //
@@ -216,14 +229,14 @@ function Explore() {
           >
             Peices
           </Tabs.Tab>
-          <Tabs.Tab
+          {/* <Tabs.Tab
             className={`${filter == 2 ? "tab-active" : ""} tab text-lg`}
             value={() => {
               setFilter(2);
             }}
           >
             Collection
-          </Tabs.Tab>
+          </Tabs.Tab> */}
           <Tabs.Tab
             className={`${filter == 3 ? "tab-active" : ""} tab text-lg`}
             value={() => {
@@ -266,18 +279,26 @@ function Explore() {
             {filter == 1 ? (
               displayed ? (
                 displayed.map((item) => (
+                  <Suspense
+                  fallback={
+                    <div className="col-start-1 col-end-8 w-full h-screen">
+                      <UniLoader />
+                    </div>
+                  }
+                >
                   <div
                     onClick={() =>
                       navigate(`/profile/${item.image.replace(/\D/g, "")}`)
                     }
                   >
-                    <ProductItemProps
+                    <ProductItemPropsLazy
                       name={item.name}
                       img={item.image}
                       price={item.price}
                       nft_address={item.nft_address}
                     />
                   </div>
+                  </Suspense>
                 ))
               ) : (
                 <div className="col-start-1 col-end-8 h-screen">
@@ -322,14 +343,14 @@ function Explore() {
           >
             Peices
           </Tabs.Tab>
-          <Tabs.Tab
+          {/* <Tabs.Tab
             className={`${filter == 2 ? "tab-active" : ""} tab text-lg`}
             value={() => {
               setFilter(2);
             }}
           >
             Collection
-          </Tabs.Tab>
+          </Tabs.Tab> */}
           <Tabs.Tab
             className={`${filter == 3 ? "tab-active" : ""} tab text-lg `}
             value={() => {
@@ -361,18 +382,26 @@ function Explore() {
           <div className="m-5 p-5 flex flex-col">
             {displayed ? (
               displayed.map((item) => (
-                <div                 
-                onClick={() =>
-                  navigate(`/profile/${item.image.replace(/\D/g, "")}`)
-                }>
-
-                  <ProductItemProps
+                <Suspense
+                fallback={
+                  <div className="col-start-1 col-end-4 h-[100vh]">
+                    <UniLoader />
+                  </div>
+                }
+              >
+                <div
+                  onClick={() =>
+                    navigate(`/profile/${item.image.replace(/\D/g, "")}`)
+                  }
+                >
+                  <ProductItemPropsLazy
                     name={item.name}
                     img={item.image}
                     price={item.price}
                     nft_address={item.nft_address}
                   />
                 </div>
+                </Suspense>
               ))
             ) : (
               <UniLoader />
