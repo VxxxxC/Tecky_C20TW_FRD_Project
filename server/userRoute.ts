@@ -10,7 +10,7 @@ export const userRoute = express.Router();
 const s3 = new AWS.S3({
     accessKeyId: "AKIAZ4X2C6I5JGJ7B3MX",
     secretAccessKey: "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",
-  })
+})
 
 //   S3_BUCKET_NAME=unipiece
 //   CLOUDFONT_DISTRIBUTION=E3P66WD0E266T0
@@ -45,51 +45,51 @@ userRoute.post('/create_product', async (req, res) => {
     //     fs.rename(file.path,)
     //     (new Date().toDateString().split(' ').join())
     // })
-    
+
     form.parse(req, async (err, fields: any, files: any) => {
         try {
-        if (err) console.error({ err })
-        console.log({
-            'fields': fields,
-            'files': files
-        })
+            if (err) console.error({ err })
+            console.log({
+                'fields': fields,
+                'files': files
+            })
 
-        const getCategoryId = await knex('category').select('id').where("name", fields.category)
-        console.log(getCategoryId[0].id)
+            const getCategoryId = await knex('category').select('id').where("name", fields.category)
+            console.log(getCategoryId[0].id)
 
-        // FIXME: series ID not yet created in DB , please enable when user series function is ready
-        // const getSeriesId = await knex('series').select('id').where("name", fields.category)
-        // console.log(getCategoryId[0].id)
+            // FIXME: series ID not yet created in DB , please enable when user series function is ready
+            // const getSeriesId = await knex('series').select('id').where("name", fields.category)
+            // console.log(getCategoryId[0].id)
 
-        const owner_id = fields.user_id
-        const name = fields.name
-        const price = fields.price
-        const type = fields.product_type
-        // const series_id = fields.series FIXME:
-        const image = files.newFilename
-        const content = fields.content
-        const quantity = 1
-        const created_at = new Date()
-        const category_id = getCategoryId[0].id
-        const credit_by = fields.credit_by
+            const owner_id = fields.user_id
+            const name = fields.name
+            const price = fields.price
+            const type = fields.product_type
+            // const series_id = fields.series FIXME:
+            const image = files.newFilename
+            const content = fields.content
+            const quantity = 1
+            const created_at = new Date()
+            const category_id = getCategoryId[0].id
+            const credit_by = fields.credit_by
 
-        const imagePath = uploadDir+"/"+image
-        const blob = fs.readFileSync(imagePath)
+            const imagePath = uploadDir + "/" + image
+            const blob = fs.readFileSync(imagePath)
 
-        const uploadedImage = await s3.upload({
-            Bucket: "unipiece/img",
-            Key: files.newFilename,
-            Body: blob,
-          }).promise()
+            const uploadedImage = await s3.upload({
+                Bucket: "unipiece/img",
+                Key: files.newFilename,
+                Body: blob,
+            }).promise()
 
-        const uploadImgURL = uploadedImage.Location
-        console.log("[AWS S3]image uploaded to S3 :",uploadImgURL)
-        
-        const distributionId = 'E3P66WD0E266T0'; // something like this
- 
-        awsCloudfrontInvalidate(distributionId).then((data) => {
-            console.log('invalidating created', data.Invalidation.Id);
-        });
+            const uploadImgURL = uploadedImage.Location
+            console.log("[AWS S3]image uploaded to S3 :", uploadImgURL)
+
+            const distributionId = 'E3P66WD0E266T0'; // something like this
+
+            awsCloudfrontInvalidate(distributionId).then((data) => {
+                console.log('invalidating created', data.Invalidation.Id);
+            });
 
             const res = await knex('product').insert({ image: image, owner_id: owner_id, name: name, price: price, type: type, content: content, quantity: quantity, created_at: created_at, credit_by: credit_by, category_id: category_id }).returning('id')
             console.log(res)
@@ -107,35 +107,37 @@ userRoute.post('/create_product', async (req, res) => {
 
 
 userRoute.post('/:id', async (req, res) => {
-    if(!req.body.tokenInfo){
+    if (!req.body.tokenInfo) {
         return
     }
 
-try{
-    console.log([req.body, req.params, req.query])
+    try {
+        console.log([req.body, req.params, req.query])
 
-    // console.log(req.url)
-    // console.log(req.baseUrl)
-    // console.log(req.originalUrl)
+        // console.log(req.url)
+        // console.log(req.baseUrl)
+        // console.log(req.originalUrl)
+        console.log(req.body)
+        console.log(req.body.tokenInfo)
 
-    const tokenUserId = req.body.tokenInfo.userId
-    console.log(req.body.tokenInfo.userId.toString())
+        const tokenUserId = req.body.tokenInfo.userId
+        console.log(req.body.tokenInfo.userId.toString())
 
-    const postParamsId = req.params.id
-    console.log({ postParamsId })
-    // console.log("Params User ID : ", paramsId.UserId)
-    // const verifiedUserUrl = req.baseUrl + "/" + paramsId.UserId
-    // console.log(verifiedUserUrl)
+        const postParamsId = req.params.id
+        console.log({ postParamsId })
+        // console.log("Params User ID : ", paramsId.UserId)
+        // const verifiedUserUrl = req.baseUrl + "/" + paramsId.UserId
+        // console.log(verifiedUserUrl)
 
-    if (tokenUserId == postParamsId) {
-        return res.json({ status: true })
-    } else {
-        return res.json({ status: false })
+        if (tokenUserId == postParamsId) {
+            return res.json({ status: true })
+        } else {
+            return res.json({ status: false })
+        }
+
+    } catch (err) {
+        console.log("[ERROR]userRoute.post('/:id') ", err.message)
     }
-
-}catch(err){
-    console.log("[ERROR]userRoute.post('/:id') ",err.message)
-}
 })
 
 
@@ -145,8 +147,8 @@ userRoute.get('/:id', async (req, res) => {
     // console.log(req.body, req.params, req.query)
     try {
 
-    const getParamsId = req.params.id
-    console.log({ getParamsId })
+        const getParamsId = req.params.id
+        console.log({ getParamsId })
 
         const response = await knex('users').select("*").where('id', getParamsId)
         const user = response[0]
@@ -166,8 +168,8 @@ userRoute.post('/', async (req, res) => {
     // console.log(req.body, req.params, req.query)
     try {
 
-    const userId = req.body.userId;
-    console.log({ userId })
+        const userId = req.body.userId;
+        console.log({ userId })
 
         const response = await knex('users').select("name", "image").where('id', userId)
         const user = response[0]

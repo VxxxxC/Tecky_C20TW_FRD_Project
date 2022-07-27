@@ -9,12 +9,12 @@ export const signUpRoute = express.Router();
 
 /******************* Signup Form **********************/
 signUpRoute.post('/', async (req, res) => {
-   console.log(req.body);
+   // console.log(req.body);
    const { email, password } = req.body;
-   console.log({
-      "Signup email : ": email,
-      "Signup password : ": password
-   });
+   // console.log({
+   //    "Signup email : ": email,
+   //    "Signup password : ": password
+   // });
 
    const passwordHash = await bcrypt.hash(password, 12);
    console.log(passwordHash)
