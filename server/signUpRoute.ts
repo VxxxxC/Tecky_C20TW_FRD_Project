@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import { env } from './env';
 import { knex } from './knex'; /* MUST BE very careful !!! don't import "knex" , will cause sqlite error !! IT IS import "{knex}" !! from knex.ts <- knexfile.ts */
 
+
 export const signUpRoute = express.Router();
 
 
@@ -31,7 +32,12 @@ signUpRoute.post('/', async (req, res) => {
       return res.status(409).end('email duplicated')
    }
 
-   const result: any = await knex('users').insert({ email: email, password: passwordHash, created_at: new Date() }).returning('id')
+   const publickey = "1P5g1JTwvWj6f5NUr5K6Lrt4cfzktL4fPN"
+   const wallet_address = "0xbcc28f24e905d283620ce11e3ccf3295c2aaa1ca"
+   const image = 'img/noicon.jpeg'
+
+
+   const result: any = await knex('users').insert({ email: email, password: passwordHash, image: image, wallet_address: wallet_address, publickey: publickey, created_at: new Date() }).returning('id')
    console.log(result)
 
    const insertId = result;

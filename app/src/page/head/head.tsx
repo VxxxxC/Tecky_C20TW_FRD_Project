@@ -27,7 +27,7 @@ function Head() {
   // console.log(useToken());
   const localStore: any = useJWTPayload();
   console.log(localStore);
-  const userId: number = localStore?.userId;
+  const userId: number = localStore?.userId || localStore?.id[0].id;
   console.log(userId);
 
   // /************** logout ****************/
