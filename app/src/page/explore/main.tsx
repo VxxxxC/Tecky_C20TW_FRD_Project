@@ -1,6 +1,7 @@
 import React, { Suspense, SyntheticEvent, useEffect, useState } from "react";
 import { Menu, Tabs } from "react-daisyui";
 import useFetch from "react-fetch-hook";
+import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "../../hook/useWindowDimensions";
 import UniLoader from "../elements/loader";
 import ProductItemProps from "../elements/productItem_props";
@@ -54,6 +55,8 @@ function Explore() {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [items, setItems] = useState<ListItem[]>();
   const [displayed, setDisplayed] = useState<ListItem[]>();
+
+  const navigate = useNavigate();
 
   function addremove(category_id: number) {
     const id: number = category_id;
@@ -254,14 +257,18 @@ function Explore() {
             {filter == 1 ? (
               displayed ? (
                 displayed.map((item) => (
-                  <div>
+                  <button
+                    onClick={() =>
+                      navigate(`/profile/${item.image.replace(/\D/g, "")}`)
+                    }
+                  >
                     <ProductItemProps
                       name={item.name}
                       img={item.image}
                       price={item.price}
                       nft_address={item.nft_address}
                     />
-                  </div>
+                  </button>
                 ))
               ) : (
                 <div className="col-start-1 col-end-8 h-screen">
