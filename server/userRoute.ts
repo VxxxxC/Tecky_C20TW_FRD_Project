@@ -45,8 +45,9 @@ userRoute.post('/create_product', async (req, res) => {
     //     fs.rename(file.path,)
     //     (new Date().toDateString().split(' ').join())
     // })
-
+    
     form.parse(req, async (err, fields: any, files: any) => {
+        try {
         if (err) console.error({ err })
         console.log({
             'fields': fields,
@@ -90,7 +91,6 @@ userRoute.post('/create_product', async (req, res) => {
             console.log('invalidating created', data.Invalidation.Id);
         });
 
-        try {
             const res = await knex('product').insert({ image: image, owner_id: owner_id, name: name, price: price, type: type, content: content, quantity: quantity, created_at: created_at, credit_by: credit_by, category_id: category_id }).returning('id')
             console.log(res)
         }

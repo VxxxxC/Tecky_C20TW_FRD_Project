@@ -6,7 +6,7 @@ import "./large_item.scss";
 
 function ProductItem() {
   const { id } = useParams();
-  console.log({ id });
+  // console.log({ id });
 
   const [error, setError] = useState<any>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -40,7 +40,7 @@ function ProductItem() {
     .then((res) => res.json())
     .then(
       (result) => {
-        console.log(result);
+        // console.log(result);
         setIsLoaded(true);
         setItems(result);
       },
@@ -54,7 +54,7 @@ function ProductItem() {
       }
     );
 
-  }, [items])
+  }, [items, isLoaded])
 
   if (error) {
     return <div>Error: {error.message}</div>;
