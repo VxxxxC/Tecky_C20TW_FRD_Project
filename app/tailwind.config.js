@@ -13,11 +13,11 @@ module.exports = {
         uniyellow: "#F0ED62",
       },
 
-      fontFamily: {
-        sans: ["-apple-system"],
-        // serif: ["ui-serif"],
-        // mono: ["ui-monospace"],
-      },
+      // fontFamily: {
+      //   sans: ["-apple-system"],
+      //   // serif: ["ui-serif"],
+      //   // mono: ["ui-monospace"],
+      // },
 
       screens: {
         mobile: { min: "200px", max: "800px" },
