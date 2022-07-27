@@ -19,7 +19,7 @@ export const stripe = require("stripe")('sk_test_51KyUlaDdiwtuqw1vAQVdCWI2ed6FIj
 app.use(stripeHookRoutes)
 
 
-app.use('/img', express.static('../img'))
+// app.use('/img', express.static('../img'))
 // app.use('/img', express.static('./img'))
 // app.use('/img', express.static('../img')) FIXME: remember change this image path when deploy to S3 
 app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
@@ -46,6 +46,7 @@ app.get('/', function (req, res) {
 
 /* --------------------- Product Profile details -------------------------- */
 app.get('/profile/:product_Id', async (req, res) => {
+  console.log(req.body, req.params, req.query)
   console.log(req.params.product_Id)
 
   const productId = req.params.product_Id
@@ -55,8 +56,8 @@ app.get('/profile/:product_Id', async (req, res) => {
   let seriesId;
 
   try {
-    const response : any = await knex.select("*").from('product').where('id', productId)
-    
+    const response: any = await knex.select("*").from('product').where('id', productId)
+
     console.log(response[0])
 
     productDetail = response[0]
