@@ -107,6 +107,14 @@ function Head() {
           </div>
         )}
 
+        <div className="m-2 rounded-full border-8 border-[white] w-[80px] h-[80px] flex justify-center items-center bg-[#80808044]">
+          {/* User picture */}
+          <img
+            className="object-fill rounded-full"
+            src={process.env.REACT_APP_IMG_URL + "/" + userDetail?.image}
+          />
+        </div>
+
         <button
           className={style.menuBtn}
           onClick={() => menuBlurSwitch.setIsActive(true)}

@@ -353,12 +353,18 @@ function Explore() {
             {displayed ? (
               displayed.map((item) => (
                 <div>
-                  <ProductItemProps
-                    name={item.name}
-                    img={item.image}
-                    price={item.price}
-                    nft_address={item.nft_address}
-                  />
+                  <button
+                    onClick={() =>
+                      navigate(`/profile/${item.image.replace(/\D/g, "")}`)
+                    }
+                  >
+                    <ProductItemProps
+                      name={item.name}
+                      img={item.image}
+                      price={item.price}
+                      nft_address={item.nft_address}
+                    />
+                  </button>
                 </div>
               ))
             ) : (
