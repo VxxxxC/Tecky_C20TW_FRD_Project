@@ -5,7 +5,8 @@ function ProductHistory(props: any) {
 
   return (
     <>
-      <button className="card">{address}</button>
+          <div className="font-mono overflow-scroll">{address}</div>
+
     </>
   );
 }

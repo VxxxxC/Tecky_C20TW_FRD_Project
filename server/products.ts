@@ -28,17 +28,19 @@ productRoute.get("/getitems/:id", async (req, res) => {
         return
     }
 
-    const userItemList = await knex.select('name', 'image', 'price', 'category_id', 'nft_address').from('product').where('owner_id', userId)
+    const userItemList = await knex.select('id','name', 'image', 'price', 'category_id', 'nft_address', 'owner_id').from('product').where('owner_id', userId)
 
         let result = []
         for (let i in userItemList) {
 
             result.push({
+                id: userItemList[i].id,
                 img: userItemList[i].image,
                 name: userItemList[i].name,
                 price: userItemList[i].price,
                 category_id: userItemList[i].category_id,
-                nft_address: userItemList[i].nft_address
+                nft_address: userItemList[i].nft_address,
+                owner_id: userItemList[i].owner_id
             })
 
         }

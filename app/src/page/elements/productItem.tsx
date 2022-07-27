@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Image } from "react-image-and-background-image-fade";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import LargeItem from './large_item';
 import "./large_item.scss";
 
 function ProductItem() {
   const { id } = useParams();
   // console.log({ id });
+
+  const navigate = useNavigate();
 
   const [error, setError] = useState<any>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -64,7 +66,11 @@ function ProductItem() {
     return (
       <>
         {items.map((item) => (
-          <div className="hover:-translate-y-2 ease-in-out duration-200 item overflow-hidden m-5 w-3/12 bg-base-100 shadow-xl rounded-lg">
+          <div 
+          onClick={() =>
+            navigate(`/profile/${item.id}`)
+          }
+          className="hover:-translate-y-2 ease-in-out duration-200 item overflow-hidden m-5 w-3/12 bg-base-100 shadow-xl rounded-lg">
             <div className="h-96">
               {/* <Image
                 className="object-cover"

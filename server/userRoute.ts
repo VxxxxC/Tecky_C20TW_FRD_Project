@@ -63,7 +63,7 @@ userRoute.post('/create_product', async (req, res) => {
 
             const owner_id = fields.user_id
             const name = fields.name
-            const price = fields.price
+            const price = fields.price            
             const type = fields.product_type
             // const series_id = fields.series FIXME:
             const image = files.newFilename
@@ -100,7 +100,73 @@ userRoute.post('/create_product', async (req, res) => {
         return res.status(200).json(`product submitted successfully!`)
     })
 
+})
 
+userRoute.post('/create_product', async (req, res, next) => {
+    try{
+    const form = formidable({
+        multiples: true,
+        uploadDir: uploadDir,
+        filename: (name: any, ext: any, part: any) => 
+            part.originalFilename,
+            maxFileSize: 2**30*50,
+      });
+    //   res.json()
+    //   console.log(form)
+    //   console.log(result)
+    //   getCropImages()
+    //   form.uploadDir = uploadFolder+"/"+files.someExpressFiles.originalFilename;
+    // form.on('progress',(bytesReceived,bytesExpected)=>{console.log({bytesReceived,bytesExpected})})
+
+     form.parse(req, async (err: any, fields: any, files: any) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      let uploadedPath = files.file.filepath
+      
+      res.json({uploadedPath: uploadedPath})
+
+    });
+    }catch (err) {
+        console.log(err)
+    }
+  });
+
+
+userRoute.get('/test', async (req, res) => {
+    const body = JSON.parse(req.body)
+    console.log("hihihihihihhihih", body)
+    res.json({data: body})
+})
+
+userRoute.get('/testupload', async (req, res) => {
+
+    try{   
+
+        const imagePath = "./testupload/XXX.png"
+        const blob = fs.readFileSync(imagePath)
+
+        const uploadedImage = await s3.upload({
+            Bucket: "unipiece/img",
+            Key: "XXX1.png",
+            Body: blob,
+        }).promise()
+
+        const uploadImgURL = uploadedImage.Location
+        console.log("[AWS S3] image uploaded to S3 :", uploadImgURL)
+
+        const distributionId = 'E3P66WD0E266T0'; // something like this
+
+        awsCloudfrontInvalidate(distributionId).then((data) => {
+            console.log('[AWS Cloudfront] invalidating created', data.Invalidation.Id);
+        });
+        res.json({status: true, url: uploadImgURL})
+        return
+    }catch (err){
+        res.json({status: false, message: err.message})
+        return
+    }
 })
 
 /*********************** comparing login JWT token user ID , with params url user ID ***********************/

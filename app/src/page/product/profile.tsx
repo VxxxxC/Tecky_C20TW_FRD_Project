@@ -76,22 +76,26 @@ function ProductProfile() {
   const mobileCol2 = `grad-bg p-4 self-center`;
   const desktopRow1 = ``;
   const desktopRow2 = `grad-bg py-6 px-8 min-w-[38%] bor`;
-  const ProductDetail = React.lazy((): any => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(import("./details")), 500);
-      clearTimeout();
-    });
-  });
+  // const ProductDetail = React.lazy((): any => {
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => resolve(import("./details")), 100);
+  //     clearTimeout();
+  //   });
+  // });
+
+  const ProductDetail = React.lazy(
+    (): any => import("./details")
+  );
   // import('./'));
   const ProductOwners = React.lazy((): any => {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(import("./owners")), 500);
+      setTimeout(() => resolve(import("./owners")), 150);
       clearTimeout();
     });
   });
   const ProductHistory = React.lazy((): any => {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(import("./history")), 500);
+      setTimeout(() => resolve(import("./history")), 150);
       clearTimeout();
     });
   });
@@ -222,12 +226,16 @@ function ProductProfile() {
             </svg>
             </button>
           </div>
-          <div className="col-start-1 col-end-7">available</div>
+          <div className="col-start-1 col-end-7 font-mono">- available -</div>
           <div className="py-3 col-start-1 col-end-4">Creator</div>
           <div className="py-3 col-start-4 col-end-7">Current Price :</div>
           <div className="col-start-1 col-end-4">
             <div className="avatar">
-              <div className="mx-3 w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <div 
+              onClick={() => {
+                navigate(`/user/${getDetail?.owner[0].id}`)
+              }}
+              className="cursor-pointer mx-3 w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                 <img src={`${host}/${getDetail?.owner[0].image}`} />
               </div>
               <div className="">{getDetail?.owner[0].name}</div>
@@ -245,8 +253,9 @@ function ProductProfile() {
               </div> */}
               <div className="font-mono text-3xl flex justify-center items-center">
                 <span>
+                  <span className="text-2xl">$</span>
                   {getDetail?.productDetail.price}
-                  <span className="text-xl">HKD</span>
+                  <span className="text-xl"> HKD</span>
                 </span>
               </div>
             </div>
@@ -279,7 +288,7 @@ function ProductProfile() {
             History
           </Tabs.Tab>
         </Tabs>
-        <div className="mt-2 h-96 max-w-[45rem] border-2 rounded-lg overflow-scroll">
+        <div className="mt-2 h-96 max-w-[45rem] border-2 rounded-lg overflow-scroll bg-neutral-content">
           {count == 1 ? (
             <div>
               {/* Product Details */}
