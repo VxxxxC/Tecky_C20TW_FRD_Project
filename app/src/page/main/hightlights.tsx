@@ -8,6 +8,7 @@ import axios from "axios";
 import ProductItemProps from "../elements/productItem_props";
 import UniLoader from "../elements/loader";
 import { ListItem } from "../explore/main";
+import { useNavigate } from "react-router-dom";
 
 const host = process.env.REACT_APP_DEV_API
 // const host = `http://localhost:8080`
@@ -16,7 +17,8 @@ function Highlights() {
   const [highlightsItems, setHighlightsItems] = useState<ListItem[]>();
 
   const [isloaded, serIsloaded] = useState(false)
-  
+  const navigate = useNavigate();
+
   useEffect( () => {
     fetch(`${host}/gethighlights`)
     .then((res) => res.json())
@@ -63,7 +65,11 @@ function Highlights() {
             //TODO FIXME
                           highlightsItems ? (
                             highlightsItems.map((item) => (
-                              <div>
+                              <div
+                              onClick={() =>
+                                navigate(`/profile/${item.image.replace(/\D/g, "")}`)
+                              }
+                              >
                                 <ProductItemProps
                                   name={item.name}
                                   img={item.image}
@@ -92,7 +98,11 @@ function Highlights() {
             //TODO FIXME
                           highlightsItems ? (
                             highlightsItems.map((item) => (
-                              <div>
+                              <div
+                              onClick={() =>
+                                navigate(`/profile/${item.image.replace(/\D/g, "")}`)
+                              }
+                              >
                                 <ProductItemProps
                                   name={item.name}
                                   img={item.image}

@@ -119,8 +119,21 @@ stripeRoutes.get('/paid/:hash', async (req, res) => {
     const cryptr = new Cryptr('hello');
     const orderId = cryptr.decrypt(params);
   
-    const confirmOrder = await knex('order').where("id", orderId).update({status: "finished"})
+    const confirmOrder : string = await knex('order').where("id", orderId).update({status: "finished"}).returning(["status", "receiver_id", "product_id"])
+    console.log("[payment] ","order: ", orderId, "status: ", confirmOrder)
+
+    const order_status : string = confirmOrder[0]['status'] 
+    const order_product_id : number = confirmOrder[0]['product_id'] 
+    const order_receiver_id : number = confirmOrder[0]['receiver_id'] 
+
+    const updateOwernership : string = await knex('product').where("id", order_product_id).update({owner_id: order_receiver_id}).returning(["id", "owner_id"])
+    console.log("[updateOwernership]: ", updateOwernership)
+
+
     // console.log(confirmOrder)
+
+
+    
 
     res.status(200).json({status: true, error: false})
   }catch(err){

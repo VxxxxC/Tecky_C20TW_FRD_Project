@@ -52,7 +52,7 @@ function ProductItemProps(props: any) {
           </div>
           <div className="flex flex-row justify-between">
             <p>{price}</p>
-            <p>On Sale {host}</p>
+            <p>On Sale</p>
           </div>
         </div>
       </div>
