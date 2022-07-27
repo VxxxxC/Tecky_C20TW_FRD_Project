@@ -184,7 +184,7 @@ function ProductProfile() {
           </div>
           <div className="col-start-1 col-end-7">available</div>
           <div className="py-3 col-start-1 col-end-4">Creator</div>
-          <div className="py-3 col-start-4 col-end-7">Series</div>
+          <div className="py-3 col-start-4 col-end-7">Current Price :</div>
           <div className="col-start-1 col-end-4">
             <div className="avatar">
               <div className="mx-3 w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -195,21 +195,24 @@ function ProductProfile() {
           </div>
           <div className="col-start-4 col-end-7">
             <div className="avatar">
-              <div className="mx-3 w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              {/* <div className="mx-3 w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                 <img src={`${host}/${getDetail?.owner[0].image}`} />
               </div>
               <div className="">
                 {getDetail?.series.length == 0
                   ? getDetail?.owner[0].name
                   : getDetail?.series[0].name}
+              </div> */}
+              <div className="font-mono text-3xl flex justify-center items-center">
+                <span>
+                  {getDetail?.productDetail.price}
+                  <span className="text-xl">HKD</span>
+                </span>
               </div>
             </div>
           </div>
         </div>
-        <div className="my-5 text-xl border-2 border-[black] w-[150px] h-[50px] rounded-3xl flex justify-center items-center">
-          Price:
-          <span>${getDetail?.productDetail.price}</span>
-        </div>
+
         <Tabs value={count} variant="bordered" className="-mt-3 cursor-default">
           <Tabs.Tab
             className={`${count == 1 ? "tab-active" : ""} tab-bordered p-1`}
