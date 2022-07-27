@@ -19,7 +19,7 @@ function Menulist() {
   const tokenInfo = localStore;
   console.log({ tokenInfo });
 
-  const userId = tokenInfo?.id[0].id || tokenInfo?.userId;
+  const userId = tokenInfo?.userId;
   console.log(userId);
 
   const userEmail = tokenInfo?.email;

@@ -117,7 +117,7 @@ userRoute.post('/:id', async (req, res) => {
         // console.log(req.url)
         // console.log(req.baseUrl)
         // console.log(req.originalUrl)
-        console.log(req.body)
+        // console.log(req.body)
         console.log(req.body.tokenInfo)
 
         const tokenUserId = req.body.tokenInfo.userId
