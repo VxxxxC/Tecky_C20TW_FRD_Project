@@ -79,7 +79,7 @@ function Head() {
         {/* <Link to="/" className={style.leftContent}  onClick={()=>setShowFooter(true)}> */}
         <Link to="/" className="flex items-center mx-8 ">
           {/* Paul deleted: style.leftContent */}
-          <button className="btn btn-primary rounded-xl">LOGO</button>
+          <button className="btn btn-primary rounded-xl">Unipiece</button>
         </Link>
       </div>
 
