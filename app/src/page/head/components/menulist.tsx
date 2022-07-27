@@ -37,26 +37,30 @@ function Menulist() {
 
     navigate("/");
     menuBlurSwitch.setIsActive(false);
-    // window.location.reload();
+    window.location.reload();
   }
 
   return (
     <>
       <div className="flex flex-col justify-between">
         <div>
-          <Link 
-          onClick={()=>{
-            menuBlurSwitch.setIsActive(false);
-          }}
-          to="/explore" className={style.menulist}>
+          <Link
+            onClick={() => {
+              menuBlurSwitch.setIsActive(false);
+            }}
+            to="/explore"
+            className={style.menulist}
+          >
             <p className={style.ListItem}>Explore</p>
           </Link>
-          <Link 
-          onClick={()=>{
-            menuBlurSwitch.setIsActive(false);
-          }}
-          to="/" className={style.menulist}>            
-          <p className={style.ListItem}>How it works</p>
+          <Link
+            onClick={() => {
+              menuBlurSwitch.setIsActive(false);
+            }}
+            to="/"
+            className={style.menulist}
+          >
+            <p className={style.ListItem}>How it works</p>
           </Link>
           <div className={style.menulist}>
             <p className={style.ListItem}>Make your piece be unique</p>

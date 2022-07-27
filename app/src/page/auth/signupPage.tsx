@@ -54,8 +54,8 @@ function RegisterPage() {
 
   /************** Handling the form submission ****************/
   const onSubmit = async (e: { preventDefault: () => void }) => {
-    console.log(email, password, passwordAgain);
-    console.log(email.length, password.length, passwordAgain.length);
+    // console.log(email, password, passwordAgain);
+    // console.log(email.length, password.length, passwordAgain.length);
 
     if (password !== passwordAgain) {
       return alert("password not match!");
@@ -69,10 +69,10 @@ function RegisterPage() {
       }
     );
 
-    console.log(response);
+    // console.log(response);
     const registerResult = response.data;
     const token = registerResult.JWTtoken;
-    console.log(token);
+    // console.log(token);
 
     setToken(token);
     navigate("/");
