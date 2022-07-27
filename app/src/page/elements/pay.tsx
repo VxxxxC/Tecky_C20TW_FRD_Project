@@ -26,10 +26,11 @@ function PurchaseButton(props: any){
             console.log(response.data)
 
             if(response.data && response.data.status){
-                navigate(response.data.url)
+                // navigate()
+                window.location.href = response.data.url;   
+
             }
         }else{
-            // window.location.href = "/login";   
             // navigate(-1)
             navigate('/login')
         }
