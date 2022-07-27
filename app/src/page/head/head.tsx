@@ -8,6 +8,9 @@ import { BlurMenu } from "../../hook/useBlur";
 import axios from "axios";
 
 function Head() {
+
+
+
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
   // const [isActive, setIsActive] = useState(false);
@@ -18,7 +21,11 @@ function Head() {
   const [login, setLogin] = useState(
     localStorage.getItem("token") ? true : false
   );
-
+  
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    token?console.log("***yes**"):console.log("***no**")
+  },[token])
   /*********** check user login token **************/
   // console.log(useToken());
   const localStore: any = useJWTPayload();
@@ -79,14 +86,16 @@ function Head() {
         {/* <Link to="/" className={style.leftContent}  onClick={()=>setShowFooter(true)}> */}
         <Link to="/" className="flex items-center mx-8 ">
           {/* Paul deleted: style.leftContent */}
-          <button className="btn btn-primary rounded-xl">Unipiece</button>
+          {/* <button className=" btn btn-primary rounded-xl">Unipiece</button> */}
+          {/* <img className="img-responsive w-12 h-12" src={logo} alt="" /> */}
+          <img className="img-responsive w-12 shadow-md" src="https://unipiece.full-stack.app/img/logo.png" alt="" />
         </Link>
       </div>
 
       <div
         className={`${style.rightContainer} ${menuBlur == 0 ? "" : "blur-sm"}`}
       >
-        {!login ? (
+        {!token ? (
           <>
             <Link to="/login" className="flex items-center mx-8">
               {/* Paul deleted: style.loginBtn */}

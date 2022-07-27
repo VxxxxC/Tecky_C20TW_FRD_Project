@@ -119,7 +119,7 @@ productRoute.get("/gethighlights", async (req, res) => {
         const randomItemList = []
         for (let randomId of randomArr) {
             const no = JSON.parse(randomId)
-            const randomResult = await knex.select('name', 'image', 'price', 'category_id', 'nft_address').from('product').where('id', no)
+            const randomResult = await knex.select('id','name', 'image', 'price', 'category_id', 'nft_address').from('product').where('id', no)
             randomItemList.push(randomResult[0])
         }
         

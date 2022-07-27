@@ -7,6 +7,7 @@ import { Button, Tabs, Theme } from "react-daisyui";
 import UniLoader from "../elements/loader";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import PurchaseButton from "../elements/pay";
 
 const host = process.env.REACT_APP_IMG_URL;
 // const host = `http://localhost:3000`
@@ -15,6 +16,11 @@ function ProductProfile() {
   const { id }: string | any = useParams();
   const productId: any = id;
   console.log({ productId });
+
+
+  const handleNewTab  = () => {
+    window.open("https://explorer.iota.org/mainnet/addr/iota1qrp7wn7ag964yh7r6csphg8l47q9ehlpxz8tukhad09x7avjj09s5qunq87");
+  };
 
   interface ProductDetail {
     category_id: number; //TODO:
@@ -66,7 +72,7 @@ function ProductProfile() {
 
   const responsive = width < 600 ? true : false;
   const mobile = `flex-col`;
-  const desktop = `flex-row`;
+  const desktop = `flex-row p-12`;
   const mobileCol1 = `self-center`;
   const mobileCol2 = `grad-bg p-4 self-center`;
   const desktopRow1 = ``;
@@ -93,33 +99,35 @@ function ProductProfile() {
   console.log(count);
   return (
     <div
-      className={`min-h-[70vh] p-12 flex gap-y-8 justify-center ${
+      className={`min-h-[70vh] flex gap-y-8 justify-center ${
         responsive ? mobile : desktop
       }`}
     >
-      <button
-        onClick={() => {
-          navigate("/explore");
-        }}
-        className="m-10 btn-primary w-[100px] h-[60px] rounded-lg"
-      >
-        <svg
-          className="w-24 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3"
-            d="M7 16l-4-4m0 0l4-4m-4 4h18"
-          ></path>
-        </svg>
-        Go Back
-      </button>
       <div className={responsive ? mobileCol1 : desktopRow1}>
+      {!responsive?null:
+                <button
+                onClick={() => {
+                  navigate(-1);
+                }}
+                className="-mx-3 mb-5 btn-primary w-[50px] h-[50px] rounded-lg"
+              >
+                <svg
+                  className="w-12 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="3"
+                    d="M7 16l-4-4m0 0l4-4m-4 4h18"
+                  ></path>
+                </svg>
+                
+              </button>
+                }
         <div
           // outline outline-offset-4 outline-2 outline-dashed outline-primary
           // outline outline-offset-2 outline-2 outline-secondary
@@ -151,6 +159,30 @@ function ProductProfile() {
             )}
           />
         </div>
+        {!responsive?
+                <button
+                onClick={() => {
+                  navigate(-1);
+                }}
+                className="m-10 btn-primary w-[50px] h-[50px] rounded-lg"
+              >
+                <svg
+                  className="w-12 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="3"
+                    d="M7 16l-4-4m0 0l4-4m-4 4h18"
+                  ></path>
+                </svg>
+                
+              </button>
+        :null}
       </div>
 
       <div
@@ -164,7 +196,9 @@ function ProductProfile() {
           </div>
           <div className="col-start-5 col-end-6">
             {/* <button className="btn btn-primary rounded-lg">Purchase</button> */}
-            <button
+
+            <PurchaseButton id={productId}/>
+            {/* <button
               type="button"
               className="btn btn-primary rounded-lg hover:bg-[white] hover:text-[black]"
             >
@@ -178,10 +212,16 @@ function ProductProfile() {
                 <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
               </svg>
               Buy now
-            </button>
+            </button> */}
           </div>
           <div className="col-start-6 col-end-7">
-            <button className="btn btn-ghost rounded-lg">border-2</button>
+            <button 
+            onClick={handleNewTab}
+            className="btn btn-ghost rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+            </svg>
+            </button>
           </div>
           <div className="col-start-1 col-end-7">available</div>
           <div className="py-3 col-start-1 col-end-4">Creator</div>
@@ -207,7 +247,7 @@ function ProductProfile() {
             </div>
           </div>
         </div>
-        <Tabs value={count} variant="bordered" className="-mt-3 cursor-default">
+        <Tabs value={count} variant="bordered" className="-mt-1 cursor-default py-3">
           <Tabs.Tab
             className={`${count == 1 ? "tab-active" : ""} tab-bordered p-1`}
             value={() => {
@@ -233,7 +273,7 @@ function ProductProfile() {
             History
           </Tabs.Tab>
         </Tabs>
-        <div className="mt-2 h-96 border-2 rounded-lg">
+        <div className="mt-2 h-96 max-w-[45rem] border-2 rounded-lg overflow-scroll">
           {count == 1 ? (
             <div>
               {/* Product Details */}

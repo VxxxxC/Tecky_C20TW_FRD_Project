@@ -85,8 +85,8 @@ function LoginPage() {
     console.log(token ? "Jwt Token generated" : "Jwt Token fail to generate");
 
     setToken(token);
-    navigate("/");
-    window.location.reload();
+    navigate(-1);
+    // window.location.reload();
   };
 
   return (

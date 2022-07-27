@@ -72,6 +72,10 @@ function Explore() {
     }
   }
 
+  useEffect(() => {
+    clickSubmit();
+  }, [selected])
+
   let host = process.env.REACT_APP_DEV_API; // fetch S3 server itself
   // let host = `https://unipiece-api.full-stack.app`
 
@@ -139,6 +143,11 @@ function Explore() {
 
   function clickSubmit() {
     console.log("hiiii");
+
+    if(selected.length === 0){
+      setDisplayed(items || []);
+      return
+    }
 
     const finalArr = items
       ? items.filter((v) => selected.indexOf(v.category_id) >= 0)
@@ -240,7 +249,7 @@ function Explore() {
                 onClick={(e) => {
                   console.log("e.currentTarget.value ", e.currentTarget.value);
                   addremove(item.id);
-                  clickSubmit();
+                  // clickSubmit();
                 }}
                 type="checkbox"
                 checked={selected.indexOf(item.id) >= 0}
@@ -257,7 +266,7 @@ function Explore() {
             {filter == 1 ? (
               displayed ? (
                 displayed.map((item) => (
-                  <button
+                  <div
                     onClick={() =>
                       navigate(`/profile/${item.image.replace(/\D/g, "")}`)
                     }
@@ -268,7 +277,7 @@ function Explore() {
                       price={item.price}
                       nft_address={item.nft_address}
                     />
-                  </button>
+                  </div>
                 ))
               ) : (
                 <div className="col-start-1 col-end-8 h-screen">
@@ -352,7 +361,11 @@ function Explore() {
           <div className="m-5 p-5 flex flex-col">
             {displayed ? (
               displayed.map((item) => (
-                <div>
+                <div                 
+                onClick={() =>
+                  navigate(`/profile/${item.image.replace(/\D/g, "")}`)
+                }>
+
                   <ProductItemProps
                     name={item.name}
                     img={item.image}
