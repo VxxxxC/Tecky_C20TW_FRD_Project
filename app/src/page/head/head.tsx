@@ -102,7 +102,7 @@ function Head() {
           </>
         ) : null}
 
-        {userId ? (
+        {token ? (
           <div className="flex flex-col">
             <button
               onClick={() => navigate(`/user/${userId}`)}

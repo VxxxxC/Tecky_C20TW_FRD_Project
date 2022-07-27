@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useStorageState from "react-use-storage-state";
+import { BlurMenu } from "../../../hook/useBlur";
 import { useJWTPayload } from "../../../hook/useToken";
 import style from "./menulist.module.scss";
 
 function Menulist() {
+  const menuBlurSwitch = BlurMenu();
+  const menuBlur = menuBlurSwitch.isActive;
+
   const navigate = useNavigate();
 
   /*********** check user jwt token **************/
@@ -32,7 +36,8 @@ function Menulist() {
     localStorage.removeItem("is_login");
 
     navigate("/");
-    window.location.reload();
+    menuBlurSwitch.setIsActive(false);
+    // window.location.reload();
   }
 
   return (
@@ -51,7 +56,7 @@ function Menulist() {
         </div>
 
         <div className="flex flex-col justify-between">
-          {login ? (
+          {userId ? (
             <>
               <button
                 onClick={Logout}
