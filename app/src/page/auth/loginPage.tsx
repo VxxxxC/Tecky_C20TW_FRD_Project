@@ -80,7 +80,7 @@ function LoginPage() {
       }
     );
 
-    console.log(response);
+    // console.log(response);
     const token = response["data"].JWTtoken;
     console.log(token ? "Jwt Token generated" : "Jwt Token fail to generate");
 

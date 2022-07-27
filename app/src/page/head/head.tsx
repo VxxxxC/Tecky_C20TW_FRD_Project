@@ -8,9 +8,6 @@ import { BlurMenu } from "../../hook/useBlur";
 import axios from "axios";
 
 function Head() {
-
-
-
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
   // const [isActive, setIsActive] = useState(false);
@@ -21,11 +18,11 @@ function Head() {
   const [login, setLogin] = useState(
     localStorage.getItem("token") ? true : false
   );
-  
+
   const token = localStorage.getItem("token");
   useEffect(() => {
-    token?console.log("***yes**"):console.log("***no**")
-  },[token])
+    token ? console.log("***yes**") : console.log("***no**");
+  }, [token]);
   /*********** check user login token **************/
   // console.log(useToken());
   const localStore: any = useJWTPayload();
@@ -69,7 +66,7 @@ function Head() {
     axios
       .post(`${process.env.REACT_APP_DEV_API}/user`, { userId: userId })
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         setUserDetail(response.data);
       });
   }, []);
@@ -86,7 +83,11 @@ function Head() {
           {/* Paul deleted: style.leftContent */}
           {/* <button className=" btn btn-primary rounded-xl">Unipiece</button> */}
           {/* <img className="img-responsive w-12 h-12" src={logo} alt="" /> */}
-          <img className="img-responsive w-12 shadow-md" src="https://unipiece.full-stack.app/img/logo.png" alt="" />
+          <img
+            className="img-responsive w-12 shadow-md"
+            src="https://unipiece.full-stack.app/img/logo.png"
+            alt=""
+          />
         </Link>
       </div>
 
