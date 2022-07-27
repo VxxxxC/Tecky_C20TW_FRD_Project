@@ -9,12 +9,12 @@ export const loginRoute = express.Router();
 
 /*************  Login & Check User email and hashed password ******************/
 loginRoute.post('/', async (req, res) => {
-   console.log(req.body)
+   // console.log(req.body)
    const { email, password } = req.body;
-   console.log({
-      "Login email : ": email,
-      "Login password : ": password,
-   });
+   // console.log({
+   //    "Login email : ": email,
+   //    "Login password : ": password,
+   // });
 
    //let verifyUser = await knex('users').where({ email: email, password: password}).first().returning('id')
    let verifyUser = await knex('users').select("*").where("email", email).first();

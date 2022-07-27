@@ -38,6 +38,7 @@ rsync -SavLP dist ubuntu@veper-ec2:~/unipeice-frd-project/server
 
 ssh veper-ec2 "
     cd $PROJECT_ROOT &&
+    pm2 stop server.js
     pwd &&
     cd $SERVER_ROOT &&
     pwd && 
@@ -46,7 +47,7 @@ ssh veper-ec2 "
     npx knex migrate:latest &&
     npx knex seed:run &&
     cd dist &&
-    pm2 restart server.js
+    pm2 start server.js
     exit
 "
 

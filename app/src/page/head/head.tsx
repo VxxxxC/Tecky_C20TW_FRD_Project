@@ -26,9 +26,9 @@ function Head() {
   /*********** check user login token **************/
   // console.log(useToken());
   const localStore: any = useJWTPayload();
-  // console.log(localStore);
-  const userId: number = localStore?.userId;
-  // console.log(userId);
+  console.log(localStore);
+  const userId: number = localStore?.id[0].id;
+  console.log(userId);
 
   // /************** logout ****************/
   // function Logout() {
@@ -92,7 +92,7 @@ function Head() {
       </div>
 
       <div className={`flex ${menuBlur == 0 ? "" : "blur-sm"}`}>
-        {!token ? (
+        {!userId ? (
           <>
             <Link to="/login" className="flex items-center mx-8">
               {/* Paul deleted: style.loginBtn */}
@@ -103,7 +103,7 @@ function Head() {
           </>
         ) : null}
 
-        {token ? (
+        {userId ? (
           <div className="flex flex-col">
             <button
               onClick={() => navigate(`/user/${userId}`)}

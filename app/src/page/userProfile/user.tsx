@@ -119,13 +119,13 @@ function User() {
 
   const localStore: any = useJWTPayload();
   const tokenInfo = localStore;
-  // console.log({ tokenInfo });
+  console.log({ tokenInfo });
 
-  const userId = tokenInfo?.userId;
-  // console.log(userId);
+  const userId = tokenInfo?.id[0].id || tokenInfo?.userId;
+  console.log(userId);
 
   const userEmail = tokenInfo?.email;
-  // console.log(userEmail);
+  console.log(userEmail);
 
   // const response = axios.get(`/user/${userId}`);
   // response.then((res: any) => {

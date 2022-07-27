@@ -18,7 +18,7 @@ function CreateProduct() {
   const tokenInfo = localStore;
   // console.log({ tokenInfo });
 
-  const userId = tokenInfo?.userId;
+  const userId = tokenInfo?.userId || tokenInfo?.id[0].id;
   console.log(userId);
 
   const userEmail = tokenInfo?.email;
