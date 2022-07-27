@@ -8,6 +8,7 @@ import { BlurMenu } from "../../hook/useBlur";
 import axios from "axios";
 
 function Head() {
+  // const [loaded, setLoaded] = useState(false);
   const menuBlurSwitch = BlurMenu();
   const menuBlur = menuBlurSwitch.isActive;
   // const [isActive, setIsActive] = useState(false);
@@ -27,7 +28,7 @@ function Head() {
   // console.log(useToken());
   const localStore: any = useJWTPayload();
   console.log(localStore);
-  const userId: number = localStore?.id[0].id;
+  const userId: number = localStore?.userId || localStore?.id[0].id;
   console.log(userId);
 
   // /************** logout ****************/
@@ -69,11 +70,21 @@ function Head() {
         // console.log(response.data);
         setUserDetail(response.data);
       });
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     // console.log(userDetail);
   }, [userDetail]);
+
+  // useEffect(() => {
+  //   if (userId) {
+  //     setLoaded(true);
+  //     console.log(loaded);
+  //   } else if (!userId) {
+  //     setLoaded(false);
+  //     console.log(loaded);
+  //   }
+  // }, [userId]);
 
   return (
     <div className={style.headBar}>
