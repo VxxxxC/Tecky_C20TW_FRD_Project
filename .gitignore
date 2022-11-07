@@ -7,4 +7,6 @@ node_modules/
 .env/
 .env*
 server/img/
-.AWSremarks.md
+AWSremark.md
+/AWSremark.md
+./AWSremark.md
