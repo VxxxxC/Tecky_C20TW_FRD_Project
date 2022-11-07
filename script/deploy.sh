@@ -34,7 +34,7 @@ cd $SERVER_ROOT
 pwd
 
 npm run build
-rsync -SavLP dist ubuntu@veper-ec2:~/unipeice-frd-project/server
+rsync -SavLP dist ubuntu@ec2-ubuntu:~/unipeice-frd-project/server
 
 ssh veper-ec2 "
     cd $PROJECT_ROOT &&

@@ -23,8 +23,8 @@ app.use(stripeHookRoutes)
 // app.use('/img', express.static('./img'))
 // app.use('/img', express.static('../img')) FIXME: remember change this image path when deploy to S3 
 
-// app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'https://unipiece.full-stack.app' }));
+// app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -65,7 +65,7 @@ app.get('/profile/:product_Id', async (req, res) => {
     ownerId = response[0].owner_id
     seriesId = response[0].series_id
     try {
-      const owner = await knex('users').select("id","name", "image").where('id', ownerId);
+      const owner = await knex('users').select("id", "name", "image").where('id', ownerId);
       const series = await knex('series').select("name").where('id', seriesId);
       console.log({ owner })
       console.log({ series })

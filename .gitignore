@@ -8,3 +8,6 @@ node_modules/
 .env*
 server/img/
 AWSremarks.md
+veper.config
+aws.veper.env
+aws.env
