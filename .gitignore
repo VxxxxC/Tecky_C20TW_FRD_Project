@@ -7,7 +7,4 @@ node_modules/
 .env/
 .env*
 server/img/
-AWSremark.md
-veper.config
-aws.veper.env
-aws.env
+.AWSremarks.md
